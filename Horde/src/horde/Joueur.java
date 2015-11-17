@@ -102,4 +102,44 @@ public class Joueur {
     public void setGourde(int gourde) {
         this.gourde = gourde;
     }
+    
+    
+    // ---------------DEBUT DES METHODES---------------------
+    
+    // Permet au joueur de boire de l'eau
+    public void boire(){
+        
+    }
+    
+    // correspond à la méthode déplacement
+    public void deplacement(){
+        
+    }
+    
+    //Permet au joueur de manger une ration s'il en dispose
+    public void manger(){
+        
+    }
+    
+    // Permet au joueur de construire des défenses
+    public void construire(){
+        
+    }
+    
+    // Permet au joueur de terminer son tour sans consommer tous ses points d'action
+    public void terminerTour(){
+        
+        
+    }
+    
+    // Permet au joueur de remplir son sac
+    public void remplirSac(){
+        
+    }
+    
+    // Permet au joueur de vider son sac
+    public void viderSac(){
+        
+        
+    }
 }   
