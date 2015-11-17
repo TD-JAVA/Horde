@@ -12,8 +12,31 @@ package horde;
 public class SousMenu {
     
     public static void choisir(char choix){
+        switch (choix) {
+            case 'J':   SousMenu.lireJournal();
+                        break;
+            case 'D':   SousMenu.seDeplacer();
+                        break;
+            case 'V':   SousMenu.interagirVille();
+                        break;
+
+        }
+    }
+    
+    public static void lireJournal(){
     
     }
+    
+    public static void seDeplacer(){
+        
+        
+    }
+    
+    public static void interagirVille() {
+        
+        
+    }
+    
     
     public static char afficher(){
         char choix ='j';
