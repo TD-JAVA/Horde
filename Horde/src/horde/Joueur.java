@@ -5,32 +5,30 @@ package horde;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Seb
  */
 public class Joueur {
-    
-    //Nom du joueur 
-    private String nom; 
-    
-    // Points de vie du joueur
-    private int pdv; 
-    
-    // Points d'action du joueur
-    private int pa; 
-    
-    //Affiche le tour courant
-    private int nbTours; 
-    
-     // Affiche le jour courant
-    private int nbJours;
-    
-    // nb de gourdes par jour
-    private int gourde; 
 
-    
+    //Nom du joueur 
+    private String nom;
+
+    // Points de vie du joueur
+    private int pdv;
+
+    // Points d'action du joueur
+    private int pa;
+
+    //Affiche le tour courant
+    private int nbTours;
+
+    // Affiche le jour courant
+    private int nbJours;
+
+    // nb de gourdes par jour
+    private int gourde;
+
     // Constructeur
     public Joueur(String nom, int pdv, int pa, int nbTours, int nbJours, int gourde) {
         this.nom = nom;
@@ -124,44 +122,40 @@ public class Joueur {
     public void setGourde(int gourde) {
         this.gourde = gourde;
     }
-    
-    
+
     // ---------------DEBUT DES METHODES---------------------
-    
     // Permet au joueur de boire de l'eau
-    public void boire(){
-        
+    public void boire() {
+
     }
-    
+
     // correspond à la méthode déplacement
-    public void deplacement(){
-        
+    public void deplacement() {
+
     }
-    
+
     //Permet au joueur de manger une ration s'il en dispose
-    public void manger(){
-        
+    public void manger() {
+
     }
-    
+
     // Permet au joueur de construire des défenses
-    public void construire(){
-        
+    public void construire() {
+
     }
-    
+
     // Permet au joueur de terminer son tour sans consommer tous ses points d'action
-    public void terminerTour(){
-        
-        
+    public void terminerTour() {
+
     }
-    
+
     // Permet au joueur de remplir son sac
-    public void remplirSac(){
-        
+    public void remplirSac() {
+
     }
-    
+
     // Permet au joueur de vider son sac
-    public void viderSac(){
-        
-        
+    public void viderSac() {
+
     }
-}   
+}

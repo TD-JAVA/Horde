@@ -10,21 +10,19 @@ package horde;
  * @author Seb
  */
 public class Construction {
-    
-    
+
     //Nom de la construction
-    private String nom;   
-    
+    private String nom;
+
     // les ressources necessaires pour la construction
-    private int[] ressources_necessaire; 
-    
+    private int[] ressources_necessaire;
+
     // nombre de points d'action utilisés pour cette construction
-    private int conso_pa; 
-    
+    private int conso_pa;
+
     // indique le nombre de zombies auquel la construction peut resister
     private int resistance;
-    
-    
+
     // Constructeur
     public Construction(String nom, int[] ressources_necessaire, int conso_pa, int resistance) {
         this.nom = nom;
