@@ -19,8 +19,15 @@ public class SousMenu {
                         break;
             case 'V':   SousMenu.interagirVille();
                         break;
+            case 'F':   SousMenu.finirTour();
+                        break;
 
         }
+    }
+    
+    public static char conversionCaractere(char lettre){
+    
+        return lettre;
     }
     
     public static void lireJournal(){
@@ -37,6 +44,10 @@ public class SousMenu {
         
     }
     
+    public static void finirTour() {
+        
+    
+    }
     
     public static char afficher(){
         char choix ='j';

@@ -11,27 +11,69 @@ package horde;
  */
 public class Menu {
     
-    public Menu(){
+    private Jeu partieActuelle;
+    private Menu menuActuel;
     
+    public Menu(){
+        
     }
     
-    public static void demarrer(Jeu partie) {
+    public void setPartieActuelle(Jeu partie){
+        partieActuelle = partie;
+    }
+    public Jeu getPartieActuelle(){
+        return partieActuelle;
+    } 
+    
+    public void setMenuActuel(Menu menuJeu){
+        menuActuel = menuJeu;
+    }
+    public Menu getMenuActuel(){
+        return menuActuel;
+    }
+    
+    
+    public static char affichage(){
+        System.out.println("Demarrer(D)\nQuitter(Q)\nMenu(S)");
+        System.out.println("Quel est votre choix ?");
+        char answer = 'S';
+        return answer;
+    }
+    public static void demarrer(Jeu partie, Menu menuJeu) {
+        menuJeu.setMenuActuel(menuJeu);
         if(partie.getPartie()){
             System.out.println("Jeu déjà démarré, voulez-vous redémarrer la partie ?");
             boolean answer=false; 
             if(answer){
-            partie.initialisation();
+                partie.initialisation();
+                if(partie.getPartie()){
+                    menuJeu.setPartieActuelle(partie);
+                    Menu.sousMenu(Menu.affichage(),menuJeu);
             }
         }else{
             partie.initialisation();
+            if(partie.getPartie())
+                    Menu.sousMenu(Menu.affichage(),menuJeu);
             }
+        }
     }
     
     public static void quitter(){
     
     }
     
-    public static void sousMenu(){
-    
+    public static void sousMenu(char choix,Menu menuJeu){
+        
+        switch (choix) {
+            case 'Q':   Menu.quitter();
+                        break;
+            case 'D':   Menu.demarrer(menuJeu.getPartieActuelle(),menuJeu.getMenuActuel());
+                        break;
+            case 'S':   SousMenu.choisir(SousMenu.conversionCaractere(SousMenu.afficher()));
+                        break;
+
+        }
+        
+                
     }
 }

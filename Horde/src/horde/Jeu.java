@@ -22,6 +22,7 @@ public class Jeu {
     
     public Jeu(){
         this.setPartie(false);
+        
     }
     private boolean partieDemarree;
     
@@ -33,12 +34,18 @@ public class Jeu {
         this.partieDemarree = demarree;
     }
     
-    public boolean initialisation(){
+    public void lancerJeu(){
+        Menu menuJeu = new Menu();
+        Menu.demarrer(this,menuJeu);    
+    
+    }
+    
+    public void initialisation(){
         
         boolean finInitialisation = true;
         setPartie(finInitialisation);
         System.out.println("Initialisation terminée, accèdez au journal par le sous menu pour connaitre les règles du jeu");
-        return true;
+        
     }
     
     public void finDePartie(){
