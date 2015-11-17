@@ -31,7 +31,7 @@ public class SousMenu {
     }
     
     public static void lireJournal(){
-    
+        System.out.println("Lire le journal");
     }
     
     public static void seDeplacer(){
@@ -50,7 +50,7 @@ public class SousMenu {
     }
     
     public static char afficher(){
-        char choix ='j';
+        char choix ='J';
         return choix;
     }   
 }

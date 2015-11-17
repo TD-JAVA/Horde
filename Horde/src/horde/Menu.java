@@ -48,21 +48,25 @@ public class Menu {
                 partie.initialisation();
                 if(partie.getPartie()){
                     menuJeu.setPartieActuelle(partie);
-                    Menu.sousMenu(Menu.affichage(),menuJeu);
+                    Menu.menuNiveauUn(Menu.conversionCaractere(Menu.affichage()),menuJeu);
+                }
+            }else{
+                menuJeu.setPartieActuelle(partie);
+                Menu.menuNiveauUn(Menu.conversionCaractere(Menu.affichage()),menuJeu);
+            
             }
         }else{
             partie.initialisation();
             if(partie.getPartie())
-                    Menu.sousMenu(Menu.affichage(),menuJeu);
+                    Menu.menuNiveauUn(Menu.conversionCaractere(Menu.affichage()),menuJeu);
             }
-        }
     }
     
     public static void quitter(){
     
     }
     
-    public static void sousMenu(char choix,Menu menuJeu){
+    public static void menuNiveauUn(char choix,Menu menuJeu){
         
         switch (choix) {
             case 'Q':   Menu.quitter();
@@ -76,4 +80,10 @@ public class Menu {
         
                 
     }
+    
+    public static char conversionCaractere(char lettre){
+    
+        return lettre;
+    }
 }
+

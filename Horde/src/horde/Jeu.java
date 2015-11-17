@@ -35,6 +35,7 @@ public class Jeu {
     }
     
     public void lancerJeu(){
+        
         Menu menuJeu = new Menu();
         Menu.demarrer(this,menuJeu);    
     
