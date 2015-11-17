@@ -23,7 +23,8 @@ public class Case {
         this.fouiller = fouiller;
     }
     
-    
+   public void fouiller({
+}
 
     
 }
