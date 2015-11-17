@@ -19,6 +19,15 @@ public class Joueur {
     private int nbJours; // Affiche le jour courant
     private int gourde; // nb de gourdes par jour
 
+    public Joueur(String nom, int pdv, int pa, int nbTours, int nbJours, int gourde) {
+        this.nom = nom;
+        this.pdv = pdv;
+        this.pa = pa;
+        this.nbTours = nbTours;
+        this.nbJours = nbJours;
+        this.gourde = gourde;
+    }
+
     /**
      * @return the nom
      */
