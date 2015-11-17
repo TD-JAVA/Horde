@@ -17,6 +17,8 @@ public class Horde {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Jeu partie = new Jeu();
+        Menu.demarrer();
     }
     
 }

@@ -11,4 +11,12 @@ package horde;
  */
 public class SousMenu {
     
+    public static void choisir(char choix){
+    
+    }
+    
+    public static char afficher(){
+        char choix ='j';
+        return choix;
+    }   
 }

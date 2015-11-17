@@ -15,8 +15,16 @@ public class Menu {
     
     }
     
-    public static void demarrer() {
-    
+    public static void demarrer(Jeu partie) {
+        if(partie.getPartie()){
+            System.out.println("Jeu déjà démarré, voulez-vous redémarrer la partie ?");
+            boolean answer=false; 
+            if(answer){
+            partie.initialisation();
+            }
+        }else{
+            partie.initialisation();
+            }
     }
     
     public static void quitter(){

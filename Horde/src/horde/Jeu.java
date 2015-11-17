@@ -20,13 +20,30 @@ public class Jeu {
     
     }*/
     
-    public void initialisation(){
-        
+    public Jeu(){
+        this.setPartie(false);
+    }
+    private boolean partieDemarree;
     
+    public boolean getPartie(){
+        return partieDemarree;
+    }
+    
+    public void setPartie(boolean demarree){
+        this.partieDemarree = demarree;
+    }
+    
+    public boolean initialisation(){
+        
+        boolean finInitialisation = true;
+        setPartie(finInitialisation);
+        System.out.println("Initialisation terminée, accèdez au journal par le sous menu pour connaitre les règles du jeu");
+        return true;
     }
     
     public void finDePartie(){
     
-    
+    boolean finPartie = false;
+        setPartie(finPartie);
     }
 }
