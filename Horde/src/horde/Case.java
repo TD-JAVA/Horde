@@ -23,7 +23,16 @@ public class Case {
         this.fouiller = fouiller;
     }
     
-    
+    public void fouiller(){
 
+  }
+
+    public void quitter(){
+
+  }
+
+    public void attaquer(){
+
+  }
     
 }
