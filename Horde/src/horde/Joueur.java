@@ -12,13 +12,26 @@ package horde;
  */
 public class Joueur {
     
-    private String nom; //Nom du joueur 
-    private int pdv; // Points de vie du joueur
-    private int pa; // Points d'action du joueur
-    private int nbTours; //Affiche le tour courant
-    private int nbJours; // Affiche le jour courant
-    private int gourde; // nb de gourdes par jour
+    //Nom du joueur 
+    private String nom; 
+    
+    // Points de vie du joueur
+    private int pdv; 
+    
+    // Points d'action du joueur
+    private int pa; 
+    
+    //Affiche le tour courant
+    private int nbTours; 
+    
+     // Affiche le jour courant
+    private int nbJours;
+    
+    // nb de gourdes par jour
+    private int gourde; 
 
+    
+    // Constructeur
     public Joueur(String nom, int pdv, int pa, int nbTours, int nbJours, int gourde) {
         this.nom = nom;
         this.pdv = pdv;
