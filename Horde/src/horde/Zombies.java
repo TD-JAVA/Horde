@@ -9,16 +9,15 @@ package horde;
  *
  * @author Gabriel
  */
-public class Horde {
+public class Zombies {
+    int nbZombies;
+    int listeJoueursMort;
 
-
-    /*
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-        Jeu partie = new Jeu();
-        Menu.demarrer();
+    public Zombies(int nbZombies, int listeJoueursMort) {
+        this.nbZombies = nbZombies;
+        this.listeJoueursMort = listeJoueursMort;
     }
+    
+    
     
 }
