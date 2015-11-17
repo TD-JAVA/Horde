@@ -11,4 +11,19 @@ package horde;
  */
 public class Menu {
     
+    public Menu(){
+    
+    }
+    
+    public static void demarrer() {
+    
+    }
+    
+    public static void quitter(){
+    
+    }
+    
+    public static void sousMenu(){
+    
+    }
 }
