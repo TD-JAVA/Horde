@@ -11,7 +11,7 @@ package horde;
  */
 public class SousMenu {
     
-    public static void choisir(char choix){
+    /*public static void choisir(char choix){
         switch (choix) {
             case 'J':   SousMenu.lireJournal();
                         break;
@@ -52,5 +52,5 @@ public class SousMenu {
     public static char afficher(){
         char choix ='J';
         return choix;
-    }   
+    } */  
 }
