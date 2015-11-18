@@ -93,6 +93,15 @@ public class Menu {
             }
     }
     
+    /*
+     * @param choix est le choix de menu donnée par l'utilisateur.
+     *
+     *
+     *
+     * 
+     */
+    
+    
     public void menuNiveauZero(char choix){
         
         switch (choix) {
@@ -113,7 +122,13 @@ public class Menu {
     
     /**********************Fonctions du menu de niveau 1 (Menu de jeu)****************************/
     
-    
+    /*
+     * @param choix est le choix de menu donnée par l'utilisateur.
+     *
+     *
+     *
+     * 
+     */
     
     public void menuNiveauUn(char choix){
         switch (choix) {
@@ -129,6 +144,10 @@ public class Menu {
                         break;
         }
     }
+    
+    /*
+     * @param niveau est le menu vers lequel on s'oriente.
+     */
     
     public void retournerMenu(int niveau){
         this.afficher(niveau);
@@ -149,16 +168,17 @@ public class Menu {
     }
     
     public void finirTour() {
-        
-    
+        partieActuelle.setJoueurActuel(partieActuelle.getIndexJoueurActuel()+1);
     }
     
     /********Fin des fonctions du menu de niveau 1********/
     
     /***************Outils d'affichage dans la console******************/
-    
+    /*
+     * @param niveau est le menu à afficher. 
+     */
     public char afficher(int niveau){
-        char answer = 'S';
+        char answer = 's';
         switch (niveau) {
             case 0:     System.out.println("Demarrer(D)\nQuitter(Q)\nMenu(S)");
                         System.out.println("Quel est votre choix ?\n");
@@ -167,7 +187,7 @@ public class Menu {
                         
             case 1:     System.out.println("Lire le journal(J)\nSe déplacer(D)\nIntéragir avec la case(I)\nFinir le tour(F)\nRetour(R)\n");
                         System.out.println("Quel est votre choix ?\n");
-                        answer ='J';
+                        answer ='j';
                         return answer;
                 
             case 2:     
@@ -176,10 +196,13 @@ public class Menu {
         }
         return 'e';
     }
-        
+    
+    /*
+     * @param lettre est le caractère à convertir en majuscule est le choix de menu donnée par l'utilisateur.
+     */
     public static char conversionCaractere(char lettre){
     
-        return lettre;
+        return Character.toUpperCase(lettre);
     }
     
     /**********************Fin des outils************************/

@@ -30,13 +30,10 @@ public class Joueur {
     private int gourde;
 
     // Constructeur
-    public Joueur(String nom, int pdv, int pa, int nbTours, int nbJours, int gourde) {
+    public Joueur(String nom, int pdv, int pa) {
         this.nom = nom;
         this.pdv = pdv;
         this.pa = pa;
-        this.nbTours = nbTours;
-        this.nbJours = nbJours;
-        this.gourde = gourde;
     }
 
     /**
