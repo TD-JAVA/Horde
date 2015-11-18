@@ -56,7 +56,7 @@ public class Ville {
     public int manger(){
        boolean manger = false;
        if(manger == true){
-           nbRation = nbRation -1 ;           
+           nbRation = nbRation-1 ; 
        }
            return nbRation;
     }

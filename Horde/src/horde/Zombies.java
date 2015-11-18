@@ -18,15 +18,12 @@ public class Zombies {
         this.listeJoueursMort = listeJoueursMort;
     }
     
-    public void nbZombies(){
-        nbZombies=0;
-        int[]tabZombies= new int[50];
-          for(int i = 0; i < tab1.length; i++)
-            {
-            int valeur = valeurMin + ra.nextInt(valeurMax - valeurMin);
-            tab1[i]= valeur;
-
-            }
+    public int nbZombies(){
+        return nbZombies;
     }
     
+    public int listeJoueursMort(){
+        return listeJoueursMort;
+    }
+  
 }
