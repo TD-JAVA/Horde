@@ -15,39 +15,28 @@ public class Jeu {
     private int nombreJoueur;
     private int indexJoueurActuel;
     private Joueur joueurActuel;
-    public Joueur[] getJoueur(){
-        return tabJoueur;
-    }
+    private Temps tempsPartie;
+    private Menu menuPartie;   
+    private boolean partieDemarree;
     
-    public void setJoueur(Joueur citoyen, int i){
-        tabJoueur[i] = citoyen; 
-    }
-    
-    public int getNombreJoueur(){
-        return nombreJoueur;
-    }
-    
-    public void setIndexJoueurActuel(int i){
-        indexJoueurActuel=i;
-    }
-    
-    public int getIndexJoueurActuel(){
-        return indexJoueurActuel;
-    }
-    
-    
-    public void setJoueurActuel(int i){
-        joueurActuel=tabJoueur[i];
-    }
-    
-    public Joueur getJoueurActuel(){
-        return joueurActuel;
-    }
+    public Menu getMenuPartie() {return menuPartie;}
+    public void setMenuPartie(Menu menuPartie) {this.menuPartie = menuPartie;}
+    public void setTempsPartie(Temps tempsPartie) {this.tempsPartie = tempsPartie;}
+    public Temps getTempsPartie() {return tempsPartie;}
+    public Joueur getJoueur(int i){return tabJoueur[i];}
+    public void setJoueur(Joueur citoyen, int i){tabJoueur[i] = citoyen;}    
+    public int getNombreJoueur(){return nombreJoueur;}    
+    public void setIndexJoueurActuel(int i){indexJoueurActuel=i;}    
+    public int getIndexJoueurActuel(){return indexJoueurActuel;}
+    public void setJoueurActuel(int i){joueurActuel=tabJoueur[i];}    
+    public Joueur getJoueurActuel(){return joueurActuel;}
+    public boolean getPartie(){return partieDemarree;}
+    public void setPartie(boolean demarree){this.partieDemarree = demarree;}
     
     public Jeu(){
         this.setPartie(false);
         //String answersUser = new String();
-        
+        tempsPartie= new Temps();
         System.out.println("Combien y a t il de joueur pour cette partie ?(entre 1 et 10 joueurs)");
         nombreJoueur=2;
         tabJoueur=new Joueur[nombreJoueur];
@@ -57,38 +46,26 @@ public class Jeu {
             Joueur unJoueur= new Joueur(nomJoueur, 100, 6);
             tabJoueur[i]=unJoueur;
         }
+        setJoueurActuel(0);
         //while((answersUser=="y") || (answersUser=="Y") || (answersUser=="yes") || (answersUser=="Yes") || (answersUser=="YES") || (answersUser=="O") || (answersUser=="o") || (answersUser=="Oui") || (answersUser=="oui") || (answersUser=="OUI")){
             
         //}
     }
-    private boolean partieDemarree;
-    
-    public boolean getPartie(){
-        return partieDemarree;
-    }
-    
-    public void setPartie(boolean demarree){
-        this.partieDemarree = demarree;
-    }
     
     public void lancerJeu(){
-        
-        Menu menuJeu = new Menu();
-        menuJeu.demarrer(this);    
-    
+        while(tempsPartie.getNbJour()!=2){
+            this.getMenuPartie().demarrer(this);   
+        }
     }
     
     public void initialisation(){
-        
         boolean finInitialisation = true;
         setPartie(finInitialisation);
-        System.out.println("Initialisation terminée, accèdez au journal par le sous menu pour connaitre les règles du jeu");
-        
+        System.out.println("Initialisation terminée, accèdez au journal par le sous menu pour connaitre les règles du jeu");    
     }
     
     public void finDePartie(){
-    
-    boolean finPartie = false;
-        setPartie(finPartie);
+        boolean continuerPartie = false;
+        setPartie(continuerPartie);
     }
 }

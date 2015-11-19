@@ -26,30 +26,22 @@ public class Menu {
     /*
      * @param partie est ici la partie en cours de jeu
      */
-    public void setPartieActuelle(Jeu partie){
-        partieActuelle = partie;
-    }
+    public void setPartieActuelle(Jeu partie){partieActuelle = partie;}
     
     /*
      * @return partieActuelle
      */
-    public Jeu getPartieActuelle(){
-        return partieActuelle;
-    } 
+    public Jeu getPartieActuelle(){return partieActuelle;} 
     
     /*
      * @param menuJeu est le menu en cours d'utilisation
      */
-    public void setMenuActuel(Menu menuJeu){
-        menuActuel = menuJeu;
-    }
+    public void setMenuActuel(Menu menuJeu){menuActuel = menuJeu;}
     
     /*
      * @return menuActuel
      */
-    public Menu getMenuActuel(){
-        return menuActuel;
-    }
+    public Menu getMenuActuel(){return menuActuel;}
     
     /**********Fin des getters setters**************/
     
@@ -157,9 +149,22 @@ public class Menu {
         System.out.println("Lire le journal");
     }
     
-    public  void seDeplacer(){
-        
-        
+    public void seDeplacer(){
+        System.out.println("Chaque déplacement coute un point d'action dans quelle direction souhaitez aller ?");
+        System.out.println("En haut(Z)\nÀ gauche(Q)\nÀ droite(D)\nEn Bas(S)\nRetour(R)\n");
+        char choix=conversionCaractere('R');
+        switch (choix) {
+            case 'Z':   partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle(),partieActuelle.getJoueurActuel().getOrdonneeActuelle()+1);
+                        break;
+            case 'Q':   partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle()-1,partieActuelle.getJoueurActuel().getOrdonneeActuelle());
+                        break;
+            case 'D':   partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle()+1,partieActuelle.getJoueurActuel().getOrdonneeActuelle());
+                        break;
+            case 'S':   partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle(),partieActuelle.getJoueurActuel().getOrdonneeActuelle()-1);
+                        break;
+            case 'R':   
+                        break;
+        }
     }
     
     public void interagirCase() {
@@ -168,7 +173,7 @@ public class Menu {
     }
     
     public void finirTour() {
-        partieActuelle.setJoueurActuel(partieActuelle.getIndexJoueurActuel()+1);
+        partieActuelle.getTempsPartie().incrementerTour(partieActuelle);
     }
     
     /********Fin des fonctions du menu de niveau 1********/

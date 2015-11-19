@@ -28,6 +28,21 @@ public class Joueur {
 
     // nb de gourdes par jour
     private int gourde;
+    
+    private int ordonneeActuelle;
+    private int absysseActuelle;
+    
+    public int getOrdonneeActuelle() {return ordonneeActuelle;}
+    public void setOrdonneeActuelle(int ordonneeActuelle) {this.ordonneeActuelle = ordonneeActuelle;}
+    public int getAbsysseActuelle() {return absysseActuelle;}
+    public void setAbsysseActuelle(int absysseActuelle) {this.absysseActuelle = absysseActuelle;}
+    public void setCoordonneeActuelle(int absysseActuelle,int ordonneeActuelle){
+            this.ordonneeActuelle = ordonneeActuelle;
+            this.absysseActuelle = absysseActuelle;
+    }
+    
+    
+    
 
     // Constructeur
     public Joueur(String nom, int pdv, int pa) {
@@ -39,37 +54,27 @@ public class Joueur {
     /**
      * @return the nom
      */
-    public String getNom() {
-        return nom;
-    }
+    public String getNom() {return nom;}
 
     /**
      * @param nom the nom to set
      */
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
+    public void setNom(String nom) {this.nom = nom;}
 
     /**
      * @return the pdv
      */
-    public int getPdv() {
-        return pdv;
-    }
+    public int getPdv() {return pdv;}
 
     /**
      * @param pdv the pdv to set
      */
-    public void setPdv(int pdv) {
-        this.pdv = pdv;
-    }
+    public void setPdv(int pdv) {this.pdv = pdv;}
 
     /**
      * @return the pa
      */
-    public int getPa() {
-        return pa;
-    }
+    public int getPa() {return pa;}
 
     /**
      * @param pa the pa to set
