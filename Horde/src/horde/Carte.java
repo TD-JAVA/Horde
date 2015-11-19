@@ -11,11 +11,20 @@ package horde;
  */
 public class Carte {
     private Case[] tabCase;
-
-    public Case[] getTabCase() {return tabCase;}
-    public void setTabCase(Case[] tabCase) {this.tabCase = tabCase;}
+    private int xVille;
+    private int yVille;
+    private Ville maVille;
     
-    public Carte(){
+    public int getxVille() {return xVille;}
+    
+    public int getyVille() {return yVille;}
+    public void setxyVille(int x,int y) {this.xVille = x;this.yVille = yVille;}
+    
+    public Case[] getTabCase() {return tabCase;}
+    public void setTabCase(int i,Case cetteCase) {this.tabCase[i] = cetteCase;}
+    
+    
+    public Carte(Jeu partie){
         tabCase=new Case[625];
         int i=0,j=0,k;
         while(i<625){
@@ -25,6 +34,7 @@ public class Carte {
             }
             j-=1;
         }
+        
     }
     
 }

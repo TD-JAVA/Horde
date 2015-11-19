@@ -45,10 +45,13 @@ public class Joueur {
     
 
     // Constructeur
-    public Joueur(String nom, int pdv, int pa) {
+    public Joueur(Jeu partie,String nom, int pdv, int pa) {
         this.nom = nom;
         this.pdv = pdv;
         this.pa = pa;
+        absysseActuelle = partie.getGrille().getxVille();
+        ordonneeActuelle= partie.getGrille().getyVille();
+        
     }
 
     /**

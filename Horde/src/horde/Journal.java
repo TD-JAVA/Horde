@@ -11,6 +11,7 @@ package horde;
  */
 public class Journal {
 
+    public Journal(){}
 // Permet de voir la liste et les détails des constructions
     public void consulterConstruction() {
 
@@ -31,5 +32,10 @@ public class Journal {
 
         return null;
     }
-
+    
+    public void afficherPosition(Jeu partie,Joueur ceJoueur){
+        if(ceJoueur.getAbsysseActuelle()== partie.getGrille().getxVille() & ceJoueur.getOrdonneeActuelle()==partie.getGrille().getyVille()){
+            System.out.println(ceJoueur.getNom()+" est dans la ville");
+        }
+    }
 }

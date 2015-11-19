@@ -19,7 +19,13 @@ public class Jeu {
     private Menu menuPartie;   
     private boolean partieDemarree;
     private Carte grille;
-    
+    private Ville maVille;
+    private Journal monJournal; 
+
+    public Journal getMonJournal() {return monJournal;}
+    public void setMonJournal(Journal monJournal) {this.monJournal = monJournal;}
+    public Ville getMaVille() {return maVille;}
+    public void setMaVille(Ville maVille) {this.maVille = maVille;}
     public Menu getMenuPartie() {return menuPartie;}
     public void setMenuPartie(Menu menuPartie) {this.menuPartie = menuPartie;}
     public void setTempsPartie(Temps tempsPartie) {this.tempsPartie = tempsPartie;}
@@ -40,15 +46,19 @@ public class Jeu {
         this.setPartie(false);
         //String answersUser = new String();
         tempsPartie= new Temps();
-        grille=new Carte();
+        grille=new Carte(this);
+        maVille=new Ville(this);
+        monJournal=new Journal();
+                
         System.out.println("Combien y a t il de joueur pour cette partie ?(entre 1 et 10 joueurs)");
         nombreJoueur=2;
         tabJoueur=new Joueur[nombreJoueur];
         for(int i=0;i<nombreJoueur;i++){
             System.out.println("Quel est le nom du joueur "+i+" ?");
             String nomJoueur="Timmy";
-            Joueur unJoueur= new Joueur(nomJoueur, 100, 6);
+            Joueur unJoueur= new Joueur(this,nomJoueur,100,6);
             tabJoueur[i]=unJoueur;
+            
         }
         setJoueurActuel(0);
         menuPartie=new Menu();

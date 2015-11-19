@@ -10,11 +10,12 @@ package horde;
  * @author Gabriel
  */
 public class Case {
-    public int longitude;
-    public int latitude;
-    public int nbZombiesRestants;
-    int[] items= new int[20]; // valeur par défault//
-    public boolean fouillee;
+    protected int longitude;
+    protected int latitude;
+    protected int nbZombiesRestants;
+    private int[] items= new int[20]; // valeur par défault//
+    private boolean fouillee;
+    protected boolean laVille = false;
 
     public Case(int longitude, int latitude) {
         this.longitude = longitude;

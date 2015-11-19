@@ -81,6 +81,7 @@ public class Menu {
         }else{
             partie.initialisation();
             if(partie.getPartie())
+                    this.setPartieActuelle(partie);
                     this.menuNiveauZero(this.getMenuActuel().conversionCaractere(this.afficher(0)));
             }
     }
@@ -142,6 +143,7 @@ public class Menu {
     
     public  void lireJournal(){
         System.out.println("Lire le journal");
+        partieActuelle.getMonJournal().afficherPosition(partieActuelle, partieActuelle.getJoueurActuel());
     }
     
     public void seDeplacer(){
