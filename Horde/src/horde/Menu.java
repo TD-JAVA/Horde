@@ -63,7 +63,7 @@ public class Menu {
      */
     
     public void demarrer(Jeu partie) {
-        this.setMenuActuel(this);
+        //this.setMenuActuel(this);
         if(partie.getPartie()){
             System.out.println("Jeu déjà démarré, voulez-vous redémarrer la partie ?");
             boolean answer=false; 
@@ -71,33 +71,28 @@ public class Menu {
                 partie.initialisation();
                 if(partie.getPartie()){
                     this.setPartieActuelle(partie);
-                    this.menuNiveauUn(Menu.conversionCaractere(this.afficher(0)));
+                    this.menuNiveauZero(this.getMenuActuel().conversionCaractere(this.afficher(0)));
                 }
             }else{
                 this.setPartieActuelle(partie);
-                this.menuNiveauUn(Menu.conversionCaractere(this.afficher(0)));
+                this.menuNiveauZero(this.getMenuActuel().conversionCaractere(this.afficher(0)));
             
             }
         }else{
             partie.initialisation();
             if(partie.getPartie())
-                    this.menuNiveauZero(Menu.conversionCaractere(this.afficher(0)));
+                    this.menuNiveauZero(this.getMenuActuel().conversionCaractere(this.afficher(0)));
             }
     }
     
     /*
      * @param choix est le choix de menu donnée par l'utilisateur.
-     *
-     *
-     *
-     * 
      */
-    
     
     public void menuNiveauZero(char choix){
         
         switch (choix) {
-            case 'Q':   Menu.quitter();
+            case 'Q':   this.quitter();
                         break;
             case 'D':   this.demarrer(this.getPartieActuelle());
                         break;
@@ -154,15 +149,23 @@ public class Menu {
         System.out.println("En haut(Z)\nÀ gauche(Q)\nÀ droite(D)\nEn Bas(S)\nRetour(R)\n");
         char choix=conversionCaractere('R');
         switch (choix) {
-            case 'Z':   partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle(),partieActuelle.getJoueurActuel().getOrdonneeActuelle()+1);
+            case 'Z':   if(partieActuelle.getJoueurActuel().getOrdonneeActuelle()<=-1){
+                            partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle(),partieActuelle.getJoueurActuel().getOrdonneeActuelle()+1);
+                        }
                         break;
-            case 'Q':   partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle()-1,partieActuelle.getJoueurActuel().getOrdonneeActuelle());
+            case 'Q':   if(partieActuelle.getJoueurActuel().getAbsysseActuelle()>=1){
+                            partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle()-1,partieActuelle.getJoueurActuel().getOrdonneeActuelle());
+                        }
                         break;
-            case 'D':   partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle()+1,partieActuelle.getJoueurActuel().getOrdonneeActuelle());
+            case 'D':   if(partieActuelle.getJoueurActuel().getOrdonneeActuelle()<=24){
+                            partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle()+1,partieActuelle.getJoueurActuel().getOrdonneeActuelle());
+                        }
                         break;
-            case 'S':   partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle(),partieActuelle.getJoueurActuel().getOrdonneeActuelle()-1);
+            case 'S':   if(partieActuelle.getJoueurActuel().getOrdonneeActuelle()>=-24){
+                            partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle(),partieActuelle.getJoueurActuel().getOrdonneeActuelle()-1);
+                        }
                         break;
-            case 'R':   
+            case 'R':   this.retournerMenu(1);
                         break;
         }
     }

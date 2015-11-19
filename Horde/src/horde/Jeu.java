@@ -18,6 +18,7 @@ public class Jeu {
     private Temps tempsPartie;
     private Menu menuPartie;   
     private boolean partieDemarree;
+    private Carte grille;
     
     public Menu getMenuPartie() {return menuPartie;}
     public void setMenuPartie(Menu menuPartie) {this.menuPartie = menuPartie;}
@@ -32,11 +33,14 @@ public class Jeu {
     public Joueur getJoueurActuel(){return joueurActuel;}
     public boolean getPartie(){return partieDemarree;}
     public void setPartie(boolean demarree){this.partieDemarree = demarree;}
+    public Carte getGrille() {return grille;}
+    public void setGrille(Carte grille) {this.grille = grille;}
     
     public Jeu(){
         this.setPartie(false);
         //String answersUser = new String();
         tempsPartie= new Temps();
+        grille=new Carte();
         System.out.println("Combien y a t il de joueur pour cette partie ?(entre 1 et 10 joueurs)");
         nombreJoueur=2;
         tabJoueur=new Joueur[nombreJoueur];
@@ -47,15 +51,16 @@ public class Jeu {
             tabJoueur[i]=unJoueur;
         }
         setJoueurActuel(0);
+        menuPartie=new Menu();
         //while((answersUser=="y") || (answersUser=="Y") || (answersUser=="yes") || (answersUser=="Yes") || (answersUser=="YES") || (answersUser=="O") || (answersUser=="o") || (answersUser=="Oui") || (answersUser=="oui") || (answersUser=="OUI")){
             
         //}
     }
     
     public void lancerJeu(){
-        while(tempsPartie.getNbJour()!=2){
+        //while(tempsPartie.getNbJour()!=2){
             this.getMenuPartie().demarrer(this);   
-        }
+        //}
     }
     
     public void initialisation(){

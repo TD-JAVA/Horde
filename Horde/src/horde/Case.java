@@ -12,15 +12,15 @@ package horde;
 public class Case {
     public int longitude;
     public int latitude;
-    public int nbZombies;
+    public int nbZombiesRestants;
     int[] items= new int[20]; // valeur par défault//
-    public Boolean fouiller;
+    public boolean fouillee;
 
-    public Case(int longitude, int latitude, int nbZombies, Boolean fouiller) {
+    public Case(int longitude, int latitude) {
         this.longitude = longitude;
         this.latitude = latitude;
-        this.nbZombies = nbZombies;
-        this.fouiller = fouiller;
+        this.nbZombiesRestants = 0;
+        this.fouillee = false;
     }
     
     public void fouiller(){
