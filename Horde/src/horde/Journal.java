@@ -13,24 +13,29 @@ public class Journal {
 
     public Journal(){}
 // Permet de voir la liste et les détails des constructions
-    public void consulterConstruction() {
+    public String consulterConstruction(Construction Construction) {
+        return Construction.getNom();
+        
 
     }
 
 // Permer de voir la liste des objets et leur détails dans l'entrepot
-    public void consulterEntrepot() {
-
+    public int[] consulterEntrepot(Ville Ville) {
+         return Ville.getEntrepot();
     }
 
 // Permet d'obtenir des infos sur le jeu (jour, tour)
-    public void ConsulterTemps() {
+    public int ConsulterTemps(Temps Temps) {
+        return Temps.getNbJour()& Temps.getNumTour();
+   
 
     }
 
 //Permet d'afficher un résumé du jeu
-    public String toString() {
+    public String toString(Temps Temps , Ville Ville , Construction Construction) {
+        String string ="Résumé du Jeu. Le nombre de tours est de "+Temps.getNumTour()+" tour(s), le nombre de jours est de "+Temps.getNbJour()+" jour(s), les items dans l'entrepot sont :"+Ville.getEntrepot()+" ,la liste des batiments sont "+Construction.getNom()+"";
 
-        return null;
+        return string;
     }
     
     public void afficherPosition(Jeu partie,Joueur ceJoueur){
