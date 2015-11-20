@@ -74,5 +74,29 @@ public class Ville extends Case {
        }
            return nbRation;
     }
+
+    public int[] getEntrepot() {
+        return entrepot;
+    }
+
+    public void setEntrepot(int[] entrepot) {
+        this.entrepot = entrepot;
+    }
+
+    public int getNbRation() {
+        return nbRation;
+    }
+
+    public void setNbRation(int nbRation) {
+        this.nbRation = nbRation;
+    }
+
+    public String[] getBatiment() {
+        return batiment;
+    }
+
+    public void setBatiment(String[] batiment) {
+        this.batiment = batiment;
+    }
     
 }

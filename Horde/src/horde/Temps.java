@@ -36,7 +36,7 @@ public class Temps {
             numTour=0;
             incrementerNbJour();
         }
-        if(partie.getIndexJoueurActuel()<partie.getNombreJoueur()){
+    if(partie.getIndexJoueurActuel()<partie.getNombreJoueur()){
             partie.setIndexJoueurActuel(partie.getIndexJoueurActuel()+1);
             
         }else{

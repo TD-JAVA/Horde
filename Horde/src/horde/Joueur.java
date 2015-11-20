@@ -131,6 +131,7 @@ public class Joueur {
     // ---------------DEBUT DES METHODES---------------------
     // Permet au joueur de boire de l'eau
     public void boire() {
+        
 
     }
 
