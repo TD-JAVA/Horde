@@ -95,6 +95,10 @@ public class Ville extends Case {
    
     }
     
+    public void remplirGourde(){
+        
+    }
+    
     public void boire(){
    
     }
