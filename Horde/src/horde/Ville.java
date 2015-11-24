@@ -10,6 +10,7 @@ package horde;
  * @author Gabriel
  */
 public class Ville extends Case {
+
     private int[] entrepot= new int[5]; // valeur par défault//
     private int nbRation;
     private int tauxDefence;
@@ -36,10 +37,11 @@ public class Ville extends Case {
     public Ville(Jeu partie){
         super(13,-13);
         int i=((13+1)*(-1*(-13)));
+        //entrepot={50,0,0,0}; //ration, planche,clou,boisson
         partie.getGrille().setTabCase(i,this);        
         super.laVille = true;
         partie.getGrille().setxyVille(13,-13);
-        
+         
         
     }
     
@@ -70,15 +72,10 @@ public class Ville extends Case {
         this.tauxDefence = 0;
         if (ouverturePorte==false){
             this.tauxDefence = 20;
-        }for (int i =0; i < this.batiment.length; i++){
-            
-            
-        }
-        else{
+        }else{
             System.out.print("La porte est ouverte !");
        }
-        
-          return this.tauxDefence;
+        return this.tauxDefence;
     }
     
     
