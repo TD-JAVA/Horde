@@ -54,9 +54,9 @@ public class Ville extends Case {
         return this.entrepot;
 
     }
-
-    public Construction[] afficherConstruction() {
-        return this.batiment;
+    
+    public Construction[] afficherConstruction(Journal Journal){
+        return Journal.getTabConstruction();
     }
 
     public void construire(Jeu partie) {
@@ -155,9 +155,19 @@ public class Ville extends Case {
     public void remplirSac() {
 
     }
+<<<<<<< HEAD
 
     public void boire() {
 
+=======
+    
+    public void remplirGourde(){
+        
+    }
+    
+    public void boire(){
+   
+>>>>>>> bed27d532cb23acef24c6b3a07fae48fb6965d23
     }
 
     public int manger() {
