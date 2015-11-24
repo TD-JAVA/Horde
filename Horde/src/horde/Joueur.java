@@ -197,7 +197,10 @@ public class Joueur {
 
     // Permet au joueur de construire des défenses
     public void construire() {
-
+        //Construction c = new Construction ("nom",5,"description");
+        
+        //Ville.batiment.add(c);
+        
     }
 
     // Permet au joueur de terminer son tour sans consommer tous ses points d'action
