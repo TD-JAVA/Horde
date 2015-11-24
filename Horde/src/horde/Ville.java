@@ -10,10 +10,29 @@ package horde;
  * @author Gabriel
  */
 public class Ville extends Case {
-    private int[] entrepot= new int[100]; // valeur par défault//
+    private int[] entrepot= new int[5]; // valeur par défault//
     private int nbRation;
+    private int tauxDefence;
+    Construction [] batiment = new Construction[6]; // valeur par défault//
+
+    public Ville(int nbRation, int tauxDefence, int longitude, int latitude) {
+        super(longitude, latitude);
+        this.nbRation = nbRation;
+        this.tauxDefence = tauxDefence;
+    }
+
+    public int getTauxDefence() {
+        return tauxDefence;
+    }
+
+    public void setTauxDefence(int tauxDefence) {
+        this.tauxDefence = tauxDefence;
+    }
+
+
     
-    String [] batiment = new String[50]; // valeur par défault//
+    
+
     public Ville(Jeu partie){
         super(13,-13);
         int i=((13+1)*(-1*(-13)));
@@ -37,7 +56,7 @@ public class Ville extends Case {
     
     }
     
-    public String[] afficherConstruction(){
+    public Construction[] afficherConstruction(){
         return this.batiment;
     }
     
@@ -46,17 +65,33 @@ public class Ville extends Case {
        
         
     }
+
+    public int defenceVille(boolean ouverturePorte ){
+        this.tauxDefence = 0;
+        if (ouverturePorte==false){
+            this.tauxDefence = 20;
+        }for (int i =0; i < this.batiment.length; i++){
+            
+            
+        }
+        else{
+            System.out.print("La porte est ouverte !");
+       }
+        
+          return this.tauxDefence;
+    }
+    
     
     public boolean ouverturePorte(){
     //bool ouverte -> 1 sinon 0
-        boolean ouverte = false;
+        boolean ouverturePorte = false;
         
-         if(ouverte==true){
+         if(ouverturePorte==true){
             System.out.print("La porte est ouverte !");
          }else{
            System.out.print("La porte est fermée !");
          }
-        return ouverte;
+        return ouverturePorte;
     }
     
     public void remplirSac(){
@@ -70,9 +105,9 @@ public class Ville extends Case {
     public int manger(){
        boolean manger = false;
        if(manger == true){
-           nbRation = nbRation-1 ; 
+           this.nbRation = this.nbRation-1 ; 
        }
-           return nbRation;
+           return this.nbRation;
     }
 
     public int[] getEntrepot() {
@@ -91,11 +126,11 @@ public class Ville extends Case {
         this.nbRation = nbRation;
     }
 
-    public String[] getBatiment() {
+    public Construction[] getBatiment() {
         return batiment;
     }
 
-    public void setBatiment(String[] batiment) {
+    public void setBatiment(String[] Construction) {
         this.batiment = batiment;
     }
     
