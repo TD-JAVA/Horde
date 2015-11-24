@@ -163,7 +163,7 @@ public class Joueur {
 
         for (int i = 0; i < this.sac.size(); i++) {
             if (this.sac.get(i).getNom() == "Gourde") {
-                this.setPa(this.getPa()+6);
+                this.setPa(this.getPa() + 6);
                 this.sac.remove(i);
                 System.out.print("Vous avez récupéré 6 points d'actions !");
                 break;
@@ -172,15 +172,27 @@ public class Joueur {
         System.out.print("Vous n'avez pas de gourde !");
     }
 
-
 // correspond à la méthode déplacement
-public void deplacement() {
+    public void deplacement() {
 
     }
 
     //Permet au joueur de manger une ration s'il en dispose
     public void manger() {
+        for (int i = 0; i < this.sac.size(); i++) {
+            if (this.sac.get(i).getNom() == "Ration") {
+                this.setPa(this.getPa() + 6);
+                if (this.sac.get(i).getQuantite() == 1) {
+                    this.sac.remove(i);
+                } else {
+                    this.sac.get(i).setQuantite(this.sac.get(i).getQuantite() - 1);
+                }
 
+                System.out.print("Vous avez récupéré 6 points d'actions !");
+                break;
+            }
+        }
+        System.out.print("Vous n'avez pas de gourde !");
     }
 
     // Permet au joueur de construire des défenses
