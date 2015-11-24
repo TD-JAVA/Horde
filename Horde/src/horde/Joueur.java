@@ -58,13 +58,13 @@ public class Joueur {
     }
 
     // Constructeur
-    public Joueur(Jeu partie, String nom, int pdv, int pa, ArrayList<Item> sac) {
+    public Joueur(Jeu partie, String nom) {
         this.nom = nom;
-        this.pdv = pdv;
-        this.pa = pa;
+        this.pdv = 100;
+        this.pa = 6;
         absysseActuelle = partie.getGrille().getxVille();
         ordonneeActuelle = partie.getGrille().getyVille();
-        this.sac = sac;
+        this.sac = new ArrayList<Item>();
     }
 
     /**
