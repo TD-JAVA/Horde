@@ -28,19 +28,20 @@ public class Temps {
     }
     
     public void incrementerTour(Jeu partie){
-        numTour+=1;
-        if(numTour==12){
-            nuit=true;
-            deroulementNuit();
-            nuit=false;
-            numTour=0;
-            incrementerNbJour();
-        }
+        
     if(partie.getIndexJoueurActuel()<partie.getNombreJoueur()){
             partie.setIndexJoueurActuel(partie.getIndexJoueurActuel()+1);
             
         }else{
             partie.setIndexJoueurActuel(0);
+            numTour+=1;
+            if(numTour==12){
+                nuit=true;
+                deroulementNuit();
+                nuit=false;
+                numTour=0;
+                incrementerNbJour();
+            }
         }
         partie.setJoueurActuel(partie.getIndexJoueurActuel());    
         this.debuterTour(partie);

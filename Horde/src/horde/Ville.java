@@ -10,17 +10,18 @@ package horde;
  * @author Gabriel
  */
 public class Ville extends Case {
-    private int[] entrepot= new int[100]; // valeur par défault//
+    private int[] entrepot= new int[4]; // valeur par défault//
     private int nbRation;
     
     String [] batiment = new String[50]; // valeur par défault//
     public Ville(Jeu partie){
         super(13,-13);
         int i=((13+1)*(-1*(-13)));
+        //entrepot={50,0,0,0}; //ration, planche,clou,boisson
         partie.getGrille().setTabCase(i,this);        
         super.laVille = true;
         partie.getGrille().setxyVille(13,-13);
-        
+         
         
     }
     
