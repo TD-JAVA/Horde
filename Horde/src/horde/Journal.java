@@ -17,7 +17,9 @@ public class Journal {
         return tabConstruction;
     }
     
-    
+    public Construction getIndexConstruction(int a){
+        return tabConstruction[a];
+    }
     
     public Journal(){
         int tab []={20,5};    
@@ -34,6 +36,7 @@ public class Journal {
         tabConstruction[5]= new Construction("Miradors avec mitrailleuses",tab5,50,200);
         int tab6 []={100,200};
         tabConstruction[6]= new Construction("Abris anti-atomique",tab6,60,500);
+        
     }
 // Permet de voir la liste et les détails des constructions
     public String consulterConstruction() {

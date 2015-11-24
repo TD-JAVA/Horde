@@ -186,7 +186,8 @@ public class Menu {
                         System.out.println("Voulez vous remplir une gourde ?(Y/n)");
                         String answersUser="y";
                         if((answersUser=="y") || (answersUser=="Y") || (answersUser=="yes") || (answersUser=="Yes") || (answersUser=="YES") || (answersUser=="O") || (answersUser=="o") || (answersUser=="Oui") || (answersUser=="oui") || (answersUser=="OUI")){
-                            //partieActuelle.getMaVille().remplirGourde();
+                            partieActuelle.getMaVille().remplirGourde();
+                          
                         }
                         break;
             case 'R':   this.retournerMenu(1);
