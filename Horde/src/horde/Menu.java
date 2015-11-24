@@ -99,7 +99,6 @@ public class Menu {
                         break;
             case 'S':   this.menuNiveauUn(Menu.conversionCaractere(this.afficher(1)));
                         break;
-
         }           
     }
     
@@ -124,7 +123,7 @@ public class Menu {
                         break;
             case 'D':   this.seDeplacer();
                         break;
-            case 'I':   this.interagirCase();
+            case 'I':   this.interagirCase(Menu.conversionCaractere(this.afficher(2)));
                         break;
             case 'F':   this.finirTour();
                         break;
@@ -173,8 +172,26 @@ public class Menu {
         }
     }
     
-    public void interagirCase() {
+    public void interagirCase(char choix) {
+        choix='Z';
         
+        switch (choix) {
+            case 'C':   partieActuelle.getMaVille().afficherConstruction();
+                        break;
+            case 'E':   partieActuelle.getMaVille().afficherEntrepot();
+                        break;
+            case 'I':   partieActuelle.getMaVille().ouverturePorte();
+                        break;
+            case 'B':   partieActuelle.getMaVille().boire();
+                        System.out.println("Voulez vous remplir une gourde ?(Y/n)");
+                        String answersUser="y";
+                        if((answersUser=="y") || (answersUser=="Y") || (answersUser=="yes") || (answersUser=="Yes") || (answersUser=="YES") || (answersUser=="O") || (answersUser=="o") || (answersUser=="Oui") || (answersUser=="oui") || (answersUser=="OUI")){
+                            //partieActuelle.getMaVille().remplirGourde();
+                        }
+                        break;
+            case 'R':   this.retournerMenu(1);
+                        break;
+        }
         
     }
     
@@ -201,9 +218,12 @@ public class Menu {
                         answer ='j';
                         return answer;
                 
-            case 2:     
+            case 2:     if(partieActuelle.getJoueurActuel().getAbsysseActuelle()== partieActuelle.getGrille().getxVille() & partieActuelle.getJoueurActuel().getOrdonneeActuelle()==partieActuelle.getGrille().getyVille()){
+                            System.out.println("Construire(C)\nConsulter l'entrepot(E)\nInteragir avec la porte(I)\nBoire(B)\nRetour(R)\n");
+                        }else{
+                            System.out.println("Fouiller la case(F)\nRetour(R)");
+                        }
                         return answer;
-
         }
         return 'e';
     }

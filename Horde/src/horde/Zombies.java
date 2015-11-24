@@ -28,16 +28,18 @@ public class Zombies {
         this.nbZombies = ra.nextInt(30 - 20);
         }else if (Temps.getNbJour()==3){
         this.nbZombies = ra.nextInt(40 - 30);
+        }else if (Temps.getNbJour()==4){
+        this.nbZombies = ra.nextInt(50 - 40);
         }
         return this.nbZombies;   
     }
     
     public int listeJoueursMort(){
-        return listeJoueursMort;
+        return this.listeJoueursMort;
     }
 
     public int getNbZombies() {
-        return nbZombies;
+        return this.nbZombies;
     }
 
     public void setNbZombies(int nbZombies) {
@@ -45,7 +47,7 @@ public class Zombies {
     }
 
     public int getListeJoueursMort() {
-        return listeJoueursMort;
+        return this.listeJoueursMort;
     }
 
     public void setListeJoueursMort(int listeJoueursMort) {

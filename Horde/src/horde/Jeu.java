@@ -56,7 +56,7 @@ public class Jeu {
         for(int i=0;i<nombreJoueur;i++){
             System.out.println("Quel est le nom du joueur "+i+" ?");
             String nomJoueur="Timmy";
-            Joueur unJoueur= new Joueur(this,nomJoueur,100,6);
+            Joueur unJoueur= new Joueur(this,nomJoueur);
             tabJoueur[i]=unJoueur;
             
         }
