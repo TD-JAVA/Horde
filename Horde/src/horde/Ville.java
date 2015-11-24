@@ -58,8 +58,8 @@ public class Ville extends Case {
     
     }
     
-    public Construction[] afficherConstruction(){
-        return this.batiment;
+    public Construction[] afficherConstruction(Journal Journal){
+        return Journal.getTabConstruction();
     }
     
     public void construire(){
