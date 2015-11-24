@@ -176,7 +176,7 @@ public class Menu {
         choix='Z';
         
         switch (choix) {
-            case 'C':   partieActuelle.getMaVille().afficherConstruction();
+            case 'C':   partieActuelle.getMaVille().afficherConstruction(partieActuelle.getMonJournal());
                         System.out.println("Souhaitez-vous construire un nouveau batiment ?");
                         String answersUser="y";
                         if((answersUser=="y") || (answersUser=="Y") || (answersUser=="yes") || (answersUser=="Yes") || (answersUser=="YES") || (answersUser=="O") || (answersUser=="o") || (answersUser=="Oui") || (answersUser=="oui") || (answersUser=="OUI")){
