@@ -177,6 +177,11 @@ public class Menu {
         
         switch (choix) {
             case 'C':   partieActuelle.getMaVille().afficherConstruction();
+                        System.out.println("Souhaitez-vous construire un nouveau batiment ?");
+                        String answersUser="y";
+                        if((answersUser=="y") || (answersUser=="Y") || (answersUser=="yes") || (answersUser=="Yes") || (answersUser=="YES") || (answersUser=="O") || (answersUser=="o") || (answersUser=="Oui") || (answersUser=="oui") || (answersUser=="OUI")){
+                            partieActuelle.getMaVille().construire();
+                        }
                         break;
             case 'E':   partieActuelle.getMaVille().afficherEntrepot();
                         break;
@@ -184,10 +189,9 @@ public class Menu {
                         break;
             case 'B':   partieActuelle.getMaVille().boire();
                         System.out.println("Voulez vous remplir une gourde ?(Y/n)");
-                        String answersUser="y";
+                        answersUser="y";
                         if((answersUser=="y") || (answersUser=="Y") || (answersUser=="yes") || (answersUser=="Yes") || (answersUser=="YES") || (answersUser=="O") || (answersUser=="o") || (answersUser=="Oui") || (answersUser=="oui") || (answersUser=="OUI")){
                             partieActuelle.getMaVille().remplirGourde();
-                          
                         }
                         break;
             case 'R':   this.retournerMenu(1);
