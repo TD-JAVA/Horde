@@ -144,6 +144,7 @@ public class Menu {
     public  void lireJournal(){
         System.out.println("Lire le journal");
         partieActuelle.getMonJournal().afficherPosition(partieActuelle, partieActuelle.getJoueurActuel());
+        System.out.println(partieActuelle.getMonJournal().toString(partieActuelle.getTempsPartie(), partieActuelle.getMaVille()));
     }
     
     public void seDeplacer(){
