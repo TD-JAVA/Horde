@@ -1,5 +1,7 @@
 package horde;
 
+import java.util.ArrayList;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -27,57 +29,78 @@ public class Joueur {
     private int nbJours;
 
     // nb de gourdes par jour
-    private int gourde;
-    
+    //private int gourde;
     private int ordonneeActuelle;
     private int absysseActuelle;
-    
-    public int getOrdonneeActuelle() {return ordonneeActuelle;}
-    public void setOrdonneeActuelle(int ordonneeActuelle) {this.ordonneeActuelle = ordonneeActuelle;}
-    public int getAbsysseActuelle() {return absysseActuelle;}
-    public void setAbsysseActuelle(int absysseActuelle) {this.absysseActuelle = absysseActuelle;}
-    public void setCoordonneeActuelle(int absysseActuelle,int ordonneeActuelle){
-            this.ordonneeActuelle = ordonneeActuelle;
-            this.absysseActuelle = absysseActuelle;
+
+    //Tableau de 10 objets
+    private ArrayList<Item> sac = new ArrayList<Item>(10);
+
+    public int getOrdonneeActuelle() {
+        return ordonneeActuelle;
     }
-    
-    
-    
+
+    public void setOrdonneeActuelle(int ordonneeActuelle) {
+        this.ordonneeActuelle = ordonneeActuelle;
+    }
+
+    public int getAbsysseActuelle() {
+        return absysseActuelle;
+    }
+
+    public void setAbsysseActuelle(int absysseActuelle) {
+        this.absysseActuelle = absysseActuelle;
+    }
+
+    public void setCoordonneeActuelle(int absysseActuelle, int ordonneeActuelle) {
+        this.ordonneeActuelle = ordonneeActuelle;
+        this.absysseActuelle = absysseActuelle;
+    }
 
     // Constructeur
-    public Joueur(Jeu partie,String nom, int pdv, int pa) {
+    public Joueur(Jeu partie, String nom, int pdv, int pa, ArrayList<Item> sac) {
         this.nom = nom;
         this.pdv = pdv;
         this.pa = pa;
         absysseActuelle = partie.getGrille().getxVille();
-        ordonneeActuelle= partie.getGrille().getyVille();
-        
+        ordonneeActuelle = partie.getGrille().getyVille();
+        this.sac = sac;
     }
 
     /**
      * @return the nom
      */
-    public String getNom() {return nom;}
+    public String getNom() {
+        return nom;
+    }
 
     /**
      * @param nom the nom to set
      */
-    public void setNom(String nom) {this.nom = nom;}
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
 
     /**
      * @return the pdv
      */
-    public int getPdv() {return pdv;}
+    public int getPdv() {
+        return pdv;
+    }
 
     /**
      * @param pdv the pdv to set
      */
-    public void setPdv(int pdv) {this.pdv = pdv;}
+    public void setPdv(int pdv) {
+        this.pdv = pdv;
+    }
 
     /**
      * @return the pa
      */
-    public int getPa() {return pa;}
+    public int getPa() {
+        return pa;
+    }
 
     /**
      * @param pa the pa to set
@@ -114,29 +137,44 @@ public class Joueur {
         this.nbJours = nbJours;
     }
 
+    public ArrayList<Item> getSac() {
+        return sac;
+    }
+
+    public void setSac(ArrayList<Item> sac) {
+        this.sac = sac;
+    }
+
     /**
      * @return the gourde
      */
-    public int getGourde() {
-        return gourde;
-    }
-
+    /*public int getGourde() {
+     return gourde;
+     }*/
     /**
      * @param gourde the gourde to set
      */
-    public void setGourde(int gourde) {
-        this.gourde = gourde;
-    }
-
+    /* public void setGourde(int gourde) {
+     this.gourde = gourde;
+     }*/
     // ---------------DEBUT DES METHODES---------------------
     // Permet au joueur de boire de l'eau
     public void boire() {
-        
 
+        for (int i = 0; i < this.sac.size(); i++) {
+            if (this.sac.get(i).getNom() == "Gourde") {
+                this.setPa(this.getPa()+6);
+                this.sac.remove(i);
+                System.out.print("Vous avez récupéré 6 points d'actions !");
+                break;
+            }
+        }
+        System.out.print("Vous n'avez pas de gourde !");
     }
 
-    // correspond à la méthode déplacement
-    public void deplacement() {
+
+// correspond à la méthode déplacement
+public void deplacement() {
 
     }
 
