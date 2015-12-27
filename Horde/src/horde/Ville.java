@@ -155,20 +155,14 @@ public class Ville extends Case {
     public void remplirSac() {
 
     }
-<<<<<<< HEAD
-
+    
     public void boire() {
 
-=======
-    
+    }
     public void remplirGourde(){
         
     }
     
-    public void boire(){
-   
->>>>>>> bed27d532cb23acef24c6b3a07fae48fb6965d23
-    }
 
     public int manger() {
         boolean manger = false;
