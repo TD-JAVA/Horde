@@ -180,7 +180,7 @@ public class Menu {
                         System.out.println("Souhaitez-vous construire un nouveau batiment ?");
                         String answersUser="y";
                         if((answersUser=="y") || (answersUser=="Y") || (answersUser=="yes") || (answersUser=="Yes") || (answersUser=="YES") || (answersUser=="O") || (answersUser=="o") || (answersUser=="Oui") || (answersUser=="oui") || (answersUser=="OUI")){
-                            partieActuelle.getMaVille().construire();
+                            partieActuelle.getMaVille().getBatiment();
                         }
                         break;
             case 'E':   partieActuelle.getMaVille().afficherEntrepot();
