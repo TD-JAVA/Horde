@@ -13,12 +13,15 @@ import java.util.Random;
  */
 public class Zombies {
     int nbZombies;
+    int nbZombiesCase;
     int listeJoueursMort;
 
-    public Zombies(int nbZombies, int listeJoueursMort) {
+    public Zombies(int nbZombies, int listeJoueursMort , int nbZombiesCase) {
         this.nbZombies = nbZombies;
         this.listeJoueursMort = listeJoueursMort;
+        this.nbZombiesCase = nbZombiesCase;
     }
+    
     
     public int nbZombies(Temps Temps){
         Random ra = new Random();
@@ -32,6 +35,12 @@ public class Zombies {
         this.nbZombies = ra.nextInt(50 - 40);
         }
         return this.nbZombies;   
+    }
+    
+    public int nbZombiesCase(){
+        Random ra = new Random();
+        this.nbZombiesCase = ra.nextInt(7 - 0);    
+    return this.nbZombiesCase;
     }
     
     public int listeJoueursMort(){
@@ -53,5 +62,13 @@ public class Zombies {
     public void setListeJoueursMort(int listeJoueursMort) {
         this.listeJoueursMort = listeJoueursMort;
     }
-  
+
+    public int getNbZombiesCase() {
+        return nbZombiesCase;
+    }
+
+    public void setNbZombiesCase(int nbZombiesCase) {
+        this.nbZombiesCase = nbZombiesCase;
+    }
+
 }

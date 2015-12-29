@@ -5,6 +5,8 @@
  */
 package horde;
 
+import static horde.Menu.conversionCaractere;
+
 /**
  *
  * @author Gabriel
@@ -15,6 +17,7 @@ public class Case {
     protected int nbZombiesRestants;
     private int[] items= new int[20]; // valeur par défault//
     private boolean fouillee;
+    private boolean caseTrouve;
     protected boolean laVille = false;
 
     public Case(int longitude, int latitude) {
@@ -22,17 +25,58 @@ public class Case {
         this.latitude = latitude;
         this.nbZombiesRestants = 0;
         this.fouillee = false;
+        this.caseTrouve = false;
     }
     
-    public void fouiller(){
-
+        public void caseTrouve(Jeu partie){ // peut étre inutile j'en avais besoin pour aider à faire mon code
+          if (this.caseTrouve == true){ // si la case est déja trouvée alors on ne touche pas au PA
+              int pa = partie.getJoueurActuel().getPa();
+              System.out.println("Case déja trouvée !");
+          }else{
+              System.out.println("Case inconnue !");
+          }   
+  }
+    
+    public void fouiller(Jeu partie){ // On donne le choix au joueur de fouiller la case ou non
+        System.out.println("Case non fouillée (coute un point d'action pour étre fouiller), que voulez vous faire ?");
+        char choix = conversionCaractere('R');
+        switch (choix) {
+            case 1: // choix si le joueur veut fouiller la case
+                if (this.fouillee == true){
+                int pa = partie.getJoueurActuel().getPa() -1 ;    
+                }else{
+                    System.out.println("Points d'action inssufisants !");
+                }
+            break;
+            case 2: // choix si le joueur ne veut pas fouiller la case
+                if (this.fouillee ==false){
+                    int pa = partie.getJoueurActuel().getPa(); 
+                }
+            break;
+    }
   }
 
     public void quitter(){
+        
 
   }
 
-    public void attaquer(){
+    public void attaquer(Jeu partie, Zombies Zombies){ // Le switch peut étre inutile dans le cas présent, mais je le conserve au cas ou pour plus tard
+        boolean attaquerZombie = false;
+         System.out.println("Attaquer zombie ?");
+        char choix = conversionCaractere('R');
+        switch (choix) {
+            case 1: // choix si le joueur veut attaquer le zombie
+                if (attaquerZombie == true && Zombies.nbZombiesCase >=1 ){
+                    System.out.println("Attaque en cours !");
+                    int pa = partie.getJoueurActuel().getPa() -1 ;
+                    int nbZombies = Zombies.nbZombiesCase-1;
+                }else{
+                    System.out.println("Points d'action inssufisants !");
+                }
+            break;
+    }
+        
 
   }
     
