@@ -6,6 +6,7 @@
 package horde;
 
 import static horde.Menu.conversionCaractere;
+import java.util.Random;
 
 /**
  *
@@ -56,7 +57,7 @@ public class Case {
     }
   }
 
-    public void quitter(){
+    public void quitter(Jeu partie){ // pas encore d'idées
         
 
   }
@@ -71,13 +72,17 @@ public class Case {
                     System.out.println("Attaque en cours !");
                     int pa = partie.getJoueurActuel().getPa() -1 ;
                     int nbZombies = Zombies.nbZombiesCase-1;
+                    Random ra = new Random(); 
+                    int pv = partie.getJoueurActuel().getPdv();
+                    int poucentageFrappe = ra.nextInt(100 - 0); // numéro aléatoire en 0 et 100
+                    if(poucentageFrappe <=10){ // conditon pour les 10% de chances de perdre de la vie
+                        pv = partie.getJoueurActuel().getPdv()-10;
+                    }
                 }else{
                     System.out.println("Points d'action inssufisants !");
                 }
             break;
     }
-        
-
   }
     
 }

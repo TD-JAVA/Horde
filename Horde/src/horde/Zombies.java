@@ -39,8 +39,8 @@ public class Zombies {
     
     public int nbZombiesCase(){
         Random ra = new Random();
-        this.nbZombiesCase = ra.nextInt(7 - 0);    
-    return this.nbZombiesCase;
+        this.nbZombiesCase = ra.nextInt(7 - 0); 
+        return this.nbZombiesCase;
     }
     
     public int listeJoueursMort(){
