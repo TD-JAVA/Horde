@@ -48,20 +48,20 @@ public class Journal {
     }
 
 // Permer de voir la liste des objets et leur détails dans l'entrepot
-    public int[] consulterEntrepot(Ville Ville) {
-         return Ville.getEntrepot();
+    public int[] consulterEntrepot(Ville ville) {
+         return ville.getEntrepot();
     }
 
 // Permet d'obtenir des infos sur le jeu (jour, tour)
-    public int ConsulterTemps(Temps Temps) {
-        return Temps.getNbJour()& Temps.getNumTour();
+    public int ConsulterTemps(Temps temps) {
+        return temps.getNbJour()& temps.getNumTour();
    
 
     }
 
 //Permet d'afficher un résumé du jeu
-    public String toString(Temps Temps , Ville Ville) {
-        String string ="Résumé du Jeu. Le nombre de tours est de "+Temps.getNumTour()+" tour(s), le nombre de jours est de "+Temps.getNbJour()+" jour(s), les items dans l'entrepot sont :"+Ville.getEntrepot()+" ,la liste des batiments sont : \n"+this.consulterConstruction()+"";
+    public String toString(Temps temps , Ville ville) {
+        String string ="Résumé du Jeu. Le nombre de tours est de "+temps.getNumTour()+" tour(s), le nombre de jours est de "+temps.getNbJour()+" jour(s), les items dans l'entrepot sont :"+ ville.consulterEntrepot()+" ,la liste des batiments sont : \n"+this.consulterConstruction()+"";
 
         return string;
     }

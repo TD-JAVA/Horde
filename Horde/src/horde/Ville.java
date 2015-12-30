@@ -13,23 +13,24 @@ import static horde.Menu.conversionCaractere;
  */
 public class Ville extends Case {
 
-    private int[] entrepot = new int[5]; // valeur par défault//
+    private int[] entrepot = new int[3]; // valeur par défaut//
+    private String[] tabItems= {"Planche","Clou","Boisson énergissante"};
     private int nbRation;
-    private int tauxDefence;
-    Construction[] batiment = new Construction[6]; // valeur par défault//
+    private int tauxDefense;
+    Construction[] batiment = new Construction[6]; // valeur par défaut//
 
-    public Ville(int nbRation, int tauxDefence, int longitude, int latitude) {
-        super(longitude, latitude);
+    public Ville(int nbRation, int tauxDefense, int longitude, int lattitude) {
+        super(longitude, lattitude);
         this.nbRation = nbRation;
-        this.tauxDefence = tauxDefence;
+        this.tauxDefense = tauxDefense;
     }
 
-    public int getTauxDefence() {
-        return tauxDefence;
+    public int getTauxDefense() {
+        return tauxDefense;
     }
 
-    public void setTauxDefence(int tauxDefence) {
-        this.tauxDefence = tauxDefence;
+    public void setTauxDefense(int tauxDefense) {
+        this.tauxDefense = tauxDefense;
     }
 
     public Ville(Jeu partie) {
@@ -129,15 +130,24 @@ public class Ville extends Case {
                 break;
         }
     }
+    
+    public String consulterEntrepot(){
+         String tabEntrepot="";
+        for(int i=0;i<entrepot.length;i++){
+            tabEntrepot+=""+tabItems[i]+" "+entrepot[i]+'\n';
+        }
+   
+        return tabEntrepot;
+    }
 
-    public int defenceVille(boolean ouverturePorte) {
-        this.tauxDefence = 0;
+    public int defenseVille(boolean ouverturePorte) {
+        this.tauxDefense = 0;
         if (ouverturePorte == false) {
-            this.tauxDefence = 20;
+            this.tauxDefense = 20;
         } else {
             System.out.print("La porte est ouverte !");
         }
-        return this.tauxDefence;
+        return this.tauxDefense;
     }
 
     public boolean ouverturePorte() {
@@ -159,6 +169,7 @@ public class Ville extends Case {
     public void boire() {
 
     }
+    
     public void remplirGourde(){
         
     }
@@ -192,8 +203,8 @@ public class Ville extends Case {
         return batiment;
     }
 
-    public void setBatiment(String[] Construction) {
-        this.batiment = batiment;
+    public void setBatiment(Construction[] construction) {
+        this.batiment = construction;
     }
 
 }
