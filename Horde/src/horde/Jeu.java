@@ -5,6 +5,8 @@
  */
 package horde;
 
+import java.util.Scanner;
+
 /**
  *
  * @author oneiroi
@@ -49,13 +51,15 @@ public class Jeu {
         grille=new Carte(this);
         maVille=new Ville(this);
         monJournal=new Journal();
-                
-        System.out.println("Combien y a t il de joueur pour cette partie ?(entre 1 et 10 joueurs)");
-        nombreJoueur=2;
+        Scanner sc = new Scanner(System.in);        
+        System.out.println("Combien y a t il de joueur pour cette partie ?(entre 1 et 20 joueurs)");
+        //nombreJoueur=menuPartie.conversionInt(sc.next());
+        nombreJoueur=sc.nextInt();
+        
         tabJoueur=new Joueur[nombreJoueur];
         for(int i=0;i<nombreJoueur;i++){
             System.out.println("Quel est le nom du joueur "+i+" ?");
-            String nomJoueur="Timmy";
+            String nomJoueur=sc.next();
             Joueur unJoueur= new Joueur(this,nomJoueur);
             tabJoueur[i]=unJoueur;
             

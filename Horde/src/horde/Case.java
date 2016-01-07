@@ -46,7 +46,7 @@ public class Case {
                 if (this.fouillee == true){
                 int pa = partie.getJoueurActuel().getPa() -1 ;    
                 }else{
-                    System.out.println("Points d'action inssufisants !");
+                    System.out.println("Points d'action insufisants !");
                 }
             break;
             case 2: // choix si le joueur ne veut pas fouiller la case

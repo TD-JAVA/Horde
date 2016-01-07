@@ -28,14 +28,15 @@ public class Temps {
     }
     
     public void incrementerTour(Jeu partie){
-        
-    if(partie.getIndexJoueurActuel()<partie.getNombreJoueur()){
+        //System.out.println(partie.getIndexJoueurActuel());
+        if(partie.getIndexJoueurActuel()<partie.getNombreJoueur()-1){
             partie.setIndexJoueurActuel(partie.getIndexJoueurActuel()+1);
             
         }else{
             partie.setIndexJoueurActuel(0);
+            //System.out.println("coucou"+partie.getJoueur(partie.getIndexJoueurActuel()).getNom()+this.numTour);
             numTour+=1;
-            if(numTour==12){
+            if(numTour==4){
                 nuit=true;
                 deroulementNuit();
                 nuit=false;
@@ -49,6 +50,6 @@ public class Temps {
     private void incrementerNbJour(){nbJours+=1;}
     public void deroulementNuit(){}
     public void debuterTour(Jeu partie){
-        partie.getMenuPartie().afficher(1);
+        partie.getMenuPartie().menuNiveauUn(Menu.conversionCaractere(partie.getMenuPartie().afficher(1)));
     }
 }

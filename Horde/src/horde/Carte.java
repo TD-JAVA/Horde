@@ -18,7 +18,7 @@ public class Carte {
     public int getxVille() {return xVille;}
     
     public int getyVille() {return yVille;}
-    public void setxyVille(int x,int y) {this.xVille = x;this.yVille = yVille;}
+    public void setxyVille(int x,int y) {this.xVille = x;this.yVille = y;}
     
     public Case[] getTabCase() {return tabCase;}
     public void setTabCase(int i,Case cetteCase) {this.tabCase[i] = cetteCase;}
@@ -29,10 +29,12 @@ public class Carte {
         int i=0,j=0,k;
         while(i<625){
             for(k=0;k<25;k++){
-                tabCase[i]= new Case(j,k);
+                //if(i==338){System.out.println(j+";"+k+"  "+i);}
+                tabCase[i]= new Case(k,j);
                 i+=1;
             }
             j-=1;
+            
         }
         
     }

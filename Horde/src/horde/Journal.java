@@ -55,20 +55,35 @@ public class Journal {
 // Permet d'obtenir des infos sur le jeu (jour, tour)
     public int ConsulterTemps(Temps temps) {
         return temps.getNbJour()& temps.getNumTour();
-   
-
     }
 
 //Permet d'afficher un résumé du jeu
-    public String toString(Temps temps , Ville ville) {
-        String string ="Résumé du Jeu. Le nombre de tours est de "+temps.getNumTour()+" tour(s), le nombre de jours est de "+temps.getNbJour()+" jour(s), les items dans l'entrepot sont :"+ ville.consulterEntrepot()+" ,la liste des batiments sont : \n"+this.consulterConstruction()+"";
-
+    public String toString(Temps temps , Ville ville,Jeu partie,Joueur joueur, char choix) {
+        String string=""; //="Résumé du Jeu. Le nombre de tours est de "+temps.getNumTour()+" tour(s), le nombre de jours est de "+temps.getNbJour()+" jour(s), les items dans l'entrepot sont :"+ ville.consulterEntrepot()+" ,la liste des batiments sont : \n"+this.consulterConstruction()+"";
+        switch (choix){
+            case 'J':
+                break;
+            case 'S':
+                string = "Le nombre de tours est de "+temps.getNumTour()+" tour(s), le nombre de jours est de "+temps.getNbJour()+" jour(s)"
+                        + "\nLa position du joueur est la suivante:"+this.afficherPosition(partie, joueur);
+                break;
+            case 'K':
+                break;
+            case 'I':
+                break;
+            case 'C':
+                break;
+            case 'R':
+                break;
+        }
         return string;
     }
     
-    public void afficherPosition(Jeu partie,Joueur ceJoueur){
-        if(ceJoueur.getAbsysseActuelle()== partie.getGrille().getxVille() & ceJoueur.getOrdonneeActuelle()==partie.getGrille().getyVille()){
-            System.out.println(ceJoueur.getNom()+" est dans la ville");
+    public String afficherPosition(Jeu partie,Joueur ceJoueur){
+        if(ceJoueur.getAbsysseActuelle()== partie.getGrille().getxVille() && ceJoueur.getOrdonneeActuelle()==partie.getGrille().getyVille()){
+            return ""+ceJoueur.getNom()+" est dans la ville";
+        }else{
+            return ""+ceJoueur.getNom()+" est sur la case ("+ceJoueur.getAbsysseActuelle()+";"+ceJoueur.getOrdonneeActuelle()+")";
         }
     }
 }

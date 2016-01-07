@@ -35,7 +35,7 @@ public class Ville extends Case {
 
     public Ville(Jeu partie) {
         super(13, -13);
-        int i = ((13 + 1) * (-1 * (-13)));
+        int i = ((26*26)/2);
         //entrepot={50,0,0,0}; //ration, planche,clou,boisson
         partie.getGrille().setTabCase(i, this);
         super.laVille = true;
