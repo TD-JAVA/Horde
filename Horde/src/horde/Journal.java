@@ -65,7 +65,7 @@ public class Journal {
                 break;
             case 'S':
                 string = "Le nombre de tours est de "+temps.getNumTour()+" tour(s), le nombre de jours est de "+temps.getNbJour()+" jour(s)"
-                        + "\nLa position du joueur est la suivante:"+this.afficherPosition(partie, joueur);
+                        + "\nLa position du joueur est la suivante:"+this.afficherPosition(partie, joueur)+"\n"+afficherDescriptionJoueur(joueur);
                 break;
             case 'K':
                 break;
@@ -73,6 +73,7 @@ public class Journal {
                 break;
             case 'C':
                 break;
+                
             case 'R':
                 break;
         }
