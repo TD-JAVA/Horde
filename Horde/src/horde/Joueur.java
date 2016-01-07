@@ -173,7 +173,7 @@ public class Joueur {
     public void setNouveauJour(){
         dejaBu=false;
         dejaMange=false;
-        setPa(pa+4);
+        
     }
 
     /**
