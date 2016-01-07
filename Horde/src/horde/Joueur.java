@@ -106,7 +106,11 @@ public class Joueur {
      * @param pa the pa to set
      */
     public void setPa(int pa) {
-        this.pa = pa;
+        if(pa<10){
+            this.pa = pa;
+        }else{
+            this.pa=11;
+        }
     }
 
     /**
@@ -159,27 +163,29 @@ public class Joueur {
      }*/
     // ---------------DEBUT DES METHODES---------------------
     // Permet au joueur de boire de l'eau
+    /**
+     * @return changement to know a change has made
+     */
     public boolean boire() {
         int i=0;
         boolean changement=false;
         
-        if(sac.size()==0){
-            System.out.print("Vous n'avez pas de gourde !");
-        }else{
-            System.out.println(this.sac.get(0).getNom());
-            while(this.sac.get(i).getNom() != "Gourde" && i < this.sac.size()){
+        if(!sac.isEmpty()){
+            while(!(this.sac.get(i).getNom().equals("Gourde")) && i < this.sac.size()){
                 i++;
             }
-            if(this.sac.get(i).getNom() == "Gourde"){
+            if(this.sac.get(i).getNom().equals("Gourde")){
                 this.setPa(this.getPa() + 6);
                 this.sac.remove(i);
-                System.out.print("Vous avez récupéré 6 points d'actions !");
+                System.out.println("Vous avez récupéré 6 points d'actions !");
                 changement=true;
             }else{
                 if(i == this.sac.size()){
-                    System.out.print("Vous n'avez pas de gourde !");
+                    System.out.println("Vous n'avez pas de gourde !");
                 }
-            }    
+            }
+        }else{
+            System.out.println("Vous n'avez pas de gourde !");
         }
         
         return changement;

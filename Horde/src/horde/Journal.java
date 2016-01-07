@@ -86,6 +86,9 @@ public class Journal {
             return ""+ceJoueur.getNom()+" est sur la case ("+ceJoueur.getAbsysseActuelle()+";"+ceJoueur.getOrdonneeActuelle()+")";
         }
     }
+    public static String afficherDescriptionJoueur(Joueur ceJoueur){
+        return ""+ceJoueur.getNom()+" a "+ceJoueur.getPa()+" point(s) d'action et "+ ceJoueur.getPdv()+" point de vie";
+    }
     public static String consulterDescription(int choix){
         String description="";
         

@@ -265,6 +265,7 @@ public class Menu {
                         }else{
                             System.out.println("Vous ne possèdez pas assez de point d'action pour cette action");            
                         }
+                        
                         break;
             case 'R':   this.retournerMenu(1);
                         break;
