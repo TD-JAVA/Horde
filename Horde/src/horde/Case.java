@@ -5,8 +5,10 @@
  */
 package horde;
 
+import static horde.Menu.conversionBoolean;
 import static horde.Menu.conversionCaractere;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  *
@@ -20,6 +22,9 @@ public class Case {
     private boolean fouillee;
     private boolean caseTrouve;
     protected boolean laVille = false;
+    private Zombies zomb=new Zombies();
+    Scanner sc= new Scanner(System.in);
+    Random ra=new Random();
 
     public Case(int longitude, int latitude) {
         this.longitude = longitude;
@@ -27,6 +32,13 @@ public class Case {
         this.nbZombiesRestants = 0;
         this.fouillee = false;
         this.caseTrouve = false;
+    }
+    
+    public boolean getFouillee(){
+        return fouillee;
+    }
+    public int getNbZombiesRestants(){
+        return nbZombiesRestants;
     }
     
         public void caseTrouve(Jeu partie){ // peut étre inutile j'en avais besoin pour aider à faire mon code
@@ -38,23 +50,20 @@ public class Case {
           }   
   }
     
-    public void fouiller(){ // On donne le choix au joueur de fouiller la case ou non
+    public boolean fouiller(){ // On donne le choix au joueur de fouiller la case ou non
         System.out.println("Case non fouillée (coute un point d'action pour étre fouiller), que voulez vous faire ?");
         char choix = conversionCaractere('R');
-        switch (choix) {
-            case 1: // choix si le joueur veut fouiller la case
-                if (this.fouillee == true){
-                //int pa = partie.getJoueurActuel().getPa() -1 ;    
-                }else{
-                    System.out.println("Points d'action insufisants !");
-                }
-            break;
-            case 2: // choix si le joueur ne veut pas fouiller la case
-                if (this.fouillee ==false){
-                    //int pa = partie.getJoueurActuel().getPa(); 
-                }
-            break;
-    }
+        
+        boolean changement=false;
+        System.out.println("La case n'est pas fouillée, souhaitez vous le faire ?(O/N)");
+        
+        if(conversionBoolean(sc.next())){
+            nbZombiesRestants=zomb.nbZombiesCase();
+            System.out.println("Il y a "+nbZombiesRestants+" zombies sur cette case");
+            fouillee=true;
+            changement=true;
+        }
+        return changement;
   }
 
     public void quitter(Jeu partie){ // pas encore d'idées
@@ -62,27 +71,26 @@ public class Case {
 
   }
 
-    public void attaquer(Jeu partie, Zombies Zombies){ // Le switch peut étre inutile dans le cas présent, mais je le conserve au cas ou pour plus tard
-        boolean attaquerZombie = false;
-         System.out.println("Attaquer zombie ?");
-        char choix = conversionCaractere('R');
-        switch (choix) {
-            case 1: // choix si le joueur veut attaquer le zombie
-                if (attaquerZombie == true && Zombies.nbZombiesCase >=1 ){
-                    System.out.println("Attaque en cours !");
-                    int pa = partie.getJoueurActuel().getPa() -1 ;
-                    int nbZombies = Zombies.nbZombiesCase-1;
-                    Random ra = new Random(); 
-                    int pv = partie.getJoueurActuel().getPdv();
-                    int poucentageFrappe = ra.nextInt(100 - 0); // numéro aléatoire en 0 et 100
-                    if(poucentageFrappe <=10){ // conditon pour les 10% de chances de perdre de la vie
-                        pv = partie.getJoueurActuel().getPdv()-10;
+    public void attaquer(Joueur ceJoueur){
+        int pourcentage;
+        if(ceJoueur.getPa()>=nbZombiesRestants){
+            for(int i=0; i<nbZombiesRestants;i++){
+                ceJoueur.setPa(ceJoueur.getPa()-1);
+                pourcentage = ra.nextInt(100); // numéro aléatoire en 0 et 100
+                    if(pourcentage <=10){ // conditon pour les 10% de chances de perdre de la vie
+                        ceJoueur.setPdv(ceJoueur.getPdv()-10);
                     }
-                }else{
-                    System.out.println("Points d'action inssufisants !");
-                }
-            break;
+            }
+            nbZombiesRestants=0;
+        }else{
+              for(int i=0; i<ceJoueur.getPa();i++){
+                nbZombiesRestants-=1;
+                pourcentage = ra.nextInt(100); // numéro aléatoire en 0 et 100
+                    if(pourcentage <=10){ // conditon pour les 10% de chances de perdre de la vie
+                        ceJoueur.setPdv(ceJoueur.getPdv()-10);
+                    }
+            }
+            ceJoueur.setPa(0);
+        }
     }
   }
-    
-}

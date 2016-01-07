@@ -36,6 +36,9 @@ public class Temps {
             partie.setIndexJoueurActuel(0);
             //System.out.println("coucou"+partie.getJoueur(partie.getIndexJoueurActuel()).getNom()+this.numTour);
             numTour+=1;
+            for(int i=0;i<partie.getNombreJoueur();i++){
+                    partie.getJoueur(i).setPa(partie.getJoueur(i).getPa()+4);
+                }
             if(numTour==4){
                 nuit=true;
                 deroulementNuit();
