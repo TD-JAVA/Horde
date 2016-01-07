@@ -16,7 +16,7 @@ public class Ville extends Case {
     Scanner sc=new Scanner(System.in);
     private int[] entrepot = new int[3]; // valeur par défaut//
     private String[] tabItems= {"Planche","Clou","Boisson énergissante"};
-    private int nbRation;
+    private int nbRation=50;
     private int tauxDefense;
     Construction[] batiment = new Construction[6]; // valeur par défaut//
     private boolean ouverturePorte = true;
@@ -189,12 +189,14 @@ public class Ville extends Case {
     }
     
 
-    public int manger() {
-        boolean manger = false;
-        if (manger == true) {
+    public Item prendreRation() {
+        Item ration;
+        if (this.nbRation>0) {
             this.nbRation = this.nbRation - 1;
-        }
-        return this.nbRation;
+            ration = new Item("Ration",Journal.consulterDescription(1));
+    
+        }else{ration = new Item("","");}
+        return ration;
     }
 
     public int[] getEntrepot() {

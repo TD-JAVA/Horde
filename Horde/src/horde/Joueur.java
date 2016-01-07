@@ -110,6 +110,9 @@ public class Joueur {
      * @return the pa
      */
     public int getPa() {
+        if(this.pa>10){
+            this.pa=10;
+        }
         return pa;
     }
 
@@ -203,6 +206,7 @@ public class Joueur {
                 this.sac.remove(i);
                 System.out.println("Vous avez récupéré 6 points d'actions !");
                 changement=true;
+                dejaBu=true;
             }else{
                 if(i == this.sac.size()){
                     System.out.println("Vous n'avez pas de gourde !");
@@ -211,7 +215,7 @@ public class Joueur {
         }else{
             System.out.println("Vous n'avez pas de gourde !");
         }
-        dejaBu=true;
+        
         return changement;
     }
 
@@ -221,8 +225,33 @@ public class Joueur {
     }
 
     //Permet au joueur de manger une ration s'il en dispose
-    public void manger() {
-        for (int i = 0; i < this.sac.size(); i++) {
+    public boolean manger() {
+        
+        int i=0;
+        boolean changement=false;
+        
+        if(!sac.isEmpty()){
+            while(!(this.sac.get(i).getNom().equals("Ration")) && i < this.sac.size()-1){
+                i++;
+            }
+            if(this.sac.get(i).getNom().equals("Ration")){
+                this.setPa(this.getPa() + 6);
+                this.sac.remove(i);
+                System.out.println("Vous avez récupéré 6 points d'actions !");
+                changement=true;
+                dejaMange=true;
+            }else{
+                if(i == this.sac.size()){
+                    System.out.println("Vous n'avez pas de ration !");
+                }
+            }
+        }else{
+            System.out.println("Vous n'avez pas de ration !");
+        }
+        
+        return changement;
+        
+        /*for (int i = 0; i < this.sac.size(); i++) {
             if (this.sac.get(i).getNom() == "Ration") {
                 this.setPa(this.getPa() + 6);
                 if (this.sac.get(i).getQuantite() == 1) {
@@ -235,7 +264,7 @@ public class Joueur {
                 break;
             }
         }
-        System.out.print("Vous n'avez pas de gourde !");
+        System.out.print("Vous n'avez pas de gourde !");*/
     }
 
     // Permet au joueur de construire des défenses

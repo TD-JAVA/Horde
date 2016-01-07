@@ -79,7 +79,8 @@ public class Journal {
                 break;
             case 'C':
                 break;
-                
+            case 'N':   string=afficherContenuSac(joueur);
+                        break;
             case 'R':
                 break;
         }
@@ -96,13 +97,21 @@ public class Journal {
     public static String afficherDescriptionJoueur(Joueur ceJoueur){
         return ""+ceJoueur.getNom()+" a "+ceJoueur.getPa()+" point(s) d'action et "+ ceJoueur.getPdv()+" point de vie";
     }
+    public static String afficherContenuSac(Joueur ceJoueur){
+        String str="";
+        for(int index=0;index<ceJoueur.getSac().size();index++){str+=ceJoueur.getSac().get(index).getNom()+";\n";}
+        return str;
+    }
     public static String consulterDescription(int choix){
         String description="";
         
         switch (choix){
-            case 0: description="La gourde permet de récupérer 6 points d'action.\n Elle n'est pas réutilisation. Elle occupe une place de la sac.\n On ne peut boire qu'une fois par jour.";
+            case 0: description="La gourde permet de récupérer 6 points d'action.\n Elle n'est pas réutilisable. Elle occupe une place de la sac.\n On ne peut boire qu'une fois par jour.";
+                    break;
+            case 1: description="La ration permet de récupérer 6 points d'action.\n Elle n'est pas réutilisable. Elle occupe une place de la sac.\n On ne peut manger qu'une fois par jour.\nAttention au stock, il n'y a que 50 rations dans l'entrepôt.";
                     break;
         }
+        
         return description;
     }
 }
