@@ -60,6 +60,12 @@ public class Journal {
 //Permet d'afficher un résumé du jeu
     public String toString(Temps temps , Ville ville,Jeu partie,Joueur joueur, char choix) {
         String string=""; //="Résumé du Jeu. Le nombre de tours est de "+temps.getNumTour()+" tour(s), le nombre de jours est de "+temps.getNbJour()+" jour(s), les items dans l'entrepot sont :"+ ville.consulterEntrepot()+" ,la liste des batiments sont : \n"+this.consulterConstruction()+"";
+        if(joueur.getIndiceCase()!=338){
+            if(choix=='C'||choix=='I'){
+                choix='E';
+            }
+        }
+        
         switch (choix){
             case 'J':
                 break;

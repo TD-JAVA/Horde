@@ -38,20 +38,20 @@ public class Case {
           }   
   }
     
-    public void fouiller(Jeu partie){ // On donne le choix au joueur de fouiller la case ou non
+    public void fouiller(){ // On donne le choix au joueur de fouiller la case ou non
         System.out.println("Case non fouillée (coute un point d'action pour étre fouiller), que voulez vous faire ?");
         char choix = conversionCaractere('R');
         switch (choix) {
             case 1: // choix si le joueur veut fouiller la case
                 if (this.fouillee == true){
-                int pa = partie.getJoueurActuel().getPa() -1 ;    
+                //int pa = partie.getJoueurActuel().getPa() -1 ;    
                 }else{
                     System.out.println("Points d'action insufisants !");
                 }
             break;
             case 2: // choix si le joueur ne veut pas fouiller la case
                 if (this.fouillee ==false){
-                    int pa = partie.getJoueurActuel().getPa(); 
+                    //int pa = partie.getJoueurActuel().getPa(); 
                 }
             break;
     }

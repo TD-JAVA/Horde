@@ -32,7 +32,7 @@ public class Joueur {
     //private int gourde;
     private int ordonneeActuelle;
     private int absysseActuelle;
-
+    private int indiceCase;
     //Tableau de 10 objets
     private ArrayList<Item> sac = new ArrayList<Item>(10);
 
@@ -65,8 +65,15 @@ public class Joueur {
         absysseActuelle = partie.getGrille().getxVille();
         ordonneeActuelle = partie.getGrille().getyVille();
         this.sac = new ArrayList<Item>();
+        this.indiceCase =338;
     }
-
+    public int getIndiceCase(){
+        return indiceCase;
+    }
+    
+    public void setIndiceCase(int indice){
+        indiceCase=indice;
+    }
     /**
      * @return the nom
      */

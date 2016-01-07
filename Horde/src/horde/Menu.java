@@ -16,12 +16,13 @@ public class Menu {
     //Variable memoire pour conserver le menu et le jeu 
     private Jeu partieActuelle;
     private Menu menuActuel;
+    private Case[] tabGrille;
     private Scanner sc = new Scanner(System.in);
     private boolean consommationDePA;
 
     //Constructor
     public Menu(){
-        
+        tabGrille=partieActuelle.getGrille().getTabCase();
     }
     
     /****************Getters&Setters**********************/
@@ -178,12 +179,14 @@ public class Menu {
                                             System.out.println("La porte est fermée, vous ne pouvez pas sortir.");
                                         }else{
                                             partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle(),partieActuelle.getJoueurActuel().getOrdonneeActuelle()+1);
+                                            partieActuelle.getJoueurActuel().setIndiceCase(partieActuelle.getJoueurActuel().getIndiceCase()-25);
                                             consommationDePA=true;
                                         }
 
                                     }
                                 }else{
                                     partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle(),partieActuelle.getJoueurActuel().getOrdonneeActuelle()+1);
+                                    partieActuelle.getJoueurActuel().setIndiceCase(partieActuelle.getJoueurActuel().getIndiceCase()-25);
                                     consommationDePA=true;
                                 }
                             }
@@ -197,11 +200,13 @@ public class Menu {
                                             System.out.println("La porte est fermée, vous ne pouvez pas sortir.");
                                         }else{
                                         partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle()-1,partieActuelle.getJoueurActuel().getOrdonneeActuelle());
+                                        partieActuelle.getJoueurActuel().setIndiceCase(partieActuelle.getJoueurActuel().getIndiceCase()-1);
                                         consommationDePA=true;
                                         }
                                     }
                                 }else{
                                     partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle()-1,partieActuelle.getJoueurActuel().getOrdonneeActuelle());
+                                    partieActuelle.getJoueurActuel().setIndiceCase(partieActuelle.getJoueurActuel().getIndiceCase()-1);
                                     consommationDePA=true;
                                 }
                             }
@@ -215,11 +220,13 @@ public class Menu {
                                             System.out.println("La porte est fermée, vous ne pouvez pas sortir.");
                                         }else{
                                             partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle()+1,partieActuelle.getJoueurActuel().getOrdonneeActuelle());
+                                            partieActuelle.getJoueurActuel().setIndiceCase(partieActuelle.getJoueurActuel().getIndiceCase()+1);
                                             consommationDePA=true;
                                         }
                                     }
                                 }else{
                                     partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle()+1,partieActuelle.getJoueurActuel().getOrdonneeActuelle());   
+                                    partieActuelle.getJoueurActuel().setIndiceCase(partieActuelle.getJoueurActuel().getIndiceCase()+1);
                                     consommationDePA=true;
                                 }
                             }
@@ -233,11 +240,13 @@ public class Menu {
                                             System.out.println("La porte est fermée, vous ne pouvez pas sortir.");
                                         }else{
                                             partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle(),partieActuelle.getJoueurActuel().getOrdonneeActuelle()-1);
+                                            partieActuelle.getJoueurActuel().setIndiceCase(partieActuelle.getJoueurActuel().getIndiceCase()+25);
                                             consommationDePA=true;
                                         }
                                     }
                                 }else{
                                     partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle(),partieActuelle.getJoueurActuel().getOrdonneeActuelle()-1);
+                                    partieActuelle.getJoueurActuel().setIndiceCase(partieActuelle.getJoueurActuel().getIndiceCase()+25);
                                     consommationDePA=true;
                                 }                            
                             }
@@ -259,7 +268,11 @@ public class Menu {
     
     public void interagirCase(char choix) {
         
-        
+        if(partieActuelle.getJoueurActuel().getAbsysseActuelle()!= partieActuelle.getGrille().getxVille() || partieActuelle.getJoueurActuel().getOrdonneeActuelle()!=partieActuelle.getGrille().getyVille()){
+            if(choix=='C'||choix=='E'||choix=='I'||choix=='B'){
+                choix='K';
+            }
+        }
         switch (choix) {
             case 'C':   partieActuelle.getMaVille().afficherConstruction(partieActuelle.getMonJournal());
                         System.out.println("Souhaitez-vous construire un nouveau batiment ?");
@@ -277,10 +290,35 @@ public class Menu {
                         }
             
                         break;
+            case 'S':   interagirSac(afficher(4));
+                        
+                        break;
+            case 'B':   System.out.println("Voulez vous remplir une gourde ?(Y/n)");
+                        if(conversionBoolean(sc.next())){
+                            if(partieActuelle.getJoueurActuel().getSac().size()<10){
+                                        partieActuelle.getJoueurActuel().getSac().add(partieActuelle.getMaVille().remplirGourde());
+                                    }else{
+                                        System.out.println("Il n'y a plus de place dans votre sac");
+                                    }
+                        }
+                        break;
+            case 'F':   if(partieActuelle.getJoueurActuel().getIndiceCase()!=338){
+                         tabGrille[partieActuelle.getJoueurActuel().getIndiceCase()].fouiller();
+                        }
+            case 'R':   this.retournerMenu(1);
+                        break;
+            default :   System.out.println("\nEntrez une lettre correspond au menu");
+                        this.menuNiveauUn(afficher(2));
+        }
+        this.retournerMenu(1);
+        
+    }
+    
+    public void interagirSac( char choix){
+        switch(choix){
             case 'B':   if(partieActuelle.getJoueurActuel().getPa()>0){
                             consommationDePA=partieActuelle.getJoueurActuel().boire();
-                            if(!consommationDePA){
-                                partieActuelle.getMaVille().boire();
+                            if(!consommationDePA && partieActuelle.getJoueurActuel().getIndiceCase()==338){
                                 System.out.println("Voulez vous remplir une gourde ?(Y/n)");
                                 if(conversionBoolean(sc.next())){
                                     if(partieActuelle.getJoueurActuel().getSac().size()<10){
@@ -295,17 +333,13 @@ public class Menu {
                         }else{
                             System.out.println("Vous ne possèdez pas assez de point d'action pour cette action");            
                         }
-                        
+            case 'M': 
                         break;
-            case 'R':   this.retournerMenu(1);
+            case 'V':
                         break;
-            default :   System.out.println("\nEntrez une lettre correspond au menu");
-                        this.menuNiveauUn(afficher(2));
-        }
-        this.retournerMenu(1);
-        
-    }
+                    }
     
+    }
     public void finirTour() {
         partieActuelle.getTempsPartie().incrementerTour(partieActuelle);
     }
@@ -341,6 +375,10 @@ public class Menu {
                             System.out.println("0. Résumé du jeu(J)\n1. Situation(S)\n2. Règle du jeu(K)\nRetour (R)");
                         }
                         return this.verification(sc.next(),0);
+            case 4:     System.out.println("Boire (B)\nManger (M)\nVider le sac(V)\n");
+                        System.out.println("Quel est votre choix ?\n");
+                        return this.verification(sc.next(),0);
+                        
         }
         return 'e';
     }
