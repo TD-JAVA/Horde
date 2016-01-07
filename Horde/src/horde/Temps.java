@@ -41,6 +41,9 @@ public class Temps {
                 deroulementNuit();
                 nuit=false;
                 numTour=0;
+                for(int i=0;i<partie.getNombreJoueur();i++){
+                    partie.getJoueur(i).setNouveauJour();
+                }
                 incrementerNbJour();
             }
         }

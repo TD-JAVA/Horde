@@ -33,6 +33,8 @@ public class Joueur {
     private int ordonneeActuelle;
     private int absysseActuelle;
     private int indiceCase;
+    private boolean dejaBu;
+    private boolean dejaMange;
     //Tableau de 10 objets
     private ArrayList<Item> sac = new ArrayList<Item>(10);
 
@@ -66,6 +68,8 @@ public class Joueur {
         ordonneeActuelle = partie.getGrille().getyVille();
         this.sac = new ArrayList<Item>();
         this.indiceCase =338;
+        this.dejaBu=false;
+        this.dejaMange=false;
     }
     public int getIndiceCase(){
         return indiceCase;
@@ -155,6 +159,19 @@ public class Joueur {
     public void setSac(ArrayList<Item> sac) {
         this.sac = sac;
     }
+    
+    public boolean getDejaBu(){
+        return dejaBu;
+    }
+    public boolean getDejaMange(){
+        return dejaMange;
+    }
+    
+    public void setNouveauJour(){
+        dejaBu=false;
+        dejaMange=false;
+        setPa(pa+4);
+    }
 
     /**
      * @return the gourde
@@ -194,7 +211,7 @@ public class Joueur {
         }else{
             System.out.println("Vous n'avez pas de gourde !");
         }
-        
+        dejaBu=true;
         return changement;
     }
 

@@ -316,22 +316,26 @@ public class Menu {
     
     public void interagirSac( char choix){
         switch(choix){
-            case 'B':   if(partieActuelle.getJoueurActuel().getPa()>0){
-                            consommationDePA=partieActuelle.getJoueurActuel().boire();
-                            if(!consommationDePA && partieActuelle.getJoueurActuel().getIndiceCase()==338){
-                                System.out.println("Voulez vous remplir une gourde ?(Y/n)");
-                                if(conversionBoolean(sc.next())){
-                                    if(partieActuelle.getJoueurActuel().getSac().size()<10){
-                                        partieActuelle.getJoueurActuel().getSac().add(partieActuelle.getMaVille().remplirGourde());
-                                    }else{
-                                        System.out.println("Il n'y a plus de place dans votre sac");
+            case 'B':   if(!partieActuelle.getJoueurActuel().getDejaBu()){
+                            if(partieActuelle.getJoueurActuel().getPa()>0){
+                                consommationDePA=partieActuelle.getJoueurActuel().boire();
+                                if(!consommationDePA && partieActuelle.getJoueurActuel().getIndiceCase()==338){
+                                    System.out.println("Voulez vous remplir une gourde ?(Y/n)");
+                                    if(conversionBoolean(sc.next())){
+                                        if(partieActuelle.getJoueurActuel().getSac().size()<10){
+                                            partieActuelle.getJoueurActuel().getSac().add(partieActuelle.getMaVille().remplirGourde());
+                                        }else{
+                                            System.out.println("Il n'y a plus de place dans votre sac");
+                                        }
                                     }
+                                }else{
+                                    partieActuelle.getJoueurActuel().setPa(partieActuelle.getJoueurActuel().getPa()-1);
                                 }
                             }else{
-                                partieActuelle.getJoueurActuel().setPa(partieActuelle.getJoueurActuel().getPa()-1);
+                                System.out.println("Vous ne possèdez pas assez de point d'action pour cette action");            
                             }
                         }else{
-                            System.out.println("Vous ne possèdez pas assez de point d'action pour cette action");            
+                                System.out.println("Vous avez déjà bu ce jour");            
                         }
             case 'M': 
                         break;
