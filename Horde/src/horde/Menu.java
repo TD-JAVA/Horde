@@ -101,11 +101,13 @@ public class Menu {
                         break;
             case 'S':   this.menuNiveauUn(Menu.conversionCaractere(this.afficher(1)));
                         break;
+            default :   System.out.println("\nEntrez une lettre correspond au menu");
+                        this.menuNiveauZero(afficher(0));
         }           
     }
     
     public static void quitter(){
-    
+        System.exit(0);
     }
     /********************Fin des fonctions du menu de démarrage*************************/
     
@@ -131,6 +133,8 @@ public class Menu {
                         break;
             case 'R':   this.retournerMenu(0);
                         break;
+            default :   System.out.println("\nEntrez une lettre correspond au menu");
+                        this.menuNiveauZero(afficher(1));
         }
     }
     
@@ -146,8 +150,10 @@ public class Menu {
     public  void lireJournal(){
         System.out.println("Lire le journal");
         partieActuelle.getMonJournal().afficherPosition(partieActuelle, partieActuelle.getJoueurActuel());
-        System.out.println(partieActuelle.getMonJournal().toString(partieActuelle.getTempsPartie(), partieActuelle.getMaVille(),partieActuelle,partieActuelle.getJoueurActuel(),afficher(3)));
+        System.out.println(partieActuelle.getMonJournal().toString(partieActuelle.getTempsPartie(), partieActuelle.getMaVille(),partieActuelle,partieActuelle.getJoueurActuel(),afficher(3))+"\n");
         sc.nextLine();
+        String str = sc.nextLine();
+        System.out.println("\n\n");
         menuNiveauUn(conversionCaractere(afficher(1)));
     }
     
@@ -160,27 +166,64 @@ public class Menu {
         char choix=verification(sc.next(),0);
         
         switch (choix) {
-            case 'Z':   if(partieActuelle.getJoueurActuel().getOrdonneeActuelle()<0){
-                            partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle(),partieActuelle.getJoueurActuel().getOrdonneeActuelle()+1);
+            case 'Z':   
+                        if(partieActuelle.getJoueurActuel().getOrdonneeActuelle()<0){
+                            if(!partieActuelle.getMaVille().getOuverturePorte()){
+                                if(partieActuelle.getJoueurActuel().getOrdonneeActuelle()+1==partieActuelle.getGrille().getyVille()){
+                                    System.out.println("La porte est fermée, vous ne pouvez pas entrer.");
+                                }else{
+                                    partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle(),partieActuelle.getJoueurActuel().getOrdonneeActuelle()+1);
+                                }
+                            }else{
+                                partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle(),partieActuelle.getJoueurActuel().getOrdonneeActuelle()+1);
+                            }
                         }
                         break;
             case 'Q':   if(partieActuelle.getJoueurActuel().getAbsysseActuelle()>0){
-                            partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle()-1,partieActuelle.getJoueurActuel().getOrdonneeActuelle());
+                            if(!partieActuelle.getMaVille().getOuverturePorte()){
+                                if(partieActuelle.getJoueurActuel().getAbsysseActuelle()-1==partieActuelle.getGrille().getxVille()){
+                                    System.out.println("La porte est fermée, vous ne pouvez pas entrer.");
+                                }else{
+                                    partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle()-1,partieActuelle.getJoueurActuel().getOrdonneeActuelle());
+                                }
+                            }else{
+                                partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle()-1,partieActuelle.getJoueurActuel().getOrdonneeActuelle());
+                            }
                         }
                         break;
             case 'D':   if(partieActuelle.getJoueurActuel().getOrdonneeActuelle()<24){
-                            partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle()+1,partieActuelle.getJoueurActuel().getOrdonneeActuelle());
+                            if(!partieActuelle.getMaVille().getOuverturePorte()){
+                                if(partieActuelle.getJoueurActuel().getAbsysseActuelle()+1==partieActuelle.getGrille().getxVille()){
+                                    System.out.println("La porte est fermée, vous ne pouvez pas entrer.");
+                                }else{
+                                    partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle()+1,partieActuelle.getJoueurActuel().getOrdonneeActuelle());
+                                }
+                            }else{
+                                partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle()+1,partieActuelle.getJoueurActuel().getOrdonneeActuelle());   
+                            }
                         }
                         break;
             case 'S':   if(partieActuelle.getJoueurActuel().getOrdonneeActuelle()>-24){
-                            partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle(),partieActuelle.getJoueurActuel().getOrdonneeActuelle()-1);
+                            if(!partieActuelle.getMaVille().getOuverturePorte()){
+                                if(partieActuelle.getJoueurActuel().getOrdonneeActuelle()-1==partieActuelle.getGrille().getyVille()){
+                                    System.out.println("La porte est fermée, vous ne pouvez pas entrer.");
+                                }else{
+                                    partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle(),partieActuelle.getJoueurActuel().getOrdonneeActuelle()-1);
+                                }
+                            }else{
+                                partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle(),partieActuelle.getJoueurActuel().getOrdonneeActuelle()-1);
+                            }                            
                         }
                         break;
             case 'R':   this.retournerMenu(1);
                         break;
+            default :   System.out.println("\nEntrez une lettre correspond au menu");
+                        this.seDeplacer();
         }
-        System.out.println("("+partieActuelle.getJoueurActuel().getAbsysseActuelle()+";"+partieActuelle.getJoueurActuel().getOrdonneeActuelle()+")");
-        this.retournerMenu(1);
+        //System.out.println("("+partieActuelle.getJoueurActuel().getAbsysseActuelle()+";"+partieActuelle.getJoueurActuel().getOrdonneeActuelle()+")");
+        sc.nextLine();
+        sc.nextLine();
+        this.seDeplacer();
     }
     
     public void interagirCase(char choix) {
@@ -207,6 +250,8 @@ public class Menu {
                         break;
             case 'R':   this.retournerMenu(1);
                         break;
+            default :   System.out.println("\nEntrez une lettre correspond au menu");
+                        this.menuNiveauZero(afficher(3));
         }
         this.retournerMenu(1);
         
@@ -281,14 +326,32 @@ public class Menu {
         }
         
     public int conversionInt(String str){
+        System.out.println(str);
+        
         char[] lettres=str.toCharArray();
+        System.out.println(lettres[0]);
+        int longueur=str.length();
         int num=0;
-        System.out.println((int)lettres[0]);
-        while((int)(lettres[0])>20 && (int)(lettres[0])<1){
-            System.out.println("Saississez un nombre entre 1 et 20");
-           lettres=sc.next().toCharArray();
+        
+        if((longueur<2)){
+            if((int)(lettres[0])>57 ||(int)(lettres[0])<49){
+                System.out.println("Saississez un nombre entre 1 et 20");
+                
+                num=conversionInt(sc.next());
+            }else{
+                num=Integer.parseInt(str);
+            }
+        }else{
+                if((int)(lettres[0])>50 ||(int)(lettres[0])<49 && (int)(lettres[1])>57 ||(int)(lettres[1])<48){
+                    System.out.println("Saississez un nombre entre 1 et 20:");
+                    
+                    num=conversionInt(sc.next());
+                }else{
+                num = Integer.parseInt(str);
+                }
         }
-        num=lettres[0];
+        
+        
         return num;
     }
     public static boolean conversionBoolean(String str){

@@ -51,10 +51,11 @@ public class Jeu {
         grille=new Carte(this);
         maVille=new Ville(this);
         monJournal=new Journal();
+        menuPartie=new Menu();
         Scanner sc = new Scanner(System.in);        
         System.out.println("Combien y a t il de joueur pour cette partie ?(entre 1 et 20 joueurs)");
-        //nombreJoueur=menuPartie.conversionInt(sc.next());
-        nombreJoueur=sc.nextInt();
+        nombreJoueur=menuPartie.conversionInt(sc.next());
+        //nombreJoueur=sc.nextInt();
         
         tabJoueur=new Joueur[nombreJoueur];
         for(int i=0;i<nombreJoueur;i++){
@@ -65,7 +66,7 @@ public class Jeu {
             
         }
         setJoueurActuel(0);
-        menuPartie=new Menu();
+        
         //while((answersUser=="y") || (answersUser=="Y") || (answersUser=="yes") || (answersUser=="Yes") || (answersUser=="YES") || (answersUser=="O") || (answersUser=="o") || (answersUser=="Oui") || (answersUser=="oui") || (answersUser=="OUI")){
             
         //}

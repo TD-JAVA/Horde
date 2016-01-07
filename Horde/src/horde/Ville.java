@@ -6,18 +6,20 @@
 package horde;
 
 import static horde.Menu.conversionCaractere;
+import java.util.Scanner;
 
 /**
  *
  * @author Gabriel
  */
 public class Ville extends Case {
-
+    Scanner sc=new Scanner(System.in);
     private int[] entrepot = new int[3]; // valeur par défaut//
     private String[] tabItems= {"Planche","Clou","Boisson énergissante"};
     private int nbRation;
     private int tauxDefense;
     Construction[] batiment = new Construction[6]; // valeur par défaut//
+    private boolean ouverturePorte = true;
 
     public Ville(int nbRation, int tauxDefense, int longitude, int lattitude) {
         super(longitude, lattitude);
@@ -150,18 +152,27 @@ public class Ville extends Case {
         return this.tauxDefense;
     }
 
-    public boolean ouverturePorte() {
+    public void ouverturePorte() {
         //bool ouverte -> 1 sinon 0
-        boolean ouverturePorte = false;
 
         if (ouverturePorte == true) {
             System.out.print("La porte est ouverte !");
+            System.out.println("Souhaitez-vous la fermer ?(O/N)($1PA)");
+            if(Menu.conversionBoolean(sc.next())){
+                ouverturePorte=false;
+            }
         } else {
             System.out.print("La porte est fermée !");
+            System.out.println("Souhaitez-vous l'ouvrir ?(O/N)($1PA)");
+            if(Menu.conversionBoolean(sc.next())){
+                ouverturePorte=true;
+            }
         }
+        
+    }
+    public boolean getOuverturePorte(){
         return ouverturePorte;
     }
-
     public void remplirSac() {
 
     }
