@@ -40,6 +40,10 @@ public class Item {
         this.quantite = quantite;
         this.description = description;
     }
+    public Item(String nom, String description) {
+        this.nom = nom;
+        this.description = description;
+    }
     private String nom;
     private int quantite;
     private String description;

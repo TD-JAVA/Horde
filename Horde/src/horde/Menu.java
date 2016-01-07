@@ -17,6 +17,7 @@ public class Menu {
     private Jeu partieActuelle;
     private Menu menuActuel;
     private Scanner sc = new Scanner(System.in);
+    private boolean consommationDePA;
 
     //Constructor
     public Menu(){
@@ -232,26 +233,43 @@ public class Menu {
         switch (choix) {
             case 'C':   partieActuelle.getMaVille().afficherConstruction(partieActuelle.getMonJournal());
                         System.out.println("Souhaitez-vous construire un nouveau batiment ?");
-                        String answersUser=sc.next();
-                        if((answersUser=="y") || (answersUser=="Y") || (answersUser=="yes") || (answersUser=="Yes") || (answersUser=="YES") || (answersUser=="O") || (answersUser=="o") || (answersUser=="Oui") || (answersUser=="oui") || (answersUser=="OUI")){
+                        if(conversionBoolean(sc.next())){
                             partieActuelle.getMaVille().getBatiment();
                         }
                         break;
             case 'E':   partieActuelle.getMaVille().afficherEntrepot();
                         break;
-            case 'I':   partieActuelle.getMaVille().ouverturePorte();
+            case 'I':   if(partieActuelle.getJoueurActuel().getPa()>0){
+                            consommationDePA=partieActuelle.getMaVille().ouverturePorte();
+                            if (consommationDePA){partieActuelle.getJoueurActuel().setPa(partieActuelle.getJoueurActuel().getPa()-1);}
+                        }else{
+                            System.out.println("Vous ne possèdez pas assez de point d'action pour cette action");
+                        }
+            
                         break;
-            case 'B':   partieActuelle.getMaVille().boire();
-                        System.out.println("Voulez vous remplir une gourde ?(Y/n)");
-                        answersUser=sc.next();
-                        if((answersUser=="y") || (answersUser=="Y") || (answersUser=="yes") || (answersUser=="Yes") || (answersUser=="YES") || (answersUser=="O") || (answersUser=="o") || (answersUser=="Oui") || (answersUser=="oui") || (answersUser=="OUI")){
-                            partieActuelle.getMaVille().remplirGourde();
+            case 'B':   if(partieActuelle.getJoueurActuel().getPa()>0){
+                            consommationDePA=partieActuelle.getJoueurActuel().boire();
+                            if(!consommationDePA){
+                                partieActuelle.getMaVille().boire();
+                                System.out.println("Voulez vous remplir une gourde ?(Y/n)");
+                                if(conversionBoolean(sc.next())){
+                                    if(partieActuelle.getJoueurActuel().getSac().size()<10){
+                                        partieActuelle.getJoueurActuel().getSac().add(partieActuelle.getMaVille().remplirGourde());
+                                    }else{
+                                        System.out.println("Il n'y a plus de place dans votre sac");
+                                    }
+                                }
+                            }else{
+                                partieActuelle.getJoueurActuel().setPa(partieActuelle.getJoueurActuel().getPa()-1);
+                            }
+                        }else{
+                            System.out.println("Vous ne possèdez pas assez de point d'action pour cette action");            
                         }
                         break;
             case 'R':   this.retournerMenu(1);
                         break;
             default :   System.out.println("\nEntrez une lettre correspond au menu");
-                        this.menuNiveauZero(afficher(3));
+                        this.menuNiveauUn(afficher(2));
         }
         this.retournerMenu(1);
         
@@ -326,10 +344,7 @@ public class Menu {
         }
         
     public int conversionInt(String str){
-        System.out.println(str);
-        
         char[] lettres=str.toCharArray();
-        System.out.println(lettres[0]);
         int longueur=str.length();
         int num=0;
         

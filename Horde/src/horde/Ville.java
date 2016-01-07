@@ -142,9 +142,9 @@ public class Ville extends Case {
         return tabEntrepot;
     }
 
-    public int defenseVille(boolean ouverturePorte) {
+    public int defenseVille(boolean porteOuverte) {
         this.tauxDefense = 0;
-        if (ouverturePorte == false) {
+        if (porteOuverte == false) {
             this.tauxDefense = 20;
         } else {
             System.out.print("La porte est ouverte !");
@@ -152,23 +152,25 @@ public class Ville extends Case {
         return this.tauxDefense;
     }
 
-    public void ouverturePorte() {
+    public boolean ouverturePorte() {
         //bool ouverte -> 1 sinon 0
-
+        boolean changement=false;
         if (ouverturePorte == true) {
             System.out.print("La porte est ouverte !");
             System.out.println("Souhaitez-vous la fermer ?(O/N)($1PA)");
             if(Menu.conversionBoolean(sc.next())){
                 ouverturePorte=false;
+                changement=true;
             }
         } else {
             System.out.print("La porte est fermée !");
             System.out.println("Souhaitez-vous l'ouvrir ?(O/N)($1PA)");
             if(Menu.conversionBoolean(sc.next())){
                 ouverturePorte=true;
+                changement=true;
             }
         }
-        
+        return changement;
     }
     public boolean getOuverturePorte(){
         return ouverturePorte;
@@ -181,8 +183,9 @@ public class Ville extends Case {
 
     }
     
-    public void remplirGourde(){
-        
+    public Item remplirGourde(){
+        Item gourde = new Item("Gourde",Journal.consulterDescription(0));
+        return gourde;
     }
     
 

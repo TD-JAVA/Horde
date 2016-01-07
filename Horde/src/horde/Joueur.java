@@ -159,17 +159,30 @@ public class Joueur {
      }*/
     // ---------------DEBUT DES METHODES---------------------
     // Permet au joueur de boire de l'eau
-    public void boire() {
-
-        for (int i = 0; i < this.sac.size(); i++) {
-            if (this.sac.get(i).getNom() == "Gourde") {
+    public boolean boire() {
+        int i=0;
+        boolean changement=false;
+        
+        if(sac.size()==0){
+            System.out.print("Vous n'avez pas de gourde !");
+        }else{
+            System.out.println(this.sac.get(0).getNom());
+            while(this.sac.get(i).getNom() != "Gourde" && i < this.sac.size()){
+                i++;
+            }
+            if(this.sac.get(i).getNom() == "Gourde"){
                 this.setPa(this.getPa() + 6);
                 this.sac.remove(i);
                 System.out.print("Vous avez récupéré 6 points d'actions !");
-                break;
-            }
+                changement=true;
+            }else{
+                if(i == this.sac.size()){
+                    System.out.print("Vous n'avez pas de gourde !");
+                }
+            }    
         }
-        System.out.print("Vous n'avez pas de gourde !");
+        
+        return changement;
     }
 
 // correspond à la méthode déplacement

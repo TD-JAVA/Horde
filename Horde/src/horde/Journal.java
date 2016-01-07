@@ -86,4 +86,13 @@ public class Journal {
             return ""+ceJoueur.getNom()+" est sur la case ("+ceJoueur.getAbsysseActuelle()+";"+ceJoueur.getOrdonneeActuelle()+")";
         }
     }
+    public static String consulterDescription(int choix){
+        String description="";
+        
+        switch (choix){
+            case 0: description="La gourde permet de récupérer 6 points d'action.\n Elle n'est pas réutilisation. Elle occupe une place de la sac.\n On ne peut boire qu'une fois par jour.";
+                    break;
+        }
+        return description;
+    }
 }
