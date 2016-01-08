@@ -139,6 +139,8 @@ public class Menu {
                         break;
             case 'S':   interagirSac(afficher(4));
                         break;    
+            /*case 'M':   miseAJourCarte(afficher(4));
+                        break;  */ 
             case 'R':   this.retournerMenu(0);
                         break;
             default :   System.out.println("\nEntrez une lettre correspond au menu");
@@ -433,7 +435,7 @@ public class Menu {
                         
                         return this.verification(sc.next(),0);
                         
-            case 1:     System.out.println("\nLire le journal(J)\nSe déplacer(D)\nIntéragir avec la case(I)\nInteragir avec le sac(S)\nFinir le tour(F)\nRetour(R)\n");
+            case 1:     System.out.println("\nLire le journal(J)\nSe déplacer(D)\nIntéragir avec la case(I)\nInteragir avec le sac(S)\nMettre à jour la carte(M)\nFinir le tour(F)\nRetour(R)\n");
                         System.out.println("Quel est votre choix ?\n");
                         
                         return this.verification(sc.next(),0);
