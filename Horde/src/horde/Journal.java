@@ -14,7 +14,13 @@ import java.util.Arrays;
  */
 public class Journal {
     private ArrayList<String> listeDeMorts=new ArrayList<String>(19);
+<<<<<<< HEAD
     private ArrayList<Construction> tabConstruction=new ArrayList<Construction>(7);
+=======
+    private Construction[] tabConstruction=new Construction[7];
+    private ArrayList<String> carte = new ArrayList<String>(625);
+    
+>>>>>>> 395c882a2c5008df2136bd3cad19fdda4f09ed92
     
     public ArrayList<Construction> getTabConstruction(){
         return tabConstruction;
@@ -23,6 +29,7 @@ public class Journal {
     public Construction getConstruction(int a){
         return tabConstruction.get(a);
     }
+<<<<<<< HEAD
     public Construction getConstruction(String a){
      int i=0;
         while(!tabConstruction.get(i).getNom().equals(a)){
@@ -47,6 +54,27 @@ public class Journal {
         tabConstruction.add(5,new Construction("Miradors avec mitrailleuses",tab,50,200));
         tab.add(0, 100);tab.add(1,200);
         tabConstruction.add(6,new Construction("Abris anti-atomique",tab,60,500));
+=======
+    
+    public Journal(){
+        int tab []={20,5};    
+        tabConstruction[0]= new Construction("Mur d'enceinte",tab,10,20);
+        int tab1 []={20,30};
+        tabConstruction[1]= new Construction("Fils barbelés",tab1,20,30);
+        int tab2 []={50,25};
+        tabConstruction[2]= new Construction("Fosses à Zombies",tab2,30,50);
+        int tab3 []={10,50};
+        tabConstruction[3]= new Construction("Mines autour de la ville",tab3,30,50);
+        int tab4 []={50,50};
+        tabConstruction[4]= new Construction("Portes blindées",tab4,40,100);
+        int tab5 []={75,75};
+        tabConstruction[5]= new Construction("Miradors avec mitrailleuses",tab5,50,200);
+        int tab6 []={100,200};
+        tabConstruction[6]= new Construction("Abris anti-atomique",tab6,60,500);
+        for(int i =0;i<625;i++){
+            carte.add(i," ");
+        }
+>>>>>>> 395c882a2c5008df2136bd3cad19fdda4f09ed92
     }
 // Permet de voir la liste et les détails des constructions
     public String consulterConstruction() {
@@ -91,6 +119,10 @@ public class Journal {
                 break;
             case 'N':   string=afficherContenuSac(joueur);
                         break;
+            case 'M':   this.miseAJourCarte(joueur);
+                        break; 
+            case 'V':   this.voirCarte();
+                        break; 
             case 'R':
                 break;
         }
@@ -131,5 +163,36 @@ public class Journal {
         }
         
         return description;
+    }
+    
+    public void miseAJourCarte(Joueur joueur){
+    
+        //System.out.println(joueur.getIndiceCase());
+       int index = 0;
+     
+       while(!joueur.getCarteJoueur().isEmpty()){
+           String indice[] = joueur.getCarteJoueur().get(0).split(":");
+           index = Integer.parseInt(indice[0]);
+           if (!carte.get(joueur.getIndiceCase()).isEmpty()){
+                carte.remove(joueur.getIndiceCase());
+           }
+            carte.add(index,indice[1]);
+            joueur.getCarteJoueur().remove(0);
+            
+        }
+       System.out.println("La carte a été mise à jour");
+    }
+    
+    public void voirCarte(){
+        int j=0;
+        for(int i=0;i<carte.size();i++){
+            if(j==25){
+                  System.out.println("|  |\n");
+                  j=0;
+            }
+            else{
+                System.out.println("|  |");
+            }
+        }
     }
 }

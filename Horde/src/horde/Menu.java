@@ -138,9 +138,7 @@ public class Menu {
             case 'F':   this.finirTour();
                         break;
             case 'S':   interagirSac(afficher(4));
-                        break;    
-            /*case 'M':   miseAJourCarte(afficher(4));
-                        break;  */ 
+                        break;      
             case 'R':   this.retournerMenu(0);
                         break;
             default :   System.out.println("\nEntrez une lettre correspond au menu");
@@ -444,7 +442,7 @@ public class Menu {
                         
                         return this.verification(sc.next(),0);
                         
-            case 1:     System.out.println("\nLire le journal(J)\nSe déplacer(D)\nIntéragir avec la case(I)\nInteragir avec le sac(S)\nMettre à jour la carte(M)\nFinir le tour(F)\nRetour(R)\n");
+            case 1:     System.out.println("\nLire le journal(J)\nSe déplacer(D)\nIntéragir avec la case(I)\nInteragir avec le sac(S)\nFinir le tour(F)\nRetour(R)\n");
                         System.out.println("Quel est votre choix ?\n");
                         
                         return this.verification(sc.next(),0);
@@ -461,9 +459,9 @@ public class Menu {
                         System.out.println("Quel est votre choix ?\n");
                         return this.verification(sc.next(),0);
             case 3:     if(partieActuelle.getJoueurActuel().getAbsysseActuelle()== partieActuelle.getGrille().getxVille() && partieActuelle.getJoueurActuel().getOrdonneeActuelle()==partieActuelle.getGrille().getyVille()){
-                            System.out.println("\n0. Résumé du jeu(J)\n1. Situation(S)\n2. Règle du jeu(K)\n3. Item dans l'entrepôt(I)\n4. Liste des constructions(C)\n5.Afficher le contenu du sac(N)\nRetour (R)");
+                            System.out.println("\n0. Résumé du jeu(J)\n1. Situation(S)\n2. Règle du jeu(K)\n3. Item dans l'entrepôt(I)\n4. Liste des constructions(C)\n5.Afficher le contenu du sac(N)\n6. Mettre à jour la carte(M)\n7. Voir la carte(V)\nRetour (R)");
                         }else{
-                            System.out.println("\n0. Résumé du jeu(J)\n1. Situation(S)\n2. Règle du jeu(K)\n3.Afficher le contenu du sac(N)\nRetour (R)");
+                            System.out.println("\n0. Résumé du jeu(J)\n1. Situation(S)\n2. Règle du jeu(K)\n3.Afficher le contenu du sac(N)\n4. Mettre à jour la carte(M\n5. Voir la carte(V)\nRetour (R)");
                         }
                         return this.verification(sc.next(),0);
             case 4:     System.out.println("\nBoire (B)\nManger (M)\nVider le sac(V)\nRetour(R)\n");
