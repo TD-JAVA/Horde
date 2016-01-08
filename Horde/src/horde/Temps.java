@@ -5,6 +5,8 @@
  */
 package horde;
 
+import java.util.Random;
+
 /**
  *
  * @author oneiroi
@@ -19,7 +21,7 @@ public class Temps {
     public int getNbJour(){return nbJours;}
     public void setNuit(boolean i){}
     public boolean getNuit(){return nuit;}
-    
+    Random ra=new Random();
     public Temps(){
      numTour=0;
      nbJours=0;
@@ -41,7 +43,7 @@ public class Temps {
                 }
             if(numTour==4){
                 nuit=true;
-                deroulementNuit();
+                deroulementNuit(partie);
                 nuit=false;
                 numTour=0;
                 for(int i=0;i<partie.getNombreJoueur();i++){
@@ -54,7 +56,23 @@ public class Temps {
         this.debuterTour(partie);
     }
     private void incrementerNbJour(){nbJours+=1;}
-    public void deroulementNuit(){}
+    public void deroulementNuit(Jeu partie){
+        nuit=true;
+        for(int i=0;i<partie.getNombreJoueur();i++){
+            if(partie.getJoueur(i).getIndiceCase()!=338){
+               partie.getJoueur(i).setPdv(0);
+            }
+            if(partie.getMaVille().defenseVille()<partie.getMaVille().getZombies().attaqueNuitZombies(this)){
+                int nbATue= (int)(partie.getNombreJoueur()/2);
+                for(int j=0; j<nbATue;j++){
+                    int k=ra.nextInt(partie.getNombreJoueur()-1);
+                    Joueur ceJoueur=partie.getJoueur(k);
+                    ceJoueur.setPdv(0);
+                    if(partie.dernierJoueur(ceJoueur,k)){partie.finDePartie();}
+                }
+            }
+        }
+    }
     public void debuterTour(Jeu partie){
         partie.getMenuPartie().menuNiveauUn(Menu.conversionCaractere(partie.getMenuPartie().afficher(1)));
     }

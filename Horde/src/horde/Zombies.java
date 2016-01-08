@@ -27,17 +27,11 @@ public class Zombies {
     }
     
     
-    public int attaqueNuitZombies(Temps Temps){
+    public int attaqueNuitZombies(Temps temps){
         Random ra = new Random();
-        if(Temps.getNbJour()==1){
-        this.nbZombies = ra.nextInt(20 - 10);
-        }else if (Temps.getNbJour()==2){
-        this.nbZombies = ra.nextInt(30 - 20);
-        }else if (Temps.getNbJour()==3){
-        this.nbZombies = ra.nextInt(40 - 30);
-        }else if (Temps.getNbJour()==4){
-        this.nbZombies = ra.nextInt(50 - 40);
-        }
+        int n=temps.getNbJour();
+        this.nbZombies = n*10 + ra.nextInt(10);
+        
         return this.nbZombies;   
     }
     
@@ -49,7 +43,6 @@ public class Zombies {
         }else{
             return 0;
         }
-        
     }
     
     public int listeJoueursMort(){
