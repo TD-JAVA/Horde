@@ -51,7 +51,7 @@ public class Journal {
         tab.add(0, 100);tab.add(1,200);
         tabConstruction.add(6,new Construction("Abris anti-atomique",tab,60,500));
         for(int i =0;i<625;i++){
-            carte.add(i," ");
+            carte.add(i,"");
         }
 
     }
@@ -163,15 +163,19 @@ public class Journal {
     }
     
     public void voirCarte(){
-        int j=0;
-        for(int i=0;i<carte.size();i++){
-            if(j==25){
-                  System.out.println("|  |\n");
-                  j=0;
+        carte.add(1,"sss");
+        carte.add(621,"dds");
+        System.out.println("test :"+carte.get(1));
+         for(int j=1;j<26;j++){
+            for(int i=1;i<26;i++){
+                if(!carte.get(i*j).equals("")){
+                    System.out.printf("|"+carte.get(i*j)+"|");
+                }
+                else{
+                    System.out.printf("| |");
+                }
             }
-            else{
-                System.out.println("|  |");
-            }
+            System.out.println("");
         }
     }
 }
