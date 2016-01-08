@@ -35,9 +35,13 @@ public class Joueur {
     private int indiceCase;
     private boolean dejaBu;
     private boolean dejaMange;
+  
     //Tableau de 10 objets
     private ArrayList<Item> sac = new ArrayList<Item>(10);
+    private ArrayList<String> carteJoueur = new ArrayList<String>(625);
 
+   
+    
     public int getOrdonneeActuelle() {
         return ordonneeActuelle;
     }
@@ -67,6 +71,7 @@ public class Joueur {
         absysseActuelle = partie.getGrille().getxVille();
         ordonneeActuelle = partie.getGrille().getyVille();
         this.sac = new ArrayList<Item>();
+        this.carteJoueur = new ArrayList<String>();
         this.indiceCase =338;
         this.dejaBu=false;
         this.dejaMange=false;
@@ -166,6 +171,14 @@ public class Joueur {
 
     public void setSac(ArrayList<Item> sac) {
         this.sac = sac;
+    }
+    
+    public ArrayList<String> getCarteJoueur() {
+        return carteJoueur;
+    }
+
+    public void setCarteJoueur(ArrayList<String> carteJoueur) {
+        this.carteJoueur = carteJoueur;
     }
     
     public boolean getDejaBu(){

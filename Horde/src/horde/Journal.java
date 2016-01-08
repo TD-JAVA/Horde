@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class Journal {
     private ArrayList<String> listeDeMorts=new ArrayList<String>(19);
     private Construction[] tabConstruction=new Construction[7];
+    private ArrayList<String> carte = new ArrayList<String>(10);
     
     public Construction[] getTabConstruction(){
         return tabConstruction;
@@ -83,6 +84,10 @@ public class Journal {
                 break;
             case 'N':   string=afficherContenuSac(joueur);
                         break;
+            case 'M':   this.miseAJourCarte(joueur);
+                        break; 
+            case 'V':   this.voirCarte();
+                        break; 
             case 'R':
                 break;
         }
@@ -123,5 +128,14 @@ public class Journal {
         }
         
         return description;
+    }
+    
+    public void miseAJourCarte(Joueur joueur){
+        //x = joueur.getAbsysseActuelle()
+        System.out.println(joueur.getAbsysseActuelle());
+    }
+    
+    public void voirCarte(){
+        System.out.println("voir carte");
     }
 }
