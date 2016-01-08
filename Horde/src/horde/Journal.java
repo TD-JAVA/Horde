@@ -5,12 +5,14 @@
  */
 package horde;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Seb
  */
 public class Journal {
-    
+    private ArrayList<String> listeDeMorts=new ArrayList<String>(19);
     private Construction[] tabConstruction=new Construction[7];
     
     public Construction[] getTabConstruction(){
@@ -100,6 +102,14 @@ public class Journal {
     public static String afficherContenuSac(Joueur ceJoueur){
         String str="";
         for(int index=0;index<ceJoueur.getSac().size();index++){str+=ceJoueur.getSac().get(index).getNom()+";\n";}
+        return str;
+    }
+    public void ajouterListeDeMorts(String str){
+        listeDeMorts.add(str);
+    }
+    public String afficherListeDeMort(){
+        String str="\n";
+        for(int index=0;index<listeDeMorts.size();index++){str+=listeDeMorts.get(index)+";\n";}
         return str;
     }
     public static String consulterDescription(int choix){

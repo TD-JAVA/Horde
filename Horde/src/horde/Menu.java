@@ -102,7 +102,8 @@ public class Menu {
         switch (choix) {
             case 'Q':   this.quitter();
                         break;
-            case 'D':   this.demarrer(this.getPartieActuelle());
+            case 'D':   this.getPartieActuelle().lancerJeu();
+                        //this.demarrer(this.getPartieActuelle());
                         break;
             case 'S':   this.menuNiveauUn(Menu.conversionCaractere(this.afficher(1)));
                         break;
@@ -167,167 +168,198 @@ public class Menu {
     }
     
     public void seDeplacer(){
-        System.out.println("Chaque déplacement coute un point d'action dans quelle direction souhaitez aller ?");
-        System.out.println(partieActuelle.getJoueurActuel().getNom()+":("+partieActuelle.getJoueurActuel().getAbsysseActuelle()+";"+partieActuelle.getJoueurActuel().getOrdonneeActuelle()+")");
-        System.out.println("Ville:("+partieActuelle.getGrille().getxVille()+";"+partieActuelle.getGrille().getyVille()+")");
-        System.out.println("En haut(Z)\nÀ gauche(Q)\nÀ droite(D)\nEn Bas(S)\nRetour(R)\n");
-        
-        char choix=verification(sc.next(),0);
-        consommationDePA=false;
-            if(partieActuelle.getJoueurActuel().getPa()>0){
-            switch (choix) {
-                case 'Z':   
-                            if(partieActuelle.getJoueurActuel().getOrdonneeActuelle()<0){
-                                if(!partieActuelle.getMaVille().getOuverturePorte()){
-                                    if(partieActuelle.getJoueurActuel().getOrdonneeActuelle()+1==partieActuelle.getGrille().getyVille()){
-                                        System.out.println("La porte est fermée, vous ne pouvez pas entrer.");
-                                    }else{
-                                        if(partieActuelle.getJoueurActuel().getOrdonneeActuelle()==partieActuelle.getGrille().getyVille()){
-                                            System.out.println("La porte est fermée, vous ne pouvez pas sortir.");
+        if(!tabGrille[partieActuelle.getJoueurActuel().getIndiceCase()].getFouillee()||tabGrille[partieActuelle.getJoueurActuel().getIndiceCase()].getNbZombiesRestants()==0){
+                System.out.println("Chaque déplacement coute un point d'action dans quelle direction souhaitez aller ?");
+            System.out.println(partieActuelle.getJoueurActuel().getNom()+":("+partieActuelle.getJoueurActuel().getAbsysseActuelle()+";"+partieActuelle.getJoueurActuel().getOrdonneeActuelle()+")");
+            System.out.println("Ville:("+partieActuelle.getGrille().getxVille()+";"+partieActuelle.getGrille().getyVille()+")");
+            System.out.println("En haut(Z)\nÀ gauche(Q)\nÀ droite(D)\nEn Bas(S)\nRetour(R)\n");
+
+            char choix=verification(sc.next(),0);
+            consommationDePA=false;
+                if(partieActuelle.getJoueurActuel().getPa()>0||(choix!='Z'&&choix!='Q'&&choix!='D'&&choix!='S')){
+                    switch (choix) {
+                        case 'Z':   
+                                    if(partieActuelle.getJoueurActuel().getOrdonneeActuelle()<0){
+                                        if(!partieActuelle.getMaVille().getOuverturePorte()){
+                                            if(partieActuelle.getJoueurActuel().getOrdonneeActuelle()+1==partieActuelle.getGrille().getyVille()){
+                                                System.out.println("La porte est fermée, vous ne pouvez pas entrer.");
+                                            }else{
+                                                if(partieActuelle.getJoueurActuel().getOrdonneeActuelle()==partieActuelle.getGrille().getyVille()){
+                                                    System.out.println("La porte est fermée, vous ne pouvez pas sortir.");
+                                                }else{
+                                                    partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle(),partieActuelle.getJoueurActuel().getOrdonneeActuelle()+1);
+                                                    partieActuelle.getJoueurActuel().setIndiceCase(partieActuelle.getJoueurActuel().getIndiceCase()-25);
+                                                    consommationDePA=true;
+                                                }
+
+                                            }
                                         }else{
                                             partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle(),partieActuelle.getJoueurActuel().getOrdonneeActuelle()+1);
                                             partieActuelle.getJoueurActuel().setIndiceCase(partieActuelle.getJoueurActuel().getIndiceCase()-25);
                                             consommationDePA=true;
                                         }
-
                                     }
-                                }else{
-                                    partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle(),partieActuelle.getJoueurActuel().getOrdonneeActuelle()+1);
-                                    partieActuelle.getJoueurActuel().setIndiceCase(partieActuelle.getJoueurActuel().getIndiceCase()-25);
-                                    consommationDePA=true;
-                                }
-                            }
-                            break;
-                case 'Q':   if(partieActuelle.getJoueurActuel().getAbsysseActuelle()>0){
-                                if(!partieActuelle.getMaVille().getOuverturePorte()){
-                                    if(partieActuelle.getJoueurActuel().getAbsysseActuelle()-1==partieActuelle.getGrille().getxVille()){
-                                        System.out.println("La porte est fermée, vous ne pouvez pas entrer.");
-                                    }else{
-                                        if(partieActuelle.getJoueurActuel().getAbsysseActuelle()==partieActuelle.getGrille().getxVille()){
-                                            System.out.println("La porte est fermée, vous ne pouvez pas sortir.");
+                                    break;
+                        case 'Q':   if(partieActuelle.getJoueurActuel().getAbsysseActuelle()>0){
+                                        if(!partieActuelle.getMaVille().getOuverturePorte()){
+                                            if(partieActuelle.getJoueurActuel().getAbsysseActuelle()-1==partieActuelle.getGrille().getxVille()){
+                                                System.out.println("La porte est fermée, vous ne pouvez pas entrer.");
+                                            }else{
+                                                if(partieActuelle.getJoueurActuel().getAbsysseActuelle()==partieActuelle.getGrille().getxVille()){
+                                                    System.out.println("La porte est fermée, vous ne pouvez pas sortir.");
+                                                }else{
+                                                partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle()-1,partieActuelle.getJoueurActuel().getOrdonneeActuelle());
+                                                partieActuelle.getJoueurActuel().setIndiceCase(partieActuelle.getJoueurActuel().getIndiceCase()-1);
+                                                consommationDePA=true;
+                                                }
+                                            }
                                         }else{
-                                        partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle()-1,partieActuelle.getJoueurActuel().getOrdonneeActuelle());
-                                        partieActuelle.getJoueurActuel().setIndiceCase(partieActuelle.getJoueurActuel().getIndiceCase()-1);
-                                        consommationDePA=true;
+                                            partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle()-1,partieActuelle.getJoueurActuel().getOrdonneeActuelle());
+                                            partieActuelle.getJoueurActuel().setIndiceCase(partieActuelle.getJoueurActuel().getIndiceCase()-1);
+                                            consommationDePA=true;
                                         }
                                     }
-                                }else{
-                                    partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle()-1,partieActuelle.getJoueurActuel().getOrdonneeActuelle());
-                                    partieActuelle.getJoueurActuel().setIndiceCase(partieActuelle.getJoueurActuel().getIndiceCase()-1);
-                                    consommationDePA=true;
-                                }
-                            }
-                            break;
-                case 'D':   if(partieActuelle.getJoueurActuel().getOrdonneeActuelle()<24){
-                                if(!partieActuelle.getMaVille().getOuverturePorte()){
-                                    if(partieActuelle.getJoueurActuel().getAbsysseActuelle()+1==partieActuelle.getGrille().getxVille()){
-                                        System.out.println("La porte est fermée, vous ne pouvez pas entrer.");
-                                    }else{
-                                        if(partieActuelle.getJoueurActuel().getAbsysseActuelle()==partieActuelle.getGrille().getxVille()){
-                                            System.out.println("La porte est fermée, vous ne pouvez pas sortir.");
+                                    break;
+                        case 'D':   if(partieActuelle.getJoueurActuel().getOrdonneeActuelle()<24){
+                                        if(!partieActuelle.getMaVille().getOuverturePorte()){
+                                            if(partieActuelle.getJoueurActuel().getAbsysseActuelle()+1==partieActuelle.getGrille().getxVille()){
+                                                System.out.println("La porte est fermée, vous ne pouvez pas entrer.");
+                                            }else{
+                                                if(partieActuelle.getJoueurActuel().getAbsysseActuelle()==partieActuelle.getGrille().getxVille()){
+                                                    System.out.println("La porte est fermée, vous ne pouvez pas sortir.");
+                                                }else{
+                                                    partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle()+1,partieActuelle.getJoueurActuel().getOrdonneeActuelle());
+                                                    partieActuelle.getJoueurActuel().setIndiceCase(partieActuelle.getJoueurActuel().getIndiceCase()+1);
+                                                    consommationDePA=true;
+                                                }
+                                            }
                                         }else{
-                                            partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle()+1,partieActuelle.getJoueurActuel().getOrdonneeActuelle());
+                                            partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle()+1,partieActuelle.getJoueurActuel().getOrdonneeActuelle());   
                                             partieActuelle.getJoueurActuel().setIndiceCase(partieActuelle.getJoueurActuel().getIndiceCase()+1);
                                             consommationDePA=true;
                                         }
                                     }
-                                }else{
-                                    partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle()+1,partieActuelle.getJoueurActuel().getOrdonneeActuelle());   
-                                    partieActuelle.getJoueurActuel().setIndiceCase(partieActuelle.getJoueurActuel().getIndiceCase()+1);
-                                    consommationDePA=true;
-                                }
-                            }
-                            break;
-                case 'S':   if(partieActuelle.getJoueurActuel().getOrdonneeActuelle()>-24){
-                                if(!partieActuelle.getMaVille().getOuverturePorte()){
-                                    if(partieActuelle.getJoueurActuel().getOrdonneeActuelle()-1==partieActuelle.getGrille().getyVille()){
-                                        System.out.println("La porte est fermée, vous ne pouvez pas entrer.");
-                                    }else{
-                                        if(partieActuelle.getJoueurActuel().getOrdonneeActuelle()==partieActuelle.getGrille().getyVille()){
-                                            System.out.println("La porte est fermée, vous ne pouvez pas sortir.");
+                                    break;
+                        case 'S':   if(partieActuelle.getJoueurActuel().getOrdonneeActuelle()>-24){
+                                        if(!partieActuelle.getMaVille().getOuverturePorte()){
+                                            if(partieActuelle.getJoueurActuel().getOrdonneeActuelle()-1==partieActuelle.getGrille().getyVille()){
+                                                System.out.println("La porte est fermée, vous ne pouvez pas entrer.");
+                                            }else{
+                                                if(partieActuelle.getJoueurActuel().getOrdonneeActuelle()==partieActuelle.getGrille().getyVille()){
+                                                    System.out.println("La porte est fermée, vous ne pouvez pas sortir.");
+                                                }else{
+                                                    partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle(),partieActuelle.getJoueurActuel().getOrdonneeActuelle()-1);
+                                                    partieActuelle.getJoueurActuel().setIndiceCase(partieActuelle.getJoueurActuel().getIndiceCase()+25);
+                                                    consommationDePA=true;
+                                                }
+                                            }
                                         }else{
                                             partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle(),partieActuelle.getJoueurActuel().getOrdonneeActuelle()-1);
                                             partieActuelle.getJoueurActuel().setIndiceCase(partieActuelle.getJoueurActuel().getIndiceCase()+25);
                                             consommationDePA=true;
-                                        }
+                                        }                            
                                     }
-                                }else{
-                                    partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle(),partieActuelle.getJoueurActuel().getOrdonneeActuelle()-1);
-                                    partieActuelle.getJoueurActuel().setIndiceCase(partieActuelle.getJoueurActuel().getIndiceCase()+25);
-                                    consommationDePA=true;
-                                }                            
+                                    break;
+                        case 'R':   this.retournerMenu(1);
+                                    break;
+                        default :   System.out.println("\nEntrez une lettre correspond au menu");
+                                    this.seDeplacer();
+                    }
+            }else{
+                System.out.println("Vous ne possèdez pas assez de point d'action pour cette action");
+            }
+            if (consommationDePA){partieActuelle.getJoueurActuel().setPa(partieActuelle.getJoueurActuel().getPa()-1);}
+            //System.out.println("("+partieActuelle.getJoueurActuel().getAbsysseActuelle()+";"+partieActuelle.getJoueurActuel().getOrdonneeActuelle()+")");
+            sc.nextLine();
+            this.seDeplacer();
+        }else{
+            System.out.println("Tant qu'il y aura des zombies, vous ne pourrez pas vous déplacer. Alors dégommez les!");
+            this.retournerMenu(1);
+        }
+        
+    }
+    
+    public void interagirCase(char choix) {
+        boolean joueurMort=false;
+        if(partieActuelle.getJoueurActuel().getIndiceCase()!=338){
+            if(choix=='C'||choix=='E'||choix=='I'||choix=='B'){
+                choix='K';
+            }
+            if(!tabGrille[partieActuelle.getJoueurActuel().getIndiceCase()].getFouillee()){
+                if(choix=='M'||choix=='A'||choix=='O'){
+                    choix='K';
+                }
+            }
+        }
+        if(!tabGrille[partieActuelle.getJoueurActuel().getIndiceCase()].getFouillee()||tabGrille[partieActuelle.getJoueurActuel().getIndiceCase()].getNbZombiesRestants()==0||choix=='A'){
+            switch (choix) {
+                case 'C':   partieActuelle.getMaVille().afficherConstruction(partieActuelle.getMonJournal());
+                            System.out.println("Souhaitez-vous construire un nouveau batiment ?");
+                            if(conversionBoolean(sc.next())){
+                                partieActuelle.getMaVille().getBatiment();
                             }
+                            break;
+                case 'E':   partieActuelle.getMaVille().afficherEntrepot();
+                            break;
+                case 'I':   if(partieActuelle.getJoueurActuel().getPa()>0){
+                                consommationDePA=partieActuelle.getMaVille().ouverturePorte();
+                                if (consommationDePA){partieActuelle.getJoueurActuel().setPa(partieActuelle.getJoueurActuel().getPa()-1);}
+                            }else{
+                                System.out.println("Vous ne possèdez pas assez de point d'action pour cette action");
+                            }
+
+                            break;
+
+                case 'B':   System.out.println("Voulez vous remplir une gourde ?(Y/n)");
+                            if(conversionBoolean(sc.next())){
+                                if(partieActuelle.getJoueurActuel().getSac().size()<10){
+                                            partieActuelle.getJoueurActuel().getSac().add(partieActuelle.getMaVille().remplirGourde());
+                                        }else{
+                                            System.out.println("Il n'y a plus de place dans votre sac");
+                                        }
+                            }
+                            break;
+                case 'M':   System.out.println("Voulez vous prendre une ration ?(O/N)");
+                            if(conversionBoolean(sc.next())){
+                                if(partieActuelle.getJoueurActuel().getSac().size()<10){
+                                            partieActuelle.getJoueurActuel().getSac().add(partieActuelle.getMaVille().prendreRation());
+                                        }else{
+                                            System.out.println("Il n'y a plus de place dans votre sac");
+                                        }
+                            }
+                            break;
+                case 'F':   consommationDePA=tabGrille[partieActuelle.getJoueurActuel().getIndiceCase()].fouiller();
+                            if(consommationDePA){
+                                partieActuelle.getJoueurActuel().setPa(partieActuelle.getJoueurActuel().getPa()-1);
+                            }
+                            break;
+                case 'A':   System.out.println("\nIl y a "+tabGrille[partieActuelle.getJoueurActuel().getIndiceCase()].getNbZombiesRestants() +"zombies sur cette case");
+                            if(tabGrille[partieActuelle.getJoueurActuel().getIndiceCase()].getNbZombiesRestants()!=0){
+                            System.out.println("\nSouhaitez vous les attaquer ?(O/N)");
+                            if(conversionBoolean(sc.next())){
+                                joueurMort=tabGrille[partieActuelle.getJoueurActuel().getIndiceCase()].attaquer(partieActuelle.getJoueurActuel());
+                                System.out.println("\nIl reste "+tabGrille[partieActuelle.getJoueurActuel().getIndiceCase()].getNbZombiesRestants()+" sur cette case. ");
+                            }    
+                            }
+                            if(joueurMort){
+                            if(partieActuelle.dernierJoueur()){partieActuelle.finDePartie();}else{finirTour();}}
+                            break;
+                case 'O':   
                             break;
                 case 'R':   this.retournerMenu(1);
                             break;
                 default :   System.out.println("\nEntrez une lettre correspond au menu");
-                            this.seDeplacer();
-            }
+                            this.interagirCase(afficher(2));
+            }    
         }else{
-            System.out.println("Vous ne possèdez pas assez de point d'action pour cette action");
+            System.out.println("\nTant qu'il y aura des zombies, vous ne pourrez rien faire sur cette case. Alors attaquez-les!");
         }
-        if (consommationDePA){partieActuelle.getJoueurActuel().setPa(partieActuelle.getJoueurActuel().getPa()-1);}
-        //System.out.println("("+partieActuelle.getJoueurActuel().getAbsysseActuelle()+";"+partieActuelle.getJoueurActuel().getOrdonneeActuelle()+")");
-        sc.nextLine();
-        this.seDeplacer();
-    }
-    
-    public void interagirCase(char choix) {
         
-        if(partieActuelle.getJoueurActuel().getAbsysseActuelle()!= partieActuelle.getGrille().getxVille() || partieActuelle.getJoueurActuel().getOrdonneeActuelle()!=partieActuelle.getGrille().getyVille()){
-            if(choix=='C'||choix=='E'||choix=='I'||choix=='B'){
-                choix='K';
-            }
-        }
-        switch (choix) {
-            case 'C':   partieActuelle.getMaVille().afficherConstruction(partieActuelle.getMonJournal());
-                        System.out.println("Souhaitez-vous construire un nouveau batiment ?");
-                        if(conversionBoolean(sc.next())){
-                            partieActuelle.getMaVille().getBatiment();
-                        }
-                        break;
-            case 'E':   partieActuelle.getMaVille().afficherEntrepot();
-                        break;
-            case 'I':   if(partieActuelle.getJoueurActuel().getPa()>0){
-                            consommationDePA=partieActuelle.getMaVille().ouverturePorte();
-                            if (consommationDePA){partieActuelle.getJoueurActuel().setPa(partieActuelle.getJoueurActuel().getPa()-1);}
-                        }else{
-                            System.out.println("Vous ne possèdez pas assez de point d'action pour cette action");
-                        }
-            
-                        break;
-            
-            case 'B':   System.out.println("Voulez vous remplir une gourde ?(Y/n)");
-                        if(conversionBoolean(sc.next())){
-                            if(partieActuelle.getJoueurActuel().getSac().size()<10){
-                                        partieActuelle.getJoueurActuel().getSac().add(partieActuelle.getMaVille().remplirGourde());
-                                    }else{
-                                        System.out.println("Il n'y a plus de place dans votre sac");
-                                    }
-                        }
-                        break;
-            case 'M':   System.out.println("Voulez vous prendre une ration ?(O/N)");
-                        if(conversionBoolean(sc.next())){
-                            if(partieActuelle.getJoueurActuel().getSac().size()<10){
-                                        partieActuelle.getJoueurActuel().getSac().add(partieActuelle.getMaVille().prendreRation());
-                                    }else{
-                                        System.out.println("Il n'y a plus de place dans votre sac");
-                                    }
-                        }
-                        break;
-            case 'F':   if(partieActuelle.getJoueurActuel().getIndiceCase()!=338){
-                         tabGrille[partieActuelle.getJoueurActuel().getIndiceCase()].fouiller();
-                        }
-            case 'R':   this.retournerMenu(1);
-                        break;
-            default :   System.out.println("\nEntrez une lettre correspond au menu");
-                        this.menuNiveauUn(afficher(2));
-        }
         this.retournerMenu(1);
         
     }
     
-    public void interagirSac( char choix){
+    public void interagirSac(char choix){
         switch(choix){
             case 'B':   if(!partieActuelle.getJoueurActuel().getDejaBu()){
                             if(partieActuelle.getJoueurActuel().getPa()>0){
@@ -411,7 +443,11 @@ public class Menu {
             case 2:     if(partieActuelle.getJoueurActuel().getAbsysseActuelle()== partieActuelle.getGrille().getxVille() && partieActuelle.getJoueurActuel().getOrdonneeActuelle()==partieActuelle.getGrille().getyVille()){
                             System.out.println("\nConstruire(C)\nConsulter l'entrepot(E)\nInteragir avec la porte(I)\nRemplir une gourde(B)\nPrendre une ration(M)\nRetour(R)\n");
                         }else{
-                            System.out.println("\nFouiller la case(F)\nRetour(R)");
+                            if(tabGrille[partieActuelle.getJoueurActuel().getIndiceCase()].getFouillee()){
+                                System.out.println("\nAttaquer les zombies(A)\nRécolter les objets(O)\nRetour(R)");
+                            }else{
+                                System.out.println("\nFouiller la case(F)\nRetour(R)");
+                            }
                         }
                         System.out.println("Quel est votre choix ?\n");
                         return this.verification(sc.next(),0);

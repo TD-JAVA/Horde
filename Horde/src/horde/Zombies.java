@@ -22,8 +22,12 @@ public class Zombies {
         this.nbZombiesCase = nbZombiesCase;
     }
     
+    public Zombies(){
     
-    public int nbZombies(Temps Temps){
+    }
+    
+    
+    public int attaqueNuitZombies(Temps Temps){
         Random ra = new Random();
         if(Temps.getNbJour()==1){
         this.nbZombies = ra.nextInt(20 - 10);
@@ -39,8 +43,13 @@ public class Zombies {
     
     public int nbZombiesCase(){
         Random ra = new Random();
-        this.nbZombiesCase = ra.nextInt(7 - 0); 
-        return this.nbZombiesCase;
+        this.nbZombiesCase = ra.nextInt(10 - 0); 
+        if(this.nbZombiesCase>3){
+            return this.nbZombiesCase-3;
+        }else{
+            return 0;
+        }
+        
     }
     
     public int listeJoueursMort(){
