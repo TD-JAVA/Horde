@@ -5,6 +5,7 @@
  */
 package horde;
 
+import static horde.Menu.conversionBoolean;
 import static horde.Menu.conversionCaractere;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -19,7 +20,8 @@ public class Ville extends Case {
     private String[] tabItems= {"Planche","Clou","Boisson énergissante"};
     private int nbRation=50;
     private int tauxDefense;
-    ArrayList<Construction> batiment = new ArrayList<Construction>(6); // valeur par défaut//
+    ArrayList<Construction> batiment = new ArrayList<Construction>(7); // valeur par défaut//
+    ArrayList<Construction> batimentEnCours = new ArrayList<Construction>(7); // valeur par défaut//
     private boolean ouverturePorte = true;
 
     public Ville(int nbRation, int tauxDefense, int longitude, int lattitude) {
@@ -59,80 +61,54 @@ public class Ville extends Case {
 
     }
     
-    public Construction[] afficherConstruction(Journal Journal){
+    public ArrayList<Construction> afficherConstruction(Journal Journal){
         return Journal.getTabConstruction();
     }
 
-    public void construire(Jeu partie) {
-        Construction c;
-        int[] ressource;
-        System.out.println("Chaque construction coute un point d'action. Quelle construction souhaitez vous batir ?");
-        char choix = conversionCaractere('R');
-        switch (choix) {
-            case '1':
-                if (this.entrepot[1] >= 20 && this.entrepot[2] >= 5 && partie.getJoueurActuel().getPa() >= 10) {
-                    ressource = new int[]{20, 5};
-                    c = new Construction("Mur d’enceinte", ressource, 10, 20);
-                } else {
-                    System.out.println("Ressources ou points d'action inssufisants");
-                }
-                break;
-
-            case '2':
-                if (this.entrepot[1] >= 20 && this.entrepot[2] >= 30 && partie.getJoueurActuel().getPa() >= 20) {
-                    ressource = new int[]{20, 30};
-                    c = new Construction("Fils barbelés", ressource, 20, 30);
-                } else {
-                    System.out.println("Ressources ou points d'action inssufisants");
-                }
-                break;
-
-            case '3':
-                if (this.entrepot[1] >= 50 && this.entrepot[2] >= 25 && partie.getJoueurActuel().getPa() >= 30) {
-                    ressource = new int[]{50, 25};
-                    c = new Construction("Fosses à zombies", ressource, 30, 50);
-                } else {
-                    System.out.println("Ressources ou points d'action inssufisants");
-                }
-                break;
-
-            case '4':
-                if (this.entrepot[1] >= 10 && this.entrepot[2] >= 50 && partie.getJoueurActuel().getPa() >= 30) {
-                    ressource = new int[]{10, 50};
-                    c = new Construction("Mines autour de la ville", ressource, 30, 50);
-                } else {
-                    System.out.println("Ressources ou points d'action inssufisants");
-                }
-                break;
-
-            case '5':
-                if (this.entrepot[1] >= 50 && this.entrepot[2] >= 50 && partie.getJoueurActuel().getPa() >= 40) {
-                    ressource = new int[]{50, 50};
-                    c = new Construction("Portes blindées", ressource, 40, 100);
-                } else {
-                    System.out.println("Ressources ou points d'action inssufisants");
-                }
-                break;
-
-            case '6':
-                if (this.entrepot[1] >= 75 && this.entrepot[2] >= 75 && partie.getJoueurActuel().getPa() >= 50) {
-                    ressource = new int[]{75, 75};
-                    c = new Construction("Portes blindées", ressource, 50, 200);
-                } else {
-                    System.out.println("Ressources ou points d'action inssufisants");
-                }
-                break;
-
-            case '7':
-                if (this.entrepot[1] >= 100 && this.entrepot[2] >= 200 && partie.getJoueurActuel().getPa() >= 60) {
-                    ressource = new int[]{100, 200};
-                    c = new Construction("Portes blindées", ressource, 60, 500);
-                } else {
-                    System.out.println("Ressources ou points d'action inssufisants");
-                }
-                break;
+    public void construire(Jeu partie,int choix) {
+        System.out.println("Chaque construction coute un point d'action.");
+        boolean batimentDejaFait=false;
+        for(int i=0;i<batiment.size();i++){
+            if(partie.getMonJournal().getConstruction(choix).getNom().equals(batimentEnCours.get(i).getNom())||partie.getMonJournal().getConstruction(choix).getNom().equals(batiment.get(i).getNom())){
+                batimentDejaFait=true;
+            }
         }
+        if(!batimentDejaFait){
+            if (this.entrepot[1] >=partie.getMonJournal().getConstruction(choix).getRessources_necessaire().get(0)  && this.entrepot[2] >= partie.getMonJournal().getConstruction(choix).getRessources_necessaire().get(1) && partie.getJoueurActuel().getPa() >= 1) {
+                partie.getJoueurActuel().setPa(partie.getJoueurActuel().getPa()-1);
+                batimentEnCours.add(partie.getMonJournal().getConstruction(choix));
+            } else {
+                System.out.println("Ressources ou points d'action insuffisants");
+            }
+        }else{
+            System.out.println("Ce batiment est déjà fait");
+        }    
     }
+    
+    public String[] participerAuChantier(Joueur ceJoueur){
+        String[] fini={"",""};
+        int num,pointUse;
+        System.out.println(afficherConstructionEnCours());
+        System.out.println("Quel est votre choix ?\n");
+        num=Menu.donnerReponseChiffre(batimentEnCours.size()-1);
+        
+        System.out.println("Il reste "+batimentEnCours.get(num).getConso_pa()+" points d'action à dépenser pour terminer ce batiment.");
+        System.out.println("Souhaitez vous investir ?(O/N)");
+        if(Menu.conversionBoolean(sc.next())){
+            System.out.println("Combien de points d'action souhaitez vous utiliser ?");
+            num=Menu.donnerReponseChiffre(ceJoueur.getPa());
+            pointUse=batimentEnCours.get(num).getConso_pa();
+            if(batimentEnCours.get(num).setConso_pa((batimentEnCours.get(num).getConso_pa()-num))){
+                fini[0]="Y";
+                fini[1]=batimentEnCours.get(num).getNom();
+                ceJoueur.setPa(ceJoueur.getPa()-pointUse);
+            }else{
+                ceJoueur.setPa(0);
+            }
+        }
+        return fini;
+    }
+    
     
     public String consulterEntrepot(){
          String tabEntrepot="";
@@ -184,6 +160,22 @@ public class Ville extends Case {
 
     }
     
+    public String afficherConstruction() {
+        String tabNom="\nNom de la construction - Réssistance\n";
+        for(int i=0;i<batiment.size();i++){
+            tabNom+=batiment.get(i).getNom()+" - "+batiment.get(i).getResistance()+"\n";
+        }
+        return tabNom;
+    }
+    
+    public String afficherConstructionEnCours() {
+        String tabNom="\nNom de la construction - PA - Réssistance\n";
+        for(int i=0;i<batimentEnCours.size();i++){
+            tabNom+=batimentEnCours.get(i).getNom()+" - "+batimentEnCours.get(i).getConso_pa()+" - "+batimentEnCours.get(i).getResistance()+"\n";
+        }
+        return tabNom;
+    }
+    
     public void boire() {
 
     }
@@ -223,9 +215,16 @@ public class Ville extends Case {
     public ArrayList<Construction> getBatiment() {
         return batiment;
     }
-
+    
+    public ArrayList<Construction> getBatimentEnCours() {
+        return batimentEnCours;
+    }
     public void setBatiment(ArrayList<Construction> construction) {
         this.batiment = construction;
+    }
+    
+    public void setNouveauBatiment(Construction construction){
+        this.batiment.add(construction);
     }
 
 }
