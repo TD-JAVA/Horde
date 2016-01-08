@@ -6,6 +6,7 @@
 package horde;
 
 import static horde.Menu.conversionCaractere;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -18,7 +19,7 @@ public class Ville extends Case {
     private String[] tabItems= {"Planche","Clou","Boisson énergissante"};
     private int nbRation=50;
     private int tauxDefense;
-    Construction[] batiment = new Construction[6]; // valeur par défaut//
+    ArrayList<Construction> batiment = new ArrayList<Construction>(6); // valeur par défaut//
     private boolean ouverturePorte = true;
 
     public Ville(int nbRation, int tauxDefense, int longitude, int lattitude) {
@@ -142,12 +143,16 @@ public class Ville extends Case {
         return tabEntrepot;
     }
 
-    public int defenseVille(boolean porteOuverte) {
+    public int defenseVille() {
         this.tauxDefense = 0;
-        if (porteOuverte == false) {
+        if (!ouverturePorte) {
             this.tauxDefense = 20;
-        } else {
-            System.out.print("La porte est ouverte !");
+            if(!batiment.isEmpty())
+            {
+                for(int i=0;i<batiment.size();i++){
+                    this.tauxDefense+=batiment.get(i).getResistance();
+                }
+            }
         }
         return this.tauxDefense;
     }
@@ -215,11 +220,11 @@ public class Ville extends Case {
         this.nbRation = nbRation;
     }
 
-    public Construction[] getBatiment() {
+    public ArrayList<Construction> getBatiment() {
         return batiment;
     }
 
-    public void setBatiment(Construction[] construction) {
+    public void setBatiment(ArrayList<Construction> construction) {
         this.batiment = construction;
     }
 

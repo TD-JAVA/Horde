@@ -38,9 +38,7 @@ public class Jeu {
     public int getNombreJoueur(){return nombreJoueur;}    
     public void setIndexJoueurActuel(int i){indexJoueurActuel=i;}    
     public int getIndexJoueurActuel(){return indexJoueurActuel;}
-    public void setJoueurActuel(int i){
-        if(nombreJoueur==1){finDePartie();}else{System.out.println(i+" "+nombreJoueur+"");joueurActuel=tabJoueur.get(i);}
-        }    
+    public void setJoueurActuel(int i){if(nombreJoueur==1){finDePartie();}else{joueurActuel=tabJoueur.get(i);}}    
     public Joueur getJoueurActuel(){return joueurActuel;}
     public boolean getPartie(){return partieDemarree;}
     public void setPartie(boolean demarree){
@@ -94,15 +92,31 @@ public class Jeu {
     }
     
     public boolean dernierJoueur(){
-        
-        
+        String str="";
+        if(!tempsPartie.getNuit()){
             System.out.println("\nVous êtes mort ! Fin de partie pour vous.");
-            String str= "\n"+joueurActuel.getNom()+" est décédé(e) le "+tempsPartie.getNumTour()+" tour(s) du jour"+tempsPartie.getNbJour()+" par une attaque de zombies";
+            str= "\n"+joueurActuel.getNom()+" est décédé(e) le "+tempsPartie.getNumTour()+" tour(s) du jour"+tempsPartie.getNbJour()+" par une attaque de zombies";
+        }else{
+            str= "\n"+joueurActuel.getNom()+" est décédé(e) dans la nuit du jour"+tempsPartie.getNbJour()+" par une attaque de zombies";
+        }
             monJournal.ajouterListeDeMorts(str);
             nombreJoueur-=1;
             getTabJoueur().remove(getIndexJoueurActuel());
             if(getNombreJoueur()<=1){return true;}else{return false;}
-        
+    }
+    
+    public boolean dernierJoueur(Joueur joueur,int i){
+        String str="";
+        if(!tempsPartie.getNuit()){
+            System.out.println("\nVous êtes mort ! Fin de partie pour vous.");
+            str= "\n"+joueur.getNom()+" est décédé(e) le "+tempsPartie.getNumTour()+" tour(s) du jour"+tempsPartie.getNbJour()+" par une attaque de zombies";
+        }else{
+            str= "\n"+joueur.getNom()+" est décédé(e) dans la nuit du jour"+tempsPartie.getNbJour()+" par une attaque de zombies";
+        }
+            monJournal.ajouterListeDeMorts(str);
+            nombreJoueur-=1;
+            getTabJoueur().remove(i);
+            if(getNombreJoueur()<=1){return true;}else{return false;}
     }
 
     public void finDePartie(){

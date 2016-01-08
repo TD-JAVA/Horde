@@ -34,6 +34,10 @@ public class Case {
         this.caseTrouve = false;
     }
     
+    public Zombies getZombies(){
+        return zomb;
+    }
+    
     public boolean getFouillee(){
         return fouillee;
     }
