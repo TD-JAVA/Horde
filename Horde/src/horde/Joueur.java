@@ -38,8 +38,7 @@ public class Joueur {
   
     //Tableau de 10 objets
     private ArrayList<Item> sac = new ArrayList<Item>(10);
-    private ArrayList<String> carteJoueur = new ArrayList<String>(625);
-
+    private ArrayList<String> carteJoueur = new ArrayList<String>();
    
     
     public int getOrdonneeActuelle() {

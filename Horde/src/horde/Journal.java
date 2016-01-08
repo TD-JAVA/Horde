@@ -14,7 +14,8 @@ import java.util.ArrayList;
 public class Journal {
     private ArrayList<String> listeDeMorts=new ArrayList<String>(19);
     private Construction[] tabConstruction=new Construction[7];
-    private ArrayList<String> carte = new ArrayList<String>(10);
+    private ArrayList<String> carte = new ArrayList<String>(625);
+    
     
     public Construction[] getTabConstruction(){
         return tabConstruction;
@@ -39,7 +40,9 @@ public class Journal {
         tabConstruction[5]= new Construction("Miradors avec mitrailleuses",tab5,50,200);
         int tab6 []={100,200};
         tabConstruction[6]= new Construction("Abris anti-atomique",tab6,60,500);
-        
+        for(int i =0;i<625;i++){
+            carte.add(i," ");
+        }
     }
 // Permet de voir la liste et les détails des constructions
     public String consulterConstruction() {
@@ -131,11 +134,33 @@ public class Journal {
     }
     
     public void miseAJourCarte(Joueur joueur){
-        //x = joueur.getAbsysseActuelle()
-        System.out.println(joueur.getAbsysseActuelle());
+    
+        //System.out.println(joueur.getIndiceCase());
+       int index = 0;
+     
+       while(!joueur.getCarteJoueur().isEmpty()){
+           String indice[] = joueur.getCarteJoueur().get(0).split(":");
+           index = Integer.parseInt(indice[0]);
+           if (!carte.get(joueur.getIndiceCase()).isEmpty()){
+                carte.remove(joueur.getIndiceCase());
+           }
+            carte.add(index,indice[1]);
+            joueur.getCarteJoueur().remove(0);
+            
+        }
+       System.out.println("La carte a été mise à jour");
     }
     
     public void voirCarte(){
-        System.out.println("voir carte");
+        int j=0;
+        for(int i=0;i<carte.size();i++){
+            if(j==25){
+                  System.out.println("|  |\n");
+                  j=0;
+            }
+            else{
+                System.out.println("|  |");
+            }
+        }
     }
 }
