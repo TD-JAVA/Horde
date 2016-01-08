@@ -71,14 +71,15 @@ public class Case {
 
   }
 
-    public void attaquer(Joueur ceJoueur){
+    public boolean attaquer(Joueur ceJoueur){
         int pourcentage;
+        boolean changement=false;
         if(ceJoueur.getPa()>=nbZombiesRestants){
             for(int i=0; i<nbZombiesRestants;i++){
                 ceJoueur.setPa(ceJoueur.getPa()-1);
                 pourcentage = ra.nextInt(100); // numéro aléatoire en 0 et 100
                     if(pourcentage <=10){ // conditon pour les 10% de chances de perdre de la vie
-                        ceJoueur.setPdv(ceJoueur.getPdv()-10);
+                        changement=ceJoueur.setPdv(ceJoueur.getPdv()-10);
                     }
             }
             nbZombiesRestants=0;
@@ -87,10 +88,12 @@ public class Case {
                 nbZombiesRestants-=1;
                 pourcentage = ra.nextInt(100); // numéro aléatoire en 0 et 100
                     if(pourcentage <=10){ // conditon pour les 10% de chances de perdre de la vie
-                        ceJoueur.setPdv(ceJoueur.getPdv()-10);
+                        changement=ceJoueur.setPdv(ceJoueur.getPdv()-10);
                     }
             }
             ceJoueur.setPa(0);
         }
+        return changement;
     }
+    
   }

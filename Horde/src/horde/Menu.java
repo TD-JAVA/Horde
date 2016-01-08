@@ -102,7 +102,8 @@ public class Menu {
         switch (choix) {
             case 'Q':   this.quitter();
                         break;
-            case 'D':   this.demarrer(this.getPartieActuelle());
+            case 'D':   this.getPartieActuelle().lancerJeu();
+                        //this.demarrer(this.getPartieActuelle());
                         break;
             case 'S':   this.menuNiveauUn(Menu.conversionCaractere(this.afficher(1)));
                         break;
@@ -277,7 +278,7 @@ public class Menu {
     }
     
     public void interagirCase(char choix) {
-        
+        boolean joueurMort=false;
         if(partieActuelle.getJoueurActuel().getIndiceCase()!=338){
             if(choix=='C'||choix=='E'||choix=='I'||choix=='B'){
                 choix='K';
@@ -334,11 +335,12 @@ public class Menu {
                             if(tabGrille[partieActuelle.getJoueurActuel().getIndiceCase()].getNbZombiesRestants()!=0){
                             System.out.println("\nSouhaitez vous les attaquer ?(O/N)");
                             if(conversionBoolean(sc.next())){
-                                tabGrille[partieActuelle.getJoueurActuel().getIndiceCase()].attaquer(partieActuelle.getJoueurActuel());
+                                joueurMort=tabGrille[partieActuelle.getJoueurActuel().getIndiceCase()].attaquer(partieActuelle.getJoueurActuel());
                                 System.out.println("\nIl reste "+tabGrille[partieActuelle.getJoueurActuel().getIndiceCase()].getNbZombiesRestants()+" sur cette case. ");
                             }    
                             }
-
+                            if(joueurMort){
+                            if(partieActuelle.dernierJoueur()){partieActuelle.finDePartie();}else{finirTour();}}
                             break;
                 case 'O':   
                             break;

@@ -102,8 +102,13 @@ public class Joueur {
     /**
      * @param pdv the pdv to set
      */
-    public void setPdv(int pdv) {
+    public boolean setPdv(int pdv) {
         this.pdv = pdv;
+        boolean changement=false;
+        if(this.pdv<=0){
+            changement=true;
+        }
+        return changement;
     }
 
     /**
