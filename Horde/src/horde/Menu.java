@@ -280,7 +280,7 @@ public class Menu {
     public void interagirCase(char choix) {
         boolean joueurMort=false;
         if(partieActuelle.getJoueurActuel().getIndiceCase()!=338){
-            if(choix=='C'||choix=='E'||choix=='I'||choix=='B'){
+            if(choix=='C'||choix=='E'||choix=='I'||choix=='B'||choix=='D'||choix=='P'){
                 choix='K';
             }
             if(!tabGrille[partieActuelle.getJoueurActuel().getIndiceCase()].getFouillee()){
@@ -291,10 +291,12 @@ public class Menu {
         }
         if(!tabGrille[partieActuelle.getJoueurActuel().getIndiceCase()].getFouillee()||tabGrille[partieActuelle.getJoueurActuel().getIndiceCase()].getNbZombiesRestants()==0||choix=='A'){
             switch (choix) {
-                case 'C':   partieActuelle.getMaVille().afficherConstruction(partieActuelle.getMonJournal());
-                            System.out.println("Souhaitez-vous construire un nouveau batiment ?");
+                case 'C':   
+                            System.out.println("Souhaitez-vous construire un nouveau batiment ?(O/N)");
                             if(conversionBoolean(sc.next())){
-                                partieActuelle.getMaVille().getBatiment();
+                                System.out.println(partieActuelle.getMonJournal().consulterConstruction());
+                                System.out.println("Quelle construction souhaitez vous construire ?");
+                                partieActuelle.getMaVille().construire(partieActuelle, donnerReponseChiffre(6) );
                             }
                             break;
                 case 'E':   partieActuelle.getMaVille().afficherEntrepot();
@@ -307,7 +309,14 @@ public class Menu {
                             }
 
                             break;
-
+                case 'P':   String[] str=partieActuelle.getMaVille().participerAuChantier(partieActuelle.getJoueurActuel());
+                            if(conversionBoolean(str[0])){
+                                partieActuelle.getMaVille().setNouveauBatiment(partieActuelle.getMonJournal().getConstruction(str[1]));
+                            }
+                            break;
+                case 'D':   System.out.println(partieActuelle.getMaVille().afficherConstruction());
+                            System.out.println("Votre total défense est de :"+partieActuelle.getMaVille().defenseVille());
+                            break;
                 case 'B':   System.out.println("Voulez vous remplir une gourde ?(Y/n)");
                             if(conversionBoolean(sc.next())){
                                 if(partieActuelle.getJoueurActuel().getSac().size()<10){
@@ -439,7 +448,7 @@ public class Menu {
                         return this.verification(sc.next(),0);
                 
             case 2:     if(partieActuelle.getJoueurActuel().getAbsysseActuelle()== partieActuelle.getGrille().getxVille() && partieActuelle.getJoueurActuel().getOrdonneeActuelle()==partieActuelle.getGrille().getyVille()){
-                            System.out.println("\nConstruire(C)\nConsulter l'entrepot(E)\nInteragir avec la porte(I)\nRemplir une gourde(B)\nPrendre une ration(M)\nRetour(R)\n");
+                            System.out.println("\nConstruire(C)\nParticiper aux chantiers(P)\nConsulter les défenses(D)\nConsulter l'entrepot(E)\nInteragir avec la porte(I)\nRemplir une gourde(B)\nPrendre une ration(M)\nRetour(R)\n");
                         }else{
                             if(tabGrille[partieActuelle.getJoueurActuel().getIndiceCase()].getFouillee()){
                                 System.out.println("\nAttaquer les zombies(A)\nRécolter les objets(O)\nRetour(R)");
@@ -535,6 +544,21 @@ public class Menu {
     public static char conversionChar(String str){
         char[] lettres =  str.toCharArray();
         return lettres[0];
+    }
+    
+    public static int donnerReponseChiffre(int max){
+        String str;
+        int longueur,num;
+        Scanner sc = new Scanner(System.in);
+        char[] lettres;
+        do{
+            System.out.println("Saississez un nombre entre 0 et "+max);
+            str=sc.next();
+            longueur=str.length();
+            lettres=str.toCharArray();
+        }while(longueur!=1 &&((int)(lettres[0])>57 ||(int)(lettres[0])<49));
+        num=Integer.parseInt(str);
+        return num;
     }
     
     /**********************Fin des outils************************/

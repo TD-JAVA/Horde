@@ -6,6 +6,7 @@
 package horde;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -13,17 +14,47 @@ import java.util.ArrayList;
  */
 public class Journal {
     private ArrayList<String> listeDeMorts=new ArrayList<String>(19);
+<<<<<<< HEAD
+    private ArrayList<Construction> tabConstruction=new ArrayList<Construction>(7);
+=======
     private Construction[] tabConstruction=new Construction[7];
     private ArrayList<String> carte = new ArrayList<String>(625);
     
+>>>>>>> 395c882a2c5008df2136bd3cad19fdda4f09ed92
     
-    public Construction[] getTabConstruction(){
+    public ArrayList<Construction> getTabConstruction(){
         return tabConstruction;
     }
     
-    public Construction getIndexConstruction(int a){
-        return tabConstruction[a];
+    public Construction getConstruction(int a){
+        return tabConstruction.get(a);
     }
+<<<<<<< HEAD
+    public Construction getConstruction(String a){
+     int i=0;
+        while(!tabConstruction.get(i).getNom().equals(a)){
+            i++;
+        }
+        if(tabConstruction.get(i).getNom().equals(a)){return tabConstruction.get(i);}else{ return null;}
+        
+     }
+    public Journal(){
+        ArrayList tab=new ArrayList(2);
+        tab.add(0, 10);tab.add(1,20);
+        tabConstruction.add(0,new Construction("Mur d'enceinte",tab,10,20));
+        tab.add(0, 10);tab.add(1,20);
+        tabConstruction.add(1,new Construction("Fils barbelés",tab,20,30));
+        tab.add(0, 50);tab.add(1,25);
+        tabConstruction.add(2,new Construction("Fosses à Zombies",tab,30,50));
+        tab.add(0, 10);tab.add(1,50);
+        tabConstruction.add(3,new Construction("Mines autour de la ville",tab,30,50));
+        tab.add(0, 50);tab.add(1,50);
+        tabConstruction.add(4,new Construction("Portes blindées",tab,40,100));
+        tab.add(0, 75);tab.add(1,75);
+        tabConstruction.add(5,new Construction("Miradors avec mitrailleuses",tab,50,200));
+        tab.add(0, 100);tab.add(1,200);
+        tabConstruction.add(6,new Construction("Abris anti-atomique",tab,60,500));
+=======
     
     public Journal(){
         int tab []={20,5};    
@@ -43,12 +74,13 @@ public class Journal {
         for(int i =0;i<625;i++){
             carte.add(i,"");
         }
+>>>>>>> 395c882a2c5008df2136bd3cad19fdda4f09ed92
     }
 // Permet de voir la liste et les détails des constructions
     public String consulterConstruction() {
-        String tabNom="";
-        for(int i=0;i<tabConstruction.length;i++){
-            tabNom+=tabConstruction[i].getNom()+'\n';
+        String tabNom="\n   Nom de la construction - Ressources nécessaires - PA - Réssistance\n";
+        for(int i=0;i<tabConstruction.size();i++){
+            tabNom+=i+" :"+tabConstruction.get(i).getNom()+" - "+tabConstruction.get(i).getRessources(0)+";"+tabConstruction.get(i).getRessources(1)+" - "+tabConstruction.get(i).getConso_pa()+" - +"+tabConstruction.get(i).getResistance()+"\n";
         }
         return tabNom;
     }

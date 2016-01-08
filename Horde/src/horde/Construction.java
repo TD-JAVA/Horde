@@ -3,20 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package horde;
+
+import java.util.ArrayList;
 
 /**
  *
  * @author Seb
  */
+
 public class Construction {
 
     //Nom de la construction
     private String nom;
 
     // les ressources necessaires pour la construction
-    private int[] ressources_necessaire;
-
+    private ArrayList<Integer> ressources_necessaire= new ArrayList<Integer>();
+    //private int[] ressources_necessaire;
     // nombre de points d'action utilisés pour cette construction
     private int conso_pa;
 
@@ -24,7 +28,7 @@ public class Construction {
     private int resistance;
 
     // Constructeur
-    public Construction(String nom, int[] ressources_necessaire, int conso_pa, int resistance) {
+    public Construction(String nom, ArrayList<Integer> ressources_necessaire, int conso_pa, int resistance) {
         this.nom = nom;
         this.ressources_necessaire = ressources_necessaire;
         this.conso_pa = conso_pa;
@@ -39,11 +43,14 @@ public class Construction {
         this.nom = nom;
     }
 
-    public int[] getRessources_necessaire() {
+    public ArrayList<Integer> getRessources_necessaire() {
         return ressources_necessaire;
     }
+    public int getRessources( int choix){
+        return ressources_necessaire.get(choix);
+    }
 
-    public void setRessources_necessaire(int[] ressources_necessaire) {
+    public void setRessources_necessaire(ArrayList ressources_necessaire) {
         this.ressources_necessaire = ressources_necessaire;
     }
 
@@ -51,8 +58,14 @@ public class Construction {
         return conso_pa;
     }
 
-    public void setConso_pa(int conso_pa) {
+    public boolean setConso_pa(int conso_pa) {
+        boolean fini=false;
         this.conso_pa = conso_pa;
+        if(this.conso_pa<=0){
+            this.conso_pa=0;
+            fini=true;
+        }
+        return fini;
     }
 
     public int getResistance() {
