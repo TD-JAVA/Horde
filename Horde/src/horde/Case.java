@@ -7,6 +7,7 @@ package horde;
 
 import static horde.Menu.conversionBoolean;
 import static horde.Menu.conversionCaractere;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -18,7 +19,7 @@ public class Case {
     protected int longitude;
     protected int latitude;
     protected int nbZombiesRestants;
-    private int[] items= new int[20]; // valeur par défault//
+    private ArrayList<Item> items= new ArrayList<Item>(); // valeur par défault//
     private boolean fouillee;
     private boolean caseTrouve;
     protected boolean laVille = false;
@@ -32,17 +33,34 @@ public class Case {
         this.nbZombiesRestants = 0;
         this.fouillee = false;
         this.caseTrouve = false;
+        this.items.add(0,new Item("Planche",0,Journal.consulterDescription(2)));
+        this.items.add(1,new Item("Plaque de métal",0,Journal.consulterDescription(3)));
+        this.items.add(2,new Item("Boisson énergissante",0,Journal.consulterDescription(4)));
     }
     
     public Zombies getZombies(){
         return zomb;
     }
     
+    public String afficherItems(){
+        String tabItem="\n";
+        for(int i=0;i<items.size();i++){
+            tabItem+=i+" | "+items.get(i).getNom()+" | "+items.get(i).getQuantite()+'\n';
+        }
+   
+        return tabItem;
+    }
+    
+    
     public boolean getFouillee(){
         return fouillee;
     }
     public int getNbZombiesRestants(){
         return nbZombiesRestants;
+    }
+    
+    public ArrayList<Item> getItem(){
+        return items;
     }
     
         public void caseTrouve(Jeu partie){ // peut étre inutile j'en avais besoin pour aider à faire mon code

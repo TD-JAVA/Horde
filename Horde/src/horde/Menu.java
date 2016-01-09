@@ -5,6 +5,7 @@
  */
 package horde;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -16,7 +17,7 @@ public class Menu {
     //Variable memoire pour conserver le menu et le jeu 
     private Jeu partieActuelle;
     private Menu menuActuel;
-    private Case[] tabGrille;
+    private ArrayList<Case> tabGrille;
     private Scanner sc = new Scanner(System.in);
     private boolean consommationDePA;
 
@@ -166,7 +167,7 @@ public class Menu {
     }
     
     public void seDeplacer(){
-        if(!tabGrille[partieActuelle.getJoueurActuel().getIndiceCase()].getFouillee()||tabGrille[partieActuelle.getJoueurActuel().getIndiceCase()].getNbZombiesRestants()==0){
+        if(!tabGrille.get(partieActuelle.getJoueurActuel().getIndiceCase()).getFouillee()||tabGrille.get(partieActuelle.getJoueurActuel().getIndiceCase()).getNbZombiesRestants()==0){
                 System.out.println("Chaque déplacement coute un point d'action dans quelle direction souhaitez aller ?");
             System.out.println(partieActuelle.getJoueurActuel().getNom()+":("+partieActuelle.getJoueurActuel().getAbsysseActuelle()+";"+partieActuelle.getJoueurActuel().getOrdonneeActuelle()+")");
             System.out.println("Ville:("+partieActuelle.getGrille().getxVille()+";"+partieActuelle.getGrille().getyVille()+")");
@@ -283,13 +284,13 @@ public class Menu {
             if(choix=='C'||choix=='E'||choix=='I'||choix=='B'||choix=='D'||choix=='P'){
                 choix='K';
             }
-            if(!tabGrille[partieActuelle.getJoueurActuel().getIndiceCase()].getFouillee()){
+            if(!tabGrille.get(partieActuelle.getJoueurActuel().getIndiceCase()).getFouillee()){
                 if(choix=='M'||choix=='A'||choix=='O'){
                     choix='K';
                 }
             }
         }
-        if(!tabGrille[partieActuelle.getJoueurActuel().getIndiceCase()].getFouillee()||tabGrille[partieActuelle.getJoueurActuel().getIndiceCase()].getNbZombiesRestants()==0||choix=='A'){
+        if(!tabGrille.get(partieActuelle.getJoueurActuel().getIndiceCase()).getFouillee()||tabGrille.get(partieActuelle.getJoueurActuel().getIndiceCase()).getNbZombiesRestants()==0||choix=='A'){
             switch (choix) {
                 case 'C':   
                             System.out.println("Souhaitez-vous construire un nouveau batiment ?(O/N)");
@@ -299,7 +300,37 @@ public class Menu {
                                 partieActuelle.getMaVille().construire(partieActuelle, donnerReponseChiffre(6) );
                             }
                             break;
-                case 'E':   partieActuelle.getMaVille().afficherEntrepot();
+                case 'E':   partieActuelle.getMaVille().afficherEntrepot(partieActuelle.getMaVille().consulterEntrepot());
+                            System.out.println("Souhaitez vous prendre un objet ?(O/N)");
+                            if(conversionBoolean(sc.next())){
+                                System.out.println("Quel objet souhaitez vous prendre ?");
+                                int num=Menu.donnerReponseChiffre(partieActuelle.getMaVille().getEntrepot().length-1);
+                                    if(partieActuelle.getMaVille().getEntrepot()[num].getNom().equals("Ration")){
+                                        System.out.println("Voulez vous prendre une ration ?(O/N)");
+                                        if(conversionBoolean(sc.next())){
+                                            if(partieActuelle.getJoueurActuel().getSac().size()<10){
+                                                partieActuelle.getJoueurActuel().getSac().add(partieActuelle.getMaVille().prendreRation());
+                                            }else{
+                                                System.out.println("Il n'y a plus de place dans votre sac");
+                                            }
+                                        }
+                                    }else{
+                                        if(partieActuelle.getMaVille().getEntrepot()[num].getNom().equals("Boisson énergissante")){
+                                            System.out.println("Voulez vous prendre une boisson énergissante ?(O/N)");
+                                            if(conversionBoolean(sc.next())){
+                                                if(partieActuelle.getJoueurActuel().getSac().size()<10){
+                                                    partieActuelle.getJoueurActuel().getSac().add(partieActuelle.getMaVille().prendreBoisson());
+                                                }else{
+                                                    System.out.println("Il n'y a plus de place dans votre sac");
+                                                }
+                                            }   
+                                        }else{
+                                            System.out.println("Cet objet ne peut être mis dans le sac.");
+                                        }
+                                
+                                    }
+                            }
+                            
                             break;
                 case 'I':   if(partieActuelle.getJoueurActuel().getPa()>0){
                                 consommationDePA=partieActuelle.getMaVille().ouverturePorte();
@@ -335,23 +366,37 @@ public class Menu {
                                         }
                             }
                             break;
-                case 'F':   consommationDePA=tabGrille[partieActuelle.getJoueurActuel().getIndiceCase()].fouiller();
+                case 'F':   consommationDePA=tabGrille.get(partieActuelle.getJoueurActuel().getIndiceCase()).fouiller();
                             if(consommationDePA){
                                 partieActuelle.getJoueurActuel().setPa(partieActuelle.getJoueurActuel().getPa()-1);
                             }
                             break;
-                case 'A':   System.out.println("\nIl y a "+tabGrille[partieActuelle.getJoueurActuel().getIndiceCase()].getNbZombiesRestants() +"zombies sur cette case");
-                            if(tabGrille[partieActuelle.getJoueurActuel().getIndiceCase()].getNbZombiesRestants()!=0){
+                case 'A':   System.out.println("\nIl y a "+tabGrille.get(partieActuelle.getJoueurActuel().getIndiceCase()).getNbZombiesRestants() +"zombies sur cette case");
+                            if(tabGrille.get(partieActuelle.getJoueurActuel().getIndiceCase()).getNbZombiesRestants()!=0){
                             System.out.println("\nSouhaitez vous les attaquer ?(O/N)");
                             if(conversionBoolean(sc.next())){
-                                joueurMort=tabGrille[partieActuelle.getJoueurActuel().getIndiceCase()].attaquer(partieActuelle.getJoueurActuel());
-                                System.out.println("\nIl reste "+tabGrille[partieActuelle.getJoueurActuel().getIndiceCase()].getNbZombiesRestants()+" sur cette case. ");
+                                joueurMort=tabGrille.get(partieActuelle.getJoueurActuel().getIndiceCase()).attaquer(partieActuelle.getJoueurActuel());
+                                System.out.println("\nIl reste "+tabGrille.get(partieActuelle.getJoueurActuel().getIndiceCase()).getNbZombiesRestants()+" sur cette case. ");
                             }    
                             }
                             if(joueurMort){
                             if(partieActuelle.dernierJoueur()){partieActuelle.finDePartie();}else{finirTour();}}
                             break;
-                case 'O':   
+                case 'O':   System.out.println(partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).afficherItems());
+                            System.out.println("Souhaitez vous prendre un objet ?(O/N)");
+                            if(conversionBoolean(sc.next())){
+                                System.out.println("Quel objet souhaitez vous prendre ?");
+                                int num=Menu.donnerReponseChiffre(partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().size()-1);
+                                String nom=partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(num).getNom();
+                                String description=partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(num).getDescription();
+                                            if(partieActuelle.getJoueurActuel().getSac().size()<10){
+                                                partieActuelle.getJoueurActuel().getSac().add(new Item(nom,description));
+                                                partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(num).setQuantite(partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(num).getQuantite()-1);
+                                            }else{
+                                                System.out.println("Il n'y a plus de place dans votre sac");
+                                            }
+                                        }
+                            
                             break;
                 case 'R':   this.retournerMenu(1);
                             break;
@@ -416,7 +461,57 @@ public class Menu {
                                 System.out.println("Vous avez déjà mangé ce jour");            
                         }
                         break;
-            case 'V':
+            case 'V':   if(!partieActuelle.getJoueurActuel().getSac().isEmpty()){
+                            if(partieActuelle.getJoueurActuel().getIndiceCase()!=338){
+                            System.out.println("De quoi souhaitez vous vous séparer?");
+                            System.out.println(partieActuelle.getMonJournal().afficherContenuSac(partieActuelle.getJoueurActuel()));
+                            int num=Menu.donnerReponseChiffre(partieActuelle.getJoueurActuel().getSac().size()-1);
+                            System.out.println("Souhaitez vous vraiment jetter l'objet "+partieActuelle.getJoueurActuel().getSac().get(num).getNom()+ " ?(O/N)" );
+                            if(conversionBoolean(sc.next())){
+                                if(!partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals("Ration")&&!partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals("Gourde")){
+                                    if(partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals("Planche")){
+                                        partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(0).setQuantite(partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(0).getQuantite()+1);
+                                    }else{
+                                        if(partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals("Plaque de métal")){
+                                        partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(1).setQuantite(partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(1).getQuantite()+1);    
+                                        }else{  
+                                            partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(2).setQuantite(partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(2).getQuantite()+1);
+                                        }
+                                    }
+
+                                }
+                                partieActuelle.getJoueurActuel().getSac().remove(num);
+                            }
+                        }else{
+                            System.out.println("De quoi souhaitez vous vous séparer?");
+                            System.out.println(partieActuelle.getMonJournal().afficherContenuSac(partieActuelle.getJoueurActuel()));
+                            int num=Menu.donnerReponseChiffre(partieActuelle.getJoueurActuel().getSac().size()-1);
+                            if(!partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals("Gourde")){
+                                System.out.println("L'objet "+partieActuelle.getJoueurActuel().getSac().get(num).getNom()+" est mis dans l'entrepot");
+                                if(partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals("Ration")){
+                                    partieActuelle.getMaVille().getEntrepot()[0].setQuantite(partieActuelle.getMaVille().getEntrepot()[0].getQuantite()+1);
+                                }else{
+                                    if(partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals("Planche")){
+                                        partieActuelle.getMaVille().getEntrepot()[1].setQuantite(partieActuelle.getMaVille().getEntrepot()[1].getQuantite()+1);
+                                    }else{
+                                        if(partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals("Plaque de métal")){
+                                        partieActuelle.getMaVille().getEntrepot()[2].setQuantite(partieActuelle.getMaVille().getEntrepot()[2].getQuantite()+1);
+                                        }else{  
+                                            partieActuelle.getMaVille().getEntrepot()[3].setQuantite(partieActuelle.getMaVille().getEntrepot()[3].getQuantite()+1);
+                                        }
+                                    }
+                                }    
+                                    
+                            }else{System.out.println("L'objet "+partieActuelle.getJoueurActuel().getSac().get(num).getNom()+" est jeté");}
+                            partieActuelle.getJoueurActuel().getSac().remove(num);
+                            }
+                        }else{
+                            System.out.println("Le sac ne contient rien.");
+                        }
+                         
+                        
+                        
+                        
                         break;
             case 'R':   this.retournerMenu(1);
                         break;
@@ -435,7 +530,7 @@ public class Menu {
      * @param niveau est le menu à afficher. 
      */
     public char afficher(int niveau){
-        
+        System.out.println("\nLe joueur actuel est "+partieActuelle.getJoueurActuel().getNom()+". Il est sur la case ("+partieActuelle.getJoueurActuel().getAbsysseActuelle()+";"+partieActuelle.getJoueurActuel().getOrdonneeActuelle()+")\nNous sommes le "+partieActuelle.getTempsPartie().getNumTour()+" tour(s) du jour "+partieActuelle.getTempsPartie().getNbJour()+"\n");
         switch (niveau) {
             case 0:     System.out.println("\nDemarrer(D)\nQuitter(Q)\nMenu(S)");
                         System.out.println("Quel est votre choix ?\n");
@@ -450,7 +545,7 @@ public class Menu {
             case 2:     if(partieActuelle.getJoueurActuel().getAbsysseActuelle()== partieActuelle.getGrille().getxVille() && partieActuelle.getJoueurActuel().getOrdonneeActuelle()==partieActuelle.getGrille().getyVille()){
                             System.out.println("\nConstruire(C)\nParticiper aux chantiers(P)\nConsulter les défenses(D)\nConsulter l'entrepot(E)\nInteragir avec la porte(I)\nRemplir une gourde(B)\nPrendre une ration(M)\nRetour(R)\n");
                         }else{
-                            if(tabGrille[partieActuelle.getJoueurActuel().getIndiceCase()].getFouillee()){
+                            if(tabGrille.get(partieActuelle.getJoueurActuel().getIndiceCase()).getFouillee()){
                                 System.out.println("\nAttaquer les zombies(A)\nRécolter les objets(O)\nRetour(R)");
                             }else{
                                 System.out.println("\nFouiller la case(F)\nRetour(R)");
@@ -556,7 +651,8 @@ public class Menu {
             str=sc.next();
             longueur=str.length();
             lettres=str.toCharArray();
-        }while(longueur!=1 &&((int)(lettres[0])>57 ||(int)(lettres[0])<49));
+            System.out.println(""+longueur+" "+(int)lettres[0]);
+        }while(longueur!=1 ||((int)(lettres[0])>57 ||(int)(lettres[0])<48));
         num=Integer.parseInt(str);
         return num;
     }

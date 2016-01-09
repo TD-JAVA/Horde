@@ -16,7 +16,7 @@ import java.util.Scanner;
  */
 public class Ville extends Case {
     Scanner sc=new Scanner(System.in);
-    private int[] entrepot = new int[3]; // valeur par défaut//
+    private Item[] entrepot= new Item[4]; // valeur par défaut//
     private String[] tabItems= {"Planche","Clou","Boisson énergissante"};
     private int nbRation=50;
     private int tauxDefense;
@@ -45,6 +45,10 @@ public class Ville extends Case {
         partie.getGrille().setTabCase(i, this);
         super.laVille = true;
         partie.getGrille().setxyVille(13, -13);
+        entrepot[0]=new Item("Ration",50,Journal.consulterDescription(1));
+        entrepot[1]=new Item("Planche",0,Journal.consulterDescription(2));
+        entrepot[2]=new Item("Plaques de métal",0,Journal.consulterDescription(3));
+        entrepot[3]=new Item("Boisson énergissante",0,Journal.consulterDescription(4));
 
     }
 
@@ -56,9 +60,8 @@ public class Ville extends Case {
         partie.getGrille().setxyVille(absysse, ordonnee);
     }
 
-    public int[] afficherEntrepot() {
-        return this.entrepot;
-
+    public void afficherEntrepot(String str) {
+        System.out.println(str);
     }
     
     public ArrayList<Construction> afficherConstruction(Journal Journal){
@@ -74,7 +77,7 @@ public class Ville extends Case {
             }
         }
         if(!batimentDejaFait){
-            if (this.entrepot[1] >=partie.getMonJournal().getConstruction(choix).getRessources_necessaire().get(0)  && this.entrepot[2] >= partie.getMonJournal().getConstruction(choix).getRessources_necessaire().get(1) && partie.getJoueurActuel().getPa() >= 1) {
+            if (this.entrepot[1].getQuantite() >=partie.getMonJournal().getConstruction(choix).getRessources_necessaire().get(0)  && this.entrepot[2].getQuantite() >= partie.getMonJournal().getConstruction(choix).getRessources_necessaire().get(1) && partie.getJoueurActuel().getPa() >= 1) {
                 partie.getJoueurActuel().setPa(partie.getJoueurActuel().getPa()-1);
                 batimentEnCours.add(partie.getMonJournal().getConstruction(choix));
             } else {
@@ -111,9 +114,9 @@ public class Ville extends Case {
     
     
     public String consulterEntrepot(){
-         String tabEntrepot="";
+         String tabEntrepot="\n";
         for(int i=0;i<entrepot.length;i++){
-            tabEntrepot+=""+tabItems[i]+" "+entrepot[i]+'\n';
+            tabEntrepot+=i+" | "+entrepot[i].getNom()+" | "+entrepot[i].getQuantite()+'\n';
         }
    
         return tabEntrepot;
@@ -188,19 +191,29 @@ public class Ville extends Case {
 
     public Item prendreRation() {
         Item ration;
-        if (this.nbRation>0) {
-            this.nbRation = this.nbRation - 1;
+        if (this.entrepot[0].getQuantite()>0) {
+            this.entrepot[0].setQuantite(this.entrepot[0].getQuantite() - 1);
             ration = new Item("Ration",Journal.consulterDescription(1));
     
-        }else{ration = new Item("","");}
+        }else{ration = null;System.out.println("\nIl n' y a plus de ration.");}
         return ration;
     }
+    
+    public Item prendreBoisson() {
+        Item boisson;
+        if (this.entrepot[3].getQuantite()>0) {
+            this.entrepot[3].setQuantite(this.entrepot[3].getQuantite() - 1);
+            boisson = new Item("Boisson énergissante",Journal.consulterDescription(4));
+    
+        }else{boisson = null;System.out.println("\nIl n' y a plus de boisson énergissante.");}
+        return boisson;
+    }
 
-    public int[] getEntrepot() {
+    public Item[] getEntrepot() {
         return entrepot;
     }
 
-    public void setEntrepot(int[] entrepot) {
+    public void setEntrepot(Item[] entrepot) {
         this.entrepot = entrepot;
     }
 

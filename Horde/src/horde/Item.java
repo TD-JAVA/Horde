@@ -34,11 +34,13 @@ public class Item {
     public void setDescription(String description) {
         this.description = description;
     }
+    
 
     public Item(String nom, int quantite, String description) {
         this.nom = nom;
         this.quantite = quantite;
         this.description = description;
+        
     }
     public Item(String nom, String description) {
         this.nom = nom;
@@ -47,4 +49,5 @@ public class Item {
     private String nom;
     private int quantite;
     private String description;
+    
 }

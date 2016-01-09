@@ -65,7 +65,7 @@ public class Journal {
     }
 
 // Permer de voir la liste des objets et leur détails dans l'entrepot
-    public int[] consulterEntrepot(Ville ville) {
+    public Item[] consulterEntrepot(Ville ville) {
          return ville.getEntrepot();
     }
 
@@ -92,18 +92,18 @@ public class Journal {
                 break;
             case 'K':
                 break;
-            case 'I':
-                break;
-            case 'C':
-                break;
+            case 'I':   string=ville.consulterEntrepot();
+                        break;
+            case 'C':   string=consulterConstruction();
+                        break;
             case 'N':   string=afficherContenuSac(joueur);
                         break;
             case 'M':   this.miseAJourCarte(joueur);
                         break; 
             case 'V':   this.voirCarte();
                         break; 
-            case 'R':
-                break;
+            case 'R':   partie.getMenuPartie().retournerMenu(1);
+                        break;
         }
         return string;
     }
@@ -119,8 +119,13 @@ public class Journal {
         return ""+ceJoueur.getNom()+" a "+ceJoueur.getPa()+" point(s) d'action et "+ ceJoueur.getPdv()+" point de vie";
     }
     public static String afficherContenuSac(Joueur ceJoueur){
-        String str="";
-        for(int index=0;index<ceJoueur.getSac().size();index++){str+=ceJoueur.getSac().get(index).getNom()+";\n";}
+        String str="\n";
+        if(!ceJoueur.getSac().isEmpty()){
+            for(int index=0;index<ceJoueur.getSac().size();index++){str+=index+" "+ceJoueur.getSac().get(index).getNom()+";\n";}
+        }else{
+            str+="Le sac ne contient rien.";
+        }
+        
         return str;
     }
     public void ajouterListeDeMorts(String str){
@@ -138,6 +143,12 @@ public class Journal {
             case 0: description="La gourde permet de récupérer 6 points d'action.\n Elle n'est pas réutilisable. Elle occupe une place de la sac.\n On ne peut boire qu'une fois par jour.";
                     break;
             case 1: description="La ration permet de récupérer 6 points d'action.\n Elle n'est pas réutilisable. Elle occupe une place de la sac.\n On ne peut manger qu'une fois par jour.\nAttention au stock, il n'y a que 50 rations dans l'entrepôt.";
+                    break;
+            case 2: description="Les planches sont des items. Elles peuvent être trouvée en les cases.\nElles occupent une place dans le sac par item.\nElles servent à construire les défenses de la ville.\nEn tout, il y a en 1000 sur la carte.";
+                    break;
+            case 3: description="Les plaques de métal sont des items. Elles peuvent être trouvée en les cases.\nElles occupent une place dans le sac par item.\nElles servent à construire les défenses de la ville\nEn tout, il y en a 500 sur la carte.";
+                    break;
+            case 4: description="Les boissons énergissantes permettent de récupérer 4 points d'action.\nElles ne sont pas réutilisable mais sont cummulables.\nLes boissons énergisantes se trouvent en fouillant les cases.\nElles occupent une place dans le sac par item.\nUne fois qu’on a consommé une boisson énergisante, il faut en consommer une au moins une fois tous les 3 tours,\nsinon on perd 5 points de vie par tour jusqu’à consommation d’une autre boisson énergisante.";
                     break;
         }
         
