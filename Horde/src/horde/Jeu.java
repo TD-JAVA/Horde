@@ -57,6 +57,15 @@ public class Jeu {
     public void lancerJeu(){
         //this.setPartie(false);
         //String answersUser = new String();
+        System.out.println("**************************************************");
+        System.out.println("**************************************************");
+        System.out.println("******************* H O R D E ********************");
+        System.out.println("**************************************************");
+        System.out.println("**************************************************");
+        System.out.println("Bienvenue dans Horde, une reproduction simplifié du Jeu de Twinoid");
+        System.out.println("Ce programme a été réalisé dans un cadre scolaire");
+        System.out.println("Il n'est pas commercialisable. Les créateurs de ce programme et les intervenants de l'université de Lorraine ne pourront être tenu responsable des effets de ce logiciel et de ce logiciel");
+        System.out.println("Programme réalisé par Sébastien Brogniart, Gabriel Giroud et Valère Richier alors tous trois étudiants en année de Licence MIASHS.\n");
         tempsPartie= new Temps();
         grille=new Carte(this);
         maVille=new Ville(this);
@@ -105,13 +114,17 @@ public class Jeu {
             if(getNombreJoueur()<=1){return true;}else{return false;}
     }
     
-    public boolean dernierJoueur(Joueur joueur,int i){
+    public boolean dernierJoueur(Joueur joueur,int i,boolean k){
         String str="";
         if(!tempsPartie.getNuit()){
+            if(k){
             System.out.println("\nVous êtes mort ! Fin de partie pour vous.");
-            str= "\n"+joueur.getNom()+" est décédé(e) le "+tempsPartie.getNumTour()+" tour(s) du jour"+tempsPartie.getNbJour()+" par une attaque de zombies";
+            str= "\n"+joueur.getNom()+" est décédé(e) le "+tempsPartie.getNumTour()+" tour(s) du jour"+tempsPartie.getNbJour()+" par une attaque de zombies.";
+            }else{
+            str= "\n"+joueur.getNom()+" est décédé(e) le "+tempsPartie.getNumTour()+" tour(s) du jour"+tempsPartie.getNbJour()+" à cause de votre dépendance.";
+            }
         }else{
-            str= "\n"+joueur.getNom()+" est décédé(e) dans la nuit du jour"+tempsPartie.getNbJour()+" par une attaque de zombies";
+            str= "\n"+joueur.getNom()+" est décédé(e) dans la nuit du jour"+tempsPartie.getNbJour()+" par une attaque de zombies.";
         }
             monJournal.ajouterListeDeMorts(str);
             nombreJoueur-=1;
@@ -121,7 +134,16 @@ public class Jeu {
 
     public void finDePartie(){
         boolean continuerPartie = false;
-        System.out.println("La partie est terminée. Merci d'avoir joué!");
-        setPartie(continuerPartie);
+        Scanner sc=new Scanner(System.in);
+        System.out.println("\n"+this.tabJoueur.get(0).getNom()+" a gagné la partie.");
+        sc.next();
+        System.out.println("\nLa partie est terminée. Merci d'avoir joué!");
+        System.out.println("\nSouhaitez vous rejouer ?(O/N)");
+        if(Menu.conversionBoolean(sc.next())){
+            setPartie(continuerPartie);
+        }else{
+            menuPartie.menuNiveauZero('Q');
+        }
+        
     }
 }

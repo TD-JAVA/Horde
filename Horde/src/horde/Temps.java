@@ -47,7 +47,7 @@ public class Temps {
                 nuit=false;
                 numTour=0;
                 for(int i=0;i<partie.getNombreJoueur();i++){
-                    partie.getJoueur(i).setNouveauJour();
+                    partie.getJoueur(i).setNouveauJour(partie,i);
                 }
                 incrementerNbJour();
             }
@@ -68,7 +68,7 @@ public class Temps {
                     int k=ra.nextInt(partie.getNombreJoueur()-1);
                     Joueur ceJoueur=partie.getJoueur(k);
                     ceJoueur.setPdv(0);
-                    if(partie.dernierJoueur(ceJoueur,k)){partie.finDePartie();}
+                    if(partie.dernierJoueur(ceJoueur,k,true)){partie.finDePartie();}
                 }
             }
         }

@@ -412,8 +412,11 @@ public class Menu {
     }
     
     public void interagirSac(char choix){
+        boolean consoSup;
         switch(choix){
-            case 'B':   if(!partieActuelle.getJoueurActuel().getDejaBu()){
+            case 'B':   consoSup=true;
+                        if(partieActuelle.getJoueurActuel().getPa()>4){consoSup=false;}
+                        if(!partieActuelle.getJoueurActuel().getDejaBu()){
                             if(partieActuelle.getJoueurActuel().getPa()>0){
                                 consommationDePA=partieActuelle.getJoueurActuel().boire();
                                 if(!consommationDePA && partieActuelle.getJoueurActuel().getIndiceCase()==338){
@@ -426,7 +429,9 @@ public class Menu {
                                         }
                                     }
                                 }else{
+                                    if(consoSup){
                                     partieActuelle.getJoueurActuel().setPa(partieActuelle.getJoueurActuel().getPa()-1);
+                                    }
                                 }
                             }else{
                                 System.out.println("Vous ne possèdez pas assez de point d'action pour cette action");            
@@ -435,7 +440,9 @@ public class Menu {
                                 System.out.println("Vous avez déjà bu ce jour");            
                         }
                         break;
-            case 'M':   if(!partieActuelle.getJoueurActuel().getDejaMange()){
+            case 'M':   consoSup=true;
+                        if(partieActuelle.getJoueurActuel().getPa()>4){consoSup=false;}
+                        if(!partieActuelle.getJoueurActuel().getDejaMange()){
                             if(partieActuelle.getJoueurActuel().getPa()>0){
                                 consommationDePA=partieActuelle.getJoueurActuel().manger();
                                 if(!consommationDePA && partieActuelle.getJoueurActuel().getIndiceCase()==338){
@@ -452,7 +459,10 @@ public class Menu {
                                         }
                                     }
                                 }else{
-                                    partieActuelle.getJoueurActuel().setPa(partieActuelle.getJoueurActuel().getPa()-1);
+                                    if(consoSup){
+                                        partieActuelle.getJoueurActuel().setPa(partieActuelle.getJoueurActuel().getPa()-1);
+                                    }
+                                    
                                 }
                             }else{
                                 System.out.println("Vous ne possèdez pas assez de point d'action pour cette action");            
@@ -512,6 +522,15 @@ public class Menu {
                         
                         
                         
+                        break;
+            case 'E':   consommationDePA=true;
+                        if(partieActuelle.getJoueurActuel().getPa()>6){consommationDePA=false;}
+                        
+                        if(partieActuelle.getJoueurActuel().boireBoisson()){
+                            if(consommationDePA){
+                                partieActuelle.getJoueurActuel().setPa(partieActuelle.getJoueurActuel().getPa()-1);
+                            }
+                        }
                         break;
             case 'R':   this.retournerMenu(1);
                         break;

@@ -1,6 +1,7 @@
 package horde;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -35,6 +36,9 @@ public class Joueur {
     private int indiceCase;
     private boolean dejaBu;
     private boolean dejaMange;
+    private boolean dependant=false;
+    private int nbJourDependant=0;
+    Scanner sc=new Scanner(System.in);
   
     //Tableau de 10 objets
     private ArrayList<Item> sac = new ArrayList<Item>(10);
@@ -135,6 +139,14 @@ public class Joueur {
             this.pa=11;
         }
     }
+    
+    public void setNbJourDependant(int jour){
+        nbJourDependant=jour;
+    }
+    
+    public int getNbJourDependant(){
+        return nbJourDependant;
+    }
 
     /**
      * @return the nbTours
@@ -187,10 +199,10 @@ public class Joueur {
         return dejaMange;
     }
     
-    public void setNouveauJour(){
+    public void setNouveauJour(Jeu partie,int k){
         dejaBu=false;
         dejaMange=false;
-        
+        if(dependant){nbJourDependant+=1;if(nbJourDependant>=3){if(setPdv(pdv-5)){if(partie.dernierJoueur(this,k,false)){partie.finDePartie();}}}}
     }
 
     /**
@@ -284,6 +296,31 @@ public class Joueur {
         System.out.print("Vous n'avez pas de gourde !");*/
     }
 
+    public boolean boireBoisson(){
+        boolean changement=false;
+        int i=0;
+        
+        while(!sac.get(i).getNom().equals("Boisson énergissante")&&i<sac.size()){
+            i++;
+        }
+        
+        if(sac.get(i).getNom().equals("Boisson énergissante")){
+            System.out.println("\nSouhaitez vous boire une boisson énergissante ?(O/N)");
+            if(Menu.conversionBoolean(sc.next())){
+                changement=true;
+                setPa(pa+4);
+                if(dependant){
+                    nbJourDependant=0;
+                }
+                dependant=true;
+                sac.remove(i);
+                System.out.println("Vous récupérez 4 points d'action.");
+            }
+        }else{
+            System.out.println("\nVous ne possèdez pas de boisson énergissante.");
+        }
+        return changement;
+    }
     // Permet au joueur de construire des défenses
 
     // Permet au joueur de terminer son tour sans consommer tous ses points d'action
