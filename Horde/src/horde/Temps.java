@@ -62,7 +62,7 @@ public class Temps {
             if(partie.getJoueur(i).getIndiceCase()!=338){
                partie.getJoueur(i).setPdv(0);
             }
-            if(partie.getMaVille().defenseVille()<partie.getMaVille().getZombies().attaqueNuitZombies(this)){
+            if(partie.getMaVille().defenseVille()<Zombies.attaqueNuitZombies(this)){
                 int nbATue= (int)(partie.getNombreJoueur()/2);
                 for(int j=0; j<nbATue;j++){
                     int k=ra.nextInt(partie.getNombreJoueur()-1);

@@ -73,24 +73,16 @@ public class Case {
   }
     
     public boolean fouiller(){ // On donne le choix au joueur de fouiller la case ou non
-        System.out.println("Case non fouillée (coute un point d'action pour étre fouiller), que voulez vous faire ?");
-        char choix = conversionCaractere('R');
-        
         boolean changement=false;
-        System.out.println("La case n'est pas fouillée, souhaitez vous le faire ?(O/N)");
+        System.out.println("La case n'est pas fouillée, souhaitez vous le faire ?($1PA)(O/N)");
         
         if(conversionBoolean(sc.next())){
-            nbZombiesRestants=zomb.nbZombiesCase();
+            nbZombiesRestants=Zombies.nbZombiesCase();
             System.out.println("Il y a "+nbZombiesRestants+" zombies sur cette case");
             fouillee=true;
             changement=true;
         }
         return changement;
-  }
-
-    public void quitter(Jeu partie){ // pas encore d'idées
-        
-
   }
 
     public boolean attaquer(Joueur ceJoueur){
