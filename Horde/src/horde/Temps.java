@@ -41,7 +41,7 @@ public class Temps {
             for(int i=0;i<partie.getNombreJoueur();i++){
                     partie.getJoueur(i).setPa(partie.getJoueur(i).getPa()+4);
                 }
-            if(numTour==4){
+            if(numTour==12){
                 nuit=true;
                 deroulementNuit(partie);
                 nuit=false;
