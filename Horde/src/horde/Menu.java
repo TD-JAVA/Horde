@@ -70,7 +70,7 @@ public class Menu {
     public void demarrer(Jeu partie) {
         //this.setMenuActuel(this);
         if(partie.getPartie()){
-            affichage("Jeu déjà démarré, voulez-vous redémarrer la partie ?(O/N)");
+            affichage(Journal.consulterDescription(9));
             if(conversionBoolean(sc.next())){
                 partie.setPartie(false);
                 partie.lancerJeu();
@@ -124,7 +124,7 @@ public class Menu {
                         break;
             case 'S':   this.menuNiveauUn(Menu.conversionCaractere(this.afficher(1)));
                         break;
-            default :   affichage("\nEntrez une lettre correspond au menu");
+            default :   affichage(Journal.consulterDescription(6));
                         this.menuNiveauZero(afficher(0));
         }           
     }
@@ -158,7 +158,7 @@ public class Menu {
                         break;      
             case 'R':   this.retournerMenu(0);
                         break;
-            default :   affichage("\nEntrez une lettre correspond au menu");
+            default :   affichage(Journal.consulterDescription(6));
                         this.menuNiveauUn(afficher(1));
         }
     }
@@ -173,12 +173,12 @@ public class Menu {
     }
     
     public  void lireJournal(){
-        affichage("Lire le journal");
+        affichage(Journal.consulterDescription(10));
         partieActuelle.getMonJournal().afficherPosition(partieActuelle, partieActuelle.getJoueurActuel());
-        affichage(partieActuelle.getMonJournal().toString(partieActuelle.getTempsPartie(), partieActuelle.getMaVille(),partieActuelle,partieActuelle.getJoueurActuel(),afficher(3))+"\n");
+        affichage(partieActuelle.getMonJournal().toString(partieActuelle,afficher(3))+"\n");
         sc.nextLine();
         String str = sc.nextLine();
-        affichage("\n\n");
+        affichage("");
         menuNiveauUn(conversionCaractere(afficher(1)));
     }
     
@@ -198,17 +198,17 @@ public class Menu {
                                     break;
                         case 'R':   this.retournerMenu(1);
                                     break;
-                        default :   affichage("\nEntrez une lettre correspond au menu");
+                        default :   affichage(Journal.consulterDescription(6));
                                     this.seDeplacer();
                     }
             }else{
-                affichage("Vous ne possèdez pas assez de point d'action pour cette action");
+                affichage(Journal.consulterDescription(5));
             }
             consommerPA();
             sc.nextLine();
             this.seDeplacer();
         }else{
-            affichage("Tant qu'il y aura des zombies, vous ne pourrez pas vous déplacer. Alors dégommez les!");
+            affichage(Journal.consulterDescription(7));
             this.retournerMenu(1);
         }
         
@@ -253,10 +253,10 @@ public class Menu {
         if(test){
             if(!partieActuelle.getMaVille().getOuverturePorte()){
                 if(getxy+getVal==getxyville){
-                    affichage("La porte est fermée, vous ne pouvez pas entrer.");
+                    affichage(Journal.consulterDescription(11));
                 }else{
                     if(getxy==getxyville){
-                        affichage("La porte est fermée, vous ne pouvez pas sortir.");
+                        affichage(Journal.consulterDescription(12));
                     }else{
                         if(absysse){partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle()+getVal,partieActuelle.getJoueurActuel().getOrdonneeActuelle());}else{partieActuelle.getJoueurActuel().setCoordonneeActuelle(partieActuelle.getJoueurActuel().getAbsysseActuelle(),partieActuelle.getJoueurActuel().getOrdonneeActuelle()+getVal);}
                         partieActuelle.getJoueurActuel().setIndiceCase(partieActuelle.getJoueurActuel().getIndiceCase()+indice);
@@ -272,43 +272,42 @@ public class Menu {
     }
     
     public void accederConstruction(){
-        affichage("Souhaitez-vous construire un nouveau batiment ?(O/N)");
+        affichage(Journal.consulterDescription(13));
         if(conversionBoolean(sc.next())){
             affichage(partieActuelle.getMonJournal().consulterConstruction());
-            affichage("Quelle construction souhaitez vous construire ?");
+            affichage(Journal.consulterDescription(14));
             partieActuelle.getMaVille().construire(partieActuelle, donnerReponseChiffre(6) );
         }
     }
     public void accederEntrepot(){
         partieActuelle.getMaVille().afficherEntrepot(partieActuelle.getMaVille().consulterEntrepot());
-        affichage("Souhaitez vous prendre un objet ?(O/N)");
+        affichage(Journal.consulterDescription(15));
         if(conversionBoolean(sc.next())){
-            affichage("Quel objet souhaitez vous prendre ?");
+            affichage(Journal.consulterDescription(16));
             int num=Menu.donnerReponseChiffre(partieActuelle.getMaVille().getEntrepot().length-1);
-                if(partieActuelle.getMaVille().getEntrepot()[num].getNom().equals("Ration")){
-                    affichage("Voulez vous prendre une ration ?(O/N)");
+            if(partieActuelle.getMaVille().getEntrepot()[num].getNom().equals(Journal.consulterDescription(51))){
+                affichage(Journal.consulterDescription(17));
+                if(conversionBoolean(sc.next())){
+                    if(partieActuelle.getJoueurActuel().getSac().size()<10){
+                        partieActuelle.getJoueurActuel().getSac().add(partieActuelle.getMaVille().prendreRation());
+                    }else{
+                        affichage(Journal.consulterDescription(8));
+                    }
+                }
+            }else{
+                if(partieActuelle.getMaVille().getEntrepot()[num].getNom().equals(Journal.consulterDescription(53))){
+                    affichage(Journal.consulterDescription(18));
                     if(conversionBoolean(sc.next())){
                         if(partieActuelle.getJoueurActuel().getSac().size()<10){
-                            partieActuelle.getJoueurActuel().getSac().add(partieActuelle.getMaVille().prendreRation());
+                            partieActuelle.getJoueurActuel().getSac().add(partieActuelle.getMaVille().prendreBoisson());
                         }else{
-                            affichage("Il n'y a plus de place dans votre sac");
+                            affichage(Journal.consulterDescription(8));
                         }
-                    }
+                    }   
                 }else{
-                    if(partieActuelle.getMaVille().getEntrepot()[num].getNom().equals("Boisson énergissante")){
-                        affichage("Voulez vous prendre une boisson énergissante ?(O/N)");
-                        if(conversionBoolean(sc.next())){
-                            if(partieActuelle.getJoueurActuel().getSac().size()<10){
-                                partieActuelle.getJoueurActuel().getSac().add(partieActuelle.getMaVille().prendreBoisson());
-                            }else{
-                                affichage("Il n'y a plus de place dans votre sac");
-                            }
-                        }   
-                    }else{
-                        affichage("Cet objet ne peut être mis dans le sac.");
-                    }
-
+                    affichage(Journal.consulterDescription(19));
                 }
+            }
         }
     }
     public void interagirPorte(){
@@ -316,7 +315,7 @@ public class Menu {
             consommationDePA=partieActuelle.getMaVille().ouverturePorte();
             consommerPA();
         }else{
-            affichage("Vous ne possèdez pas assez de point d'action pour cette action");
+            affichage(Journal.consulterDescription(5));
         }
     }
     
@@ -329,27 +328,27 @@ public class Menu {
     
     public void accederDefense(){
         affichage(partieActuelle.getMaVille().afficherConstruction());
-        affichage("Votre total défense est de :"+partieActuelle.getMaVille().defenseVille());
+        affichage(Journal.consulterDescription(21)+partieActuelle.getMaVille().defenseVille());
     }
     
     public void prendreGourde(){
-        affichage("Voulez vous remplir une gourde ?(Y/n)");
+        affichage(Journal.consulterDescription(20));
         if(conversionBoolean(sc.next())){
             if(partieActuelle.getJoueurActuel().getSac().size()<10){
                 partieActuelle.getJoueurActuel().getSac().add(partieActuelle.getMaVille().remplirGourde());
             }else{
-                affichage("Il n'y a plus de place dans votre sac");
+                affichage(Journal.consulterDescription(8));
             }
         }
     }
     
     public void prendreRation(){
-        affichage("Voulez vous prendre une ration ?(O/N)");
+        affichage(Journal.consulterDescription(17));
         if(conversionBoolean(sc.next())){
             if(partieActuelle.getJoueurActuel().getSac().size()<10){
                         partieActuelle.getJoueurActuel().getSac().add(partieActuelle.getMaVille().prendreRation());
                     }else{
-                        affichage("Il n'y a plus de place dans votre sac");
+                        affichage(Journal.consulterDescription(8));
                     }
         }
     }
@@ -360,12 +359,12 @@ public class Menu {
     }
     public void attaquerZombies(){
         boolean joueurMort=false;
-        affichage("\nIl y a "+tabGrille.get(partieActuelle.getJoueurActuel().getIndiceCase()).getNbZombiesRestants() +"zombies sur cette case");
+        affichage(Journal.consulterDescription(22)+tabGrille.get(partieActuelle.getJoueurActuel().getIndiceCase()).getNbZombiesRestants() +Journal.consulterDescription(23));
         if(tabGrille.get(partieActuelle.getJoueurActuel().getIndiceCase()).getNbZombiesRestants()!=0){
-            affichage("\nSouhaitez vous les attaquer ?(O/N)");
+            affichage(Journal.consulterDescription(24));
             if(conversionBoolean(sc.next())){
                 joueurMort=tabGrille.get(partieActuelle.getJoueurActuel().getIndiceCase()).attaquer(partieActuelle.getJoueurActuel());
-                affichage("\nIl reste "+tabGrille.get(partieActuelle.getJoueurActuel().getIndiceCase()).getNbZombiesRestants()+" sur cette case. ");
+                affichage(Journal.consulterDescription(25)+tabGrille.get(partieActuelle.getJoueurActuel().getIndiceCase()).getNbZombiesRestants()+Journal.consulterDescription(23));
             }    
         }
         if(joueurMort){
@@ -374,9 +373,9 @@ public class Menu {
     }
     public void accederObjet(){
         affichage(partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).afficherItems());
-        affichage("Souhaitez vous prendre un objet ?(O/N)");
+        affichage(Journal.consulterDescription(15));
         if(conversionBoolean(sc.next())){
-            affichage("Quel objet souhaitez vous prendre ?");
+            affichage(Journal.consulterDescription(16));
             int num=Menu.donnerReponseChiffre(partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().size()-1);
             String nom=partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(num).getNom();
             String description=partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(num).getDescription();
@@ -384,7 +383,7 @@ public class Menu {
                 partieActuelle.getJoueurActuel().getSac().add(new Item(nom,description));
                 partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(num).setQuantite(partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(num).getQuantite()-1);
             }else{
-                affichage("Il n'y a plus de place dans votre sac");
+                affichage(Journal.consulterDescription(8));
             }
         }
     }
@@ -414,11 +413,11 @@ public class Menu {
                             break;
                 case 'R':   this.retournerMenu(1);
                             break;
-                default :   affichage("\nEntrez une lettre correspond au menu");
+                default :   affichage(Journal.consulterDescription(6));
                             this.interagirCase(afficher(2));
             }    
         }else{
-            affichage("\nTant qu'il y aura des zombies, vous ne pourrez rien faire sur cette case. Alors attaquez-les!");
+            affichage(Journal.consulterDescription(7));
         }
         this.retournerMenu(1);
     }
@@ -430,24 +429,23 @@ public class Menu {
             if(partieActuelle.getJoueurActuel().getPa()>0){
                 consommationDePA=partieActuelle.getJoueurActuel().boire();
                 if(!consommationDePA && partieActuelle.getJoueurActuel().getIndiceCase()==338){
-                    affichage("Voulez vous remplir une gourde ?(Y/n)");
+                    affichage(Journal.consulterDescription(20));
                     if(conversionBoolean(sc.next())){
                         if(partieActuelle.getJoueurActuel().getSac().size()<10){
                             partieActuelle.getJoueurActuel().getSac().add(partieActuelle.getMaVille().remplirGourde());
                         }else{
-                            affichage("Il n'y a plus de place dans votre sac");
+                            affichage(Journal.consulterDescription(8));
                         }
                     }
                 }else{
-                    if(consoSup){
-                    partieActuelle.getJoueurActuel().setPa(partieActuelle.getJoueurActuel().getPa()-1);
-                    }
+                    consommationDePA=consoSup;
+                    consommerPA();
                 }
             }else{
-                affichage("Vous ne possèdez pas assez de point d'action pour cette action");            
+                affichage(Journal.consulterDescription(5));            
             }
         }else{
-                affichage("Vous avez déjà bu ce jour");            
+                affichage(Journal.consulterDescription(26));            
         }
     }
     
@@ -458,45 +456,44 @@ public class Menu {
             if(partieActuelle.getJoueurActuel().getPa()>0){
                 consommationDePA=partieActuelle.getJoueurActuel().manger();
                 if(!consommationDePA && partieActuelle.getJoueurActuel().getIndiceCase()==338){
-                    affichage("Voulez vous prendre une ration ?(Y/n)");
+                    affichage(Journal.consulterDescription(17));
                     if(conversionBoolean(sc.next())){
                         if(partieActuelle.getJoueurActuel().getSac().size()<10){
                             Item ration=partieActuelle.getMaVille().prendreRation();
-                            if(ration.getNom().equals("Ration")){
+                            if(ration.getNom().equals(Journal.consulterDescription(51))){
                                 partieActuelle.getJoueurActuel().getSac().add(ration);
                             }
 
                         }else{
-                            affichage("Il n'y a plus de place dans votre sac");
+                            affichage(Journal.consulterDescription(8));
                         }
                     }
                 }else{
-                    if(consoSup){
-                        partieActuelle.getJoueurActuel().setPa(partieActuelle.getJoueurActuel().getPa()-1);
-                    }
+                    consommationDePA=consoSup;
+                    consommerPA();
 
                 }
             }else{
-                affichage("Vous ne possèdez pas assez de point d'action pour cette action");            
+                affichage(Journal.consulterDescription(5));            
             }
         }else{
-                affichage("Vous avez déjà mangé ce jour");            
+                affichage(Journal.consulterDescription(27));            
         }
     }
     
     public void accederVider(){
         if(!partieActuelle.getJoueurActuel().getSac().isEmpty()){
             if(partieActuelle.getJoueurActuel().getIndiceCase()!=338){
-            affichage("De quoi souhaitez vous vous séparer?");
+            affichage(Journal.consulterDescription(28));
             affichage(partieActuelle.getMonJournal().afficherContenuSac(partieActuelle.getJoueurActuel()));
             int num=Menu.donnerReponseChiffre(partieActuelle.getJoueurActuel().getSac().size()-1);
-            affichage("Souhaitez vous vraiment jetter l'objet "+partieActuelle.getJoueurActuel().getSac().get(num).getNom()+ " ?(O/N)" );
+            affichage(Journal.consulterDescription(29)+partieActuelle.getJoueurActuel().getSac().get(num).getNom()+ Journal.consulterDescription(30) );
             if(conversionBoolean(sc.next())){
-                if(!partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals("Ration")&&!partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals("Gourde")){
-                    if(partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals("Planche")){
+                if(!partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals(Journal.consulterDescription(51))&&!partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals(Journal.consulterDescription(52))){
+                    if(partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals(Journal.consulterDescription(54))){
                         partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(0).setQuantite(partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(0).getQuantite()+1);
                     }else{
-                        if(partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals("Plaque de métal")){
+                        if(partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals(Journal.consulterDescription(55))){
                         partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(1).setQuantite(partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(1).getQuantite()+1);    
                         }else{  
                             partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(2).setQuantite(partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(2).getQuantite()+1);
@@ -506,18 +503,18 @@ public class Menu {
                 partieActuelle.getJoueurActuel().getSac().remove(num);
             }
         }else{
-            affichage("De quoi souhaitez vous vous séparer?");
+            affichage(Journal.consulterDescription(28));
             affichage(partieActuelle.getMonJournal().afficherContenuSac(partieActuelle.getJoueurActuel()));
             int num=Menu.donnerReponseChiffre(partieActuelle.getJoueurActuel().getSac().size()-1);
-            if(!partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals("Gourde")){
-                affichage("L'objet "+partieActuelle.getJoueurActuel().getSac().get(num).getNom()+" est mis dans l'entrepot");
-                if(partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals("Ration")){
+            if(!partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals(Journal.consulterDescription(52))){
+                affichage(Journal.consulterDescription(31)+partieActuelle.getJoueurActuel().getSac().get(num).getNom()+Journal.consulterDescription(32));
+                if(partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals(Journal.consulterDescription(51))){
                     partieActuelle.getMaVille().getEntrepot()[0].setQuantite(partieActuelle.getMaVille().getEntrepot()[0].getQuantite()+1);
                 }else{
-                    if(partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals("Planche")){
+                    if(partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals(Journal.consulterDescription(54))){
                         partieActuelle.getMaVille().getEntrepot()[1].setQuantite(partieActuelle.getMaVille().getEntrepot()[1].getQuantite()+1);
                     }else{
-                        if(partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals("Plaque de métal")){
+                        if(partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals(Journal.consulterDescription(55))){
                             partieActuelle.getMaVille().getEntrepot()[2].setQuantite(partieActuelle.getMaVille().getEntrepot()[2].getQuantite()+1);
                         }else{  
                             partieActuelle.getMaVille().getEntrepot()[3].setQuantite(partieActuelle.getMaVille().getEntrepot()[3].getQuantite()+1);
@@ -526,12 +523,12 @@ public class Menu {
                 }    
 
             }else{
-                affichage("L'objet "+partieActuelle.getJoueurActuel().getSac().get(num).getNom()+" est jeté");
+                affichage(Journal.consulterDescription(31)+partieActuelle.getJoueurActuel().getSac().get(num).getNom()+Journal.consulterDescription(33));
             }
             partieActuelle.getJoueurActuel().getSac().remove(num);
         }
     }else{
-        affichage("Le sac ne contient rien.");
+        affichage(Journal.consulterDescription(34));
     }
 }
     public void accederBoireE(){
@@ -570,42 +567,42 @@ public class Menu {
      * @param niveau est le menu à afficher. 
      */
     public char afficher(int niveau){
-        affichage("\nLe joueur actuel est "+partieActuelle.getJoueurActuel().getNom()+". Il est sur la case ("+partieActuelle.getJoueurActuel().getAbsysseActuelle()+";"+partieActuelle.getJoueurActuel().getOrdonneeActuelle()+")\nNous sommes le "+partieActuelle.getTempsPartie().getNumTour()+" tour(s) du jour "+partieActuelle.getTempsPartie().getNbJour()+"\n");
+        affichage(partieActuelle.getMonJournal().toString(partieActuelle, 'S'));
         switch (niveau) {
-            case 0:     affichage("\nDemarrer(D)\nQuitter(Q)\nMenu(S)");
-                        affichage("Quel est votre choix ?\n");
+            case 0:     affichage(Journal.consulterDescription(35));
+                        affichage(Journal.consulterDescription(36));
                         
                         return this.verification(sc.next(),0);
                         
-            case 1:     affichage("\nLire le journal(J)\nSe déplacer(D)\nIntéragir avec la case(I)\nInteragir avec le sac(S)\nFinir le tour(F)\nRetour(R)\n");
-                        affichage("Quel est votre choix ?\n");
+            case 1:     affichage(Journal.consulterDescription(37));
+                        affichage(Journal.consulterDescription(36));
                         
                         return this.verification(sc.next(),0);
                 
             case 2:     if(partieActuelle.getJoueurActuel().getAbsysseActuelle()== partieActuelle.getGrille().getxVille() && partieActuelle.getJoueurActuel().getOrdonneeActuelle()==partieActuelle.getGrille().getyVille()){
-                            affichage("\nConstruire(C)\nParticiper aux chantiers(P)\nConsulter les défenses(D)\nConsulter l'entrepot(E)\nInteragir avec la porte(I)\nRemplir une gourde(B)\nPrendre une ration(M)\nRetour(R)\n");
+                            affichage(Journal.consulterDescription(38));
                         }else{
                             if(tabGrille.get(partieActuelle.getJoueurActuel().getIndiceCase()).getFouillee()){
-                                affichage("\nAttaquer les zombies(A)\nRécolter les objets(O)\nRetour(R)");
+                                affichage(Journal.consulterDescription(39));
                             }else{
-                                affichage("\nFouiller la case(F)\nRetour(R)");
+                                affichage(Journal.consulterDescription(40));
                             }
                         }
-                        affichage("Quel est votre choix ?\n");
+                        affichage(Journal.consulterDescription(36));
                         return this.verification(sc.next(),0);
             case 3:     if(partieActuelle.getJoueurActuel().getAbsysseActuelle()== partieActuelle.getGrille().getxVille() && partieActuelle.getJoueurActuel().getOrdonneeActuelle()==partieActuelle.getGrille().getyVille()){
-                            affichage("\n0. Résumé du jeu(J)\n1. Situation(S)\n2. Règle du jeu(K)\n3. Item dans l'entrepôt(I)\n4. Liste des constructions(C)\n5.Afficher le contenu du sac(N)\n6. Mettre à jour la carte(M)\n7. Voir la carte(V)\nRetour (R)");
+                            affichage(Journal.consulterDescription(41));
                         }else{
-                            affichage("\n0. Résumé du jeu(J)\n1. Situation(S)\n2. Règle du jeu(K)\n3.Afficher le contenu du sac(N)\n4. Mettre à jour la carte(M\n5. Voir la carte(V)\nRetour (R)");
+                            affichage(Journal.consulterDescription(42));
                         }
+                        affichage(Journal.consulterDescription(36));
                         return this.verification(sc.next(),0);
-            case 4:     affichage("\nBoire (B)\nManger (M)\nVider le sac(V)\nRetour(R)\n");
-                        affichage("Quel est votre choix ?\n");
+            case 4:     affichage(Journal.consulterDescription(43));
+                        affichage(Journal.consulterDescription(36));
                         return this.verification(sc.next(),0);
-            case 5:     affichage("Chaque déplacement coute un point d'action dans quelle direction souhaitez aller ?");
-                        affichage(partieActuelle.getJoueurActuel().getNom()+":("+partieActuelle.getJoueurActuel().getAbsysseActuelle()+";"+partieActuelle.getJoueurActuel().getOrdonneeActuelle()+")");
-                        affichage("Ville:("+partieActuelle.getGrille().getxVille()+";"+partieActuelle.getGrille().getyVille()+")");
-                        affichage("En haut(Z)\nÀ gauche(Q)\nÀ droite(D)\nEn Bas(S)\nRetour(R)\n");
+            case 5:     affichage(Journal.consulterDescription(44));
+                        affichage(Journal.consulterDescription(45));
+                        affichage(Journal.consulterDescription(36));
                         return this.verification(sc.next(),0);
                         
         }
@@ -626,7 +623,7 @@ public class Menu {
         if(choix==1) {
            
                     while((str!="Y")||(str!="O")||(str!="YES")||(str!="OUI")||(str!="N")||(str!="NON")||(str!="NO")){
-                        affichage("La saisie est erronée veuillez réessayer. \n Entrez une réponse (O/N):");
+                        affichage(Journal.consulterDescription(46));
                         verification(sc.next(),1);
                     }
                     return lettres[0];
@@ -634,7 +631,7 @@ public class Menu {
         }else{
             
                   while(lettres[0]<'A' && lettres[0]>'Z'){
-                      affichage("La saisie est erronée veuillez réessayer. \n Entrez votre choix:");
+                      affichage(Journal.consulterDescription(47));
                       verification(sc.next(),0);
                   }
                   return lettres[0];
@@ -663,7 +660,7 @@ public class Menu {
         
         if((longueur<2)){
             if((int)(lettres[0])>57 ||(int)(lettres[0])<49){
-                affichage("Saississez un nombre entre 1 et 20");
+                affichage(Journal.consulterDescription(48));
                 
                 num=conversionInt(sc.next());
             }else{
@@ -671,7 +668,7 @@ public class Menu {
             }
         }else{
                 if((int)(lettres[0])>50 ||(int)(lettres[0])<49 && (int)(lettres[1])>57 ||(int)(lettres[1])<48){
-                    affichage("Saississez un nombre entre 1 et 20:");
+                    affichage(Journal.consulterDescription(48));
                     
                     num=conversionInt(sc.next());
                 }else{
@@ -690,7 +687,7 @@ public class Menu {
             if(conversionCaractere(lettres[0])=='N'){
                 return false;
             }else{
-                affichage("Erreur");
+                affichage(Journal.consulterDescription(50));
                 return false;
             }
         }
@@ -707,11 +704,10 @@ public class Menu {
         Scanner sc = new Scanner(System.in);
         char[] lettres;
         do{
-            affichage("Saississez un nombre entre 0 et "+max);
+            affichage(Journal.consulterDescription(49)+max);
             str=sc.next();
             longueur=str.length();
             lettres=str.toCharArray();
-            affichage(""+longueur+" "+(int)lettres[0]);
         }while(longueur!=1 ||((int)(lettres[0])>57 ||(int)(lettres[0])<48));
         num=Integer.parseInt(str);
         return num;

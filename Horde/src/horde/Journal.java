@@ -75,7 +75,10 @@ public class Journal {
     }
 
 //Permet d'afficher un résumé du jeu
-    public String toString(Temps temps , Ville ville,Jeu partie,Joueur joueur, char choix) {
+    public String toString(Jeu partie, char choix) {
+        Temps temps=partie.getTempsPartie();
+        Joueur joueur=partie.getJoueurActuel();
+        Ville ville=partie.getMaVille();
         String string=""; //="Résumé du Jeu. Le nombre de tours est de "+temps.getNumTour()+" tour(s), le nombre de jours est de "+temps.getNbJour()+" jour(s), les items dans l'entrepot sont :"+ ville.consulterEntrepot()+" ,la liste des batiments sont : \n"+this.consulterConstruction()+"";
         if(joueur.getIndiceCase()!=338){
             if(choix=='C'||choix=='I'){
@@ -112,7 +115,7 @@ public class Journal {
         if(ceJoueur.getAbsysseActuelle()== partie.getGrille().getxVille() && ceJoueur.getOrdonneeActuelle()==partie.getGrille().getyVille()){
             return ""+ceJoueur.getNom()+" est dans la ville";
         }else{
-            return ""+ceJoueur.getNom()+" est sur la case ("+ceJoueur.getAbsysseActuelle()+";"+ceJoueur.getOrdonneeActuelle()+")";
+            return ""+ceJoueur.getNom()+" est sur la case ("+ceJoueur.getAbsysseActuelle()+";"+ceJoueur.getOrdonneeActuelle()+") et la ville se trouve en (13;-13).";
         }
     }
     public static String afficherDescriptionJoueur(Joueur ceJoueur){
@@ -150,7 +153,111 @@ public class Journal {
                     break;
             case 4: description="Les boissons énergissantes permettent de récupérer 4 points d'action.\nElles ne sont pas réutilisable mais sont cummulables.\nLes boissons énergisantes se trouvent en fouillant les cases.\nElles occupent une place dans le sac par item.\nUne fois qu’on a consommé une boisson énergisante, il faut en consommer une au moins une fois tous les 3 tours,\nsinon on perd 5 points de vie par tour jusqu’à consommation d’une autre boisson énergisante.";
                     break;
-        }
+            case 5: description="Vous ne possèdez pas assez de point d'action pour cette action";
+                    break;
+            case 6: description="\nEntrez une lettre correspond au menu";
+                    break;
+            case 7: description="Tant qu'il y aura des zombies, vous ne pourrez pas vous déplacer. Alors dégommez les!";
+                    break;
+            case 8: description="Il n'y a plus de place dans votre sac";
+                    break;
+            case 9: description="Jeu déjà démarré, voulez-vous redémarrer la partie ?(O/N)";
+                    break;
+            case 10:description="Lire le journal";
+                    break;
+            case 11:description="La porte est fermée, vous ne pouvez pas entrer.";
+                    break;
+            case 12:description="La porte est fermée, vous ne pouvez pas sortir.";
+                    break;
+            case 13:description="Souhaitez-vous construire un nouveau batiment ?(O/N)";
+                    break;
+            case 14:description="Quelle construction souhaitez vous construire ?";
+                    break;
+            case 15:description="Souhaitez vous prendre un objet ?(O/N)";
+                    break;
+            case 16:description="Quel objet souhaitez vous prendre ?";
+                    break;
+            case 17:description="Voulez vous prendre une ration ?(O/N)";    
+                    break;
+            case 18:description="Voulez vous prendre une boisson énergissante ?(O/N)";
+                    break;
+            case 19:description="Cet objet ne peut être mis dans le sac.";
+                    break;
+            case 20:description="\"Voulez vous remplir une gourde ?(O/N)\"";
+                    break;
+            case 21:description="Votre total défense est de :";
+                    break;
+            case 22:description="\nIl y a ";
+                    break;
+            case 23:description=" zombies sur cette case.";
+                    break;
+            case 24:description="\nSouhaitez vous les attaquer ?(O/N)";
+                    break;
+            case 25:description="\nIl reste ";
+                    break;
+            case 26:description="Vous avez déjà bu ce jour";
+                    break;
+            case 27:description="Vous avez déjà mangé ce jour";
+                    break;
+            case 28:description="De quoi souhaitez vous vous séparer?";
+                    break;
+            case 29:description="Souhaitez vous vraiment jetter l'objet ";
+                    break;
+            case 30:description=" ?(O/N)";
+                    break;
+            case 31:description="L'objet ";
+                    break;
+            case 32:description=" est mis dans l'entrepot";
+                    break;
+            case 33:description=" est jeté";
+                    break;
+            case 34:description="Le sac ne contient rien.";
+                    break;
+            case 35:description="\nDemarrer(D)\nQuitter(Q)\nMenu(S)";
+                    break;
+            case 36:description="Quel est votre choix ?\n";
+                    break;
+            case 37:description="\nLire le journal(J)\nSe déplacer(D)\nIntéragir avec la case(I)\nInteragir avec le sac(S)\nFinir le tour(F)\nRetour(R)\n";
+                    break;
+            case 38:description="\nConstruire(C)\nParticiper aux chantiers(P)\nConsulter les défenses(D)\nConsulter l'entrepot(E)\nInteragir avec la porte(I)\nRemplir une gourde(B)\nPrendre une ration(M)\nRetour(R)\n";
+                    break;
+            case 39:description="\nAttaquer les zombies(A)\nRécolter les objets(O)\nRetour(R)";
+                    break;
+            case 40:description="\nFouiller la case(F)\nRetour(R)";
+                    break;
+            case 41:description="\n0. Résumé du jeu(J)\n1. Situation(S)\n2. Règle du jeu(K)\n3. Item dans l'entrepôt(I)\n4. Liste des constructions(C)\n5.Afficher le contenu du sac(N)\n6. Mettre à jour la carte(M)\n7. Voir la carte(V)\nRetour (R)";
+                    break;
+            case 42:description="\n0. Résumé du jeu(J)\n1. Situation(S)\n2. Règle du jeu(K)\n3. Afficher le contenu du sac(N)\n4. Mettre à jour la carte(M\n5. Voir la carte(V)\nRetour (R)";
+                    break;
+            case 43:description="\nBoire (B)\nManger (M)\nVider le sac(V)\nRetour(R)\n";
+                    break;
+            case 44:description="Chaque déplacement coute un point d'action dans quelle direction souhaitez aller ?";
+                    break;
+            case 45:description="En haut(Z)\nÀ gauche(Q)\nÀ droite(D)\nEn Bas(S)\nRetour(R)\n";
+                    break;
+            case 46:description="La saisie est erronée veuillez réessayer. \n Entrez une réponse (O/N):";
+                    break;
+            case 47:description="La saisie est erronée veuillez réessayer. \n Entrez votre choix:";
+                    break;
+            case 48:description="Saississez un nombre entre 1 et 20:";
+                    break;
+            case 49:description="Saississez un nombre entre 0 et ";
+                    break;
+            case 50:description="Erreur";
+                    break;
+            case 51:description="Ration";
+                    break;
+            case 52:description="Gourde";
+                    break;
+            case 53:description="Boisson énergissante";
+                    break;
+            case 54:description="Planche";
+                    break;
+            case 55:description="Plaque de métal";
+                    break;
+                
+        }           
+        
         
         return description;
     }
