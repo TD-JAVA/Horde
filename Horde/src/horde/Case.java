@@ -33,9 +33,9 @@ public class Case {
         this.nbZombiesRestants = 0;
         this.fouillee = false;
         this.caseTrouve = false;
-        this.items.add(0,new Item("Planche",0,Journal.consulterDescription(2)));
-        this.items.add(1,new Item("Plaque de métal",0,Journal.consulterDescription(3)));
-        this.items.add(2,new Item("Boisson énergissante",0,Journal.consulterDescription(4)));
+        this.items.add(0,new Item(Journal.consulterDescription(54),0,Journal.consulterDescription(2)));
+        this.items.add(1,new Item(Journal.consulterDescription(55),0,Journal.consulterDescription(3)));
+        this.items.add(2,new Item(Journal.consulterDescription(53),0,Journal.consulterDescription(4)));
     }
     
     public Zombies getZombies(){
@@ -61,24 +61,14 @@ public class Case {
     
     public ArrayList<Item> getItem(){
         return items;
-    }
-    
-        public void caseTrouve(Jeu partie){ // peut étre inutile j'en avais besoin pour aider à faire mon code
-          if (this.caseTrouve == true){ // si la case est déja trouvée alors on ne touche pas au PA
-              int pa = partie.getJoueurActuel().getPa();
-              System.out.println("Case déja trouvée !");
-          }else{
-              System.out.println("Case inconnue !");
-          }   
-  }
-    
+    }    
     public boolean fouiller(){ // On donne le choix au joueur de fouiller la case ou non
         boolean changement=false;
-        System.out.println("La case n'est pas fouillée, souhaitez vous le faire ?($1PA)(O/N)");
+        Menu.affichage(Journal.consulterDescription(70));
         
         if(conversionBoolean(sc.next())){
             nbZombiesRestants=Zombies.nbZombiesCase();
-            System.out.println("Il y a "+nbZombiesRestants+" zombies sur cette case");
+            Menu.affichage(Journal.consulterDescription(22)+nbZombiesRestants+Journal.consulterDescription(23));
             fouillee=true;
             changement=true;
         }

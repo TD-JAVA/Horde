@@ -29,14 +29,13 @@ public class Carte {
     
     
     public Carte(Jeu partie){
-        tabItem[0]=new Item("Planche",1000,Journal.consulterDescription(2));
-        tabItem[1]=new Item("Plaques de métal",500,Journal.consulterDescription(3));
-        tabItem[2]=new Item("Boisson énergissante",100,Journal.consulterDescription(4));
+        tabItem[0]=new Item(Journal.consulterDescription(54),1000,Journal.consulterDescription(2));
+        tabItem[1]=new Item(Journal.consulterDescription(55),500,Journal.consulterDescription(3));
+        tabItem[2]=new Item(Journal.consulterDescription(53),100,Journal.consulterDescription(4));
         
         int i=0,j=0,k;
         while(i<625){
             for(k=0;k<25;k++){
-                //if(i==338){System.out.println(j+";"+k+"  "+i);}
                 tabCase.add(new Case(k,j));
                 i+=1;
             }

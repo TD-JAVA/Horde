@@ -30,13 +30,11 @@ public class Temps {
     }
     
     public void incrementerTour(Jeu partie){
-        //System.out.println(partie.getIndexJoueurActuel());
         if(partie.getIndexJoueurActuel()<partie.getNombreJoueur()-1){
             partie.setIndexJoueurActuel(partie.getIndexJoueurActuel()+1);
             
         }else{
             partie.setIndexJoueurActuel(0);
-            //System.out.println("coucou"+partie.getJoueur(partie.getIndexJoueurActuel()).getNom()+this.numTour);
             numTour+=1;
             for(int i=0;i<partie.getNombreJoueur();i++){
                     partie.getJoueur(i).setPa(partie.getJoueur(i).getPa()+4);

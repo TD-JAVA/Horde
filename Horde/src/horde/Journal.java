@@ -298,6 +298,40 @@ public class Journal {
                     break;
             case 69:description="Position sexuelle";
                     break;
+            case 70:description="La case n'est pas fouillée, souhaitez vous le faire ?($1PA)(O/N)";
+                    break;
+            case 71:description="Chaque construction coûte un point d'action.";
+                    break;
+            case 72:description="Ressources ou points d'action insuffisants";
+                    break;
+            case 73:description="Ce batiment est déjà fait";
+                    break;
+            case 74:description="Il reste ";
+                    break;
+            case 75:description=" points d'action à dépenser pour terminer ce batiment.";
+                    break;    
+            case 76:description="Souhaitez vous investir ?(O/N)";
+                    break; 
+            case 77:description="Combien de points d'action souhaitez vous utiliser ?";
+                    break;
+            case 78:description="La porte est ouverte !";
+                    break;
+            case 79:description="Souhaitez-vous la fermer ?(O/N)($1PA)";
+                    break;
+            case 80:description="La porte est fermée !";
+                    break;
+            case 81:description="Souhaitez-vous l'ouvrir ?(O/N)($1PA)";
+                    break;
+            case 82:description="\nNom de la construction - Réssistance\n";
+                    break; 
+            case 83:description="\nNom de la construction - PA - Réssistance\n";
+                    break; 
+            case 84:description="\nIl n' y a plus de ration.";
+                    break; 
+            case 85:description="\nIl n' y a plus de boisson énergissante.";
+                    break; 
+            //case 86:description=;
+            //        break; 
         }      
         
         

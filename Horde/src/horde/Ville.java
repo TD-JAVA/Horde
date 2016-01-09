@@ -15,28 +15,15 @@ import java.util.Scanner;
  * @author Gabriel
  */
 public class Ville extends Case {
+    
     Scanner sc=new Scanner(System.in);
     private Item[] entrepot= new Item[4]; // valeur par défaut//
-    private String[] tabItems= {"Planche","Clou","Boisson énergissante"};
-    private int nbRation=50;
     private int tauxDefense;
     ArrayList<Construction> batiment = new ArrayList<Construction>(7); // valeur par défaut//
     ArrayList<Construction> batimentEnCours = new ArrayList<Construction>(7); // valeur par défaut//
     private boolean ouverturePorte = true;
-
-    public Ville(int nbRation, int tauxDefense, int longitude, int lattitude) {
-        super(longitude, lattitude);
-        this.nbRation = nbRation;
-        this.tauxDefense = tauxDefense;
-    }
-
-    public int getTauxDefense() {
-        return tauxDefense;
-    }
-
-    public void setTauxDefense(int tauxDefense) {
-        this.tauxDefense = tauxDefense;
-    }
+    public int getTauxDefense() {return tauxDefense;}
+    public void setTauxDefense(int tauxDefense) {this.tauxDefense = tauxDefense;}
 
     public Ville(Jeu partie) {
         super(13, -13);
@@ -45,11 +32,10 @@ public class Ville extends Case {
         partie.getGrille().setTabCase(i, this);
         super.laVille = true;
         partie.getGrille().setxyVille(13, -13);
-        entrepot[0]=new Item("Ration",50,Journal.consulterDescription(1));
-        entrepot[1]=new Item("Planche",0,Journal.consulterDescription(2));
+        entrepot[0]=new Item(Journal.consulterDescription(51),50,Journal.consulterDescription(1));
+        entrepot[1]=new Item(Journal.consulterDescription(54),0,Journal.consulterDescription(2));
         entrepot[2]=new Item("Plaques de métal",0,Journal.consulterDescription(3));
-        entrepot[3]=new Item("Boisson énergissante",0,Journal.consulterDescription(4));
-
+        entrepot[3]=new Item(Journal.consulterDescription(53),0,Journal.consulterDescription(4));
     }
 
     public Ville(Jeu partie, int absysse, int ordonnee) {
@@ -60,16 +46,17 @@ public class Ville extends Case {
         partie.getGrille().setxyVille(absysse, ordonnee);
     }
 
-    public void afficherEntrepot(String str) {
-        System.out.println(str);
-    }
+    public ArrayList<Construction> afficherConstruction(Journal Journal){return Journal.getTabConstruction();}
+    public Item[] getEntrepot() {return entrepot;}
+    public void setEntrepot(Item[] entrepot) {this.entrepot = entrepot;}
+    public ArrayList<Construction> getBatiment() {return batiment;}
+    public ArrayList<Construction> getBatimentEnCours() {return batimentEnCours;}
+    public void setBatiment(ArrayList<Construction> construction) {this.batiment = construction;}
+    public void setNouveauBatiment(Construction construction){this.batiment.add(construction);}
+    public boolean getOuverturePorte(){return ouverturePorte;}
     
-    public ArrayList<Construction> afficherConstruction(Journal Journal){
-        return Journal.getTabConstruction();
-    }
-
     public void construire(Jeu partie,int choix) {
-        System.out.println("Chaque construction coute un point d'action.");
+        Menu.affichage(Journal.consulterDescription(71));
         boolean batimentDejaFait=false;
         for(int i=0;i<batiment.size();i++){
             if(partie.getMonJournal().getConstruction(choix).getNom().equals(batimentEnCours.get(i).getNom())||partie.getMonJournal().getConstruction(choix).getNom().equals(batiment.get(i).getNom())){
@@ -81,24 +68,23 @@ public class Ville extends Case {
                 partie.getJoueurActuel().setPa(partie.getJoueurActuel().getPa()-1);
                 batimentEnCours.add(partie.getMonJournal().getConstruction(choix));
             } else {
-                System.out.println("Ressources ou points d'action insuffisants");
+                Menu.affichage(Journal.consulterDescription(72));
             }
         }else{
-            System.out.println("Ce batiment est déjà fait");
+            Menu.affichage(Journal.consulterDescription(72));
         }    
     }
     
     public String[] participerAuChantier(Joueur ceJoueur){
         String[] fini={"",""};
         int num,pointUse;
-        System.out.println(afficherConstructionEnCours());
-        System.out.println("Quel est votre choix ?\n");
+        Menu.affichage(afficherConstructionEnCours());
+        Menu.affichage(Journal.consulterDescription(36));
         num=Menu.donnerReponseChiffre(batimentEnCours.size()-1);
-        
-        System.out.println("Il reste "+batimentEnCours.get(num).getConso_pa()+" points d'action à dépenser pour terminer ce batiment.");
-        System.out.println("Souhaitez vous investir ?(O/N)");
+        Menu.affichage(Journal.consulterDescription(74)+batimentEnCours.get(num).getConso_pa()+Journal.consulterDescription(75));
+        Menu.affichage(Journal.consulterDescription(76));
         if(Menu.conversionBoolean(sc.next())){
-            System.out.println("Combien de points d'action souhaitez vous utiliser ?");
+            Menu.affichage(Journal.consulterDescription(77));
             num=Menu.donnerReponseChiffre(ceJoueur.getPa());
             pointUse=batimentEnCours.get(num).getConso_pa();
             if(batimentEnCours.get(num).setConso_pa((batimentEnCours.get(num).getConso_pa()-num))){
@@ -118,7 +104,6 @@ public class Ville extends Case {
         for(int i=0;i<entrepot.length;i++){
             tabEntrepot+=i+" | "+entrepot[i].getNom()+" | "+entrepot[i].getQuantite()+'\n';
         }
-   
         return tabEntrepot;
     }
 
@@ -140,15 +125,15 @@ public class Ville extends Case {
         //bool ouverte -> 1 sinon 0
         boolean changement=false;
         if (ouverturePorte == true) {
-            System.out.print("La porte est ouverte !");
-            System.out.println("Souhaitez-vous la fermer ?(O/N)($1PA)");
+            System.out.print(Journal.consulterDescription(78));
+            Menu.affichage(Journal.consulterDescription(79));
             if(Menu.conversionBoolean(sc.next())){
                 ouverturePorte=false;
                 changement=true;
             }
         } else {
-            System.out.print("La porte est fermée !");
-            System.out.println("Souhaitez-vous l'ouvrir ?(O/N)($1PA)");
+            System.out.print(Journal.consulterDescription(80));
+            Menu.affichage(Journal.consulterDescription(81));
             if(Menu.conversionBoolean(sc.next())){
                 ouverturePorte=true;
                 changement=true;
@@ -156,15 +141,9 @@ public class Ville extends Case {
         }
         return changement;
     }
-    public boolean getOuverturePorte(){
-        return ouverturePorte;
-    }
-    public void remplirSac() {
 
-    }
-    
     public String afficherConstruction() {
-        String tabNom="\nNom de la construction - Réssistance\n";
+        String tabNom=Journal.consulterDescription(82);
         for(int i=0;i<batiment.size();i++){
             tabNom+=batiment.get(i).getNom()+" - "+batiment.get(i).getResistance()+"\n";
         }
@@ -172,19 +151,15 @@ public class Ville extends Case {
     }
     
     public String afficherConstructionEnCours() {
-        String tabNom="\nNom de la construction - PA - Réssistance\n";
+        String tabNom=Journal.consulterDescription(83);
         for(int i=0;i<batimentEnCours.size();i++){
             tabNom+=batimentEnCours.get(i).getNom()+" - "+batimentEnCours.get(i).getConso_pa()+" - "+batimentEnCours.get(i).getResistance()+"\n";
         }
         return tabNom;
     }
     
-    public void boire() {
-
-    }
-    
     public Item remplirGourde(){
-        Item gourde = new Item("Gourde",Journal.consulterDescription(0));
+        Item gourde = new Item(Journal.consulterDescription(52),Journal.consulterDescription(0));
         return gourde;
     }
     
@@ -193,51 +168,18 @@ public class Ville extends Case {
         Item ration;
         if (this.entrepot[0].getQuantite()>0) {
             this.entrepot[0].setQuantite(this.entrepot[0].getQuantite() - 1);
-            ration = new Item("Ration",Journal.consulterDescription(1));
-    
-        }else{ration = null;System.out.println("\nIl n' y a plus de ration.");}
+            ration = new Item(Journal.consulterDescription(51),Journal.consulterDescription(1));
+        }else{ration = null;Menu.affichage(Journal.consulterDescription(84));}
         return ration;
     }
-    
+
     public Item prendreBoisson() {
         Item boisson;
         if (this.entrepot[3].getQuantite()>0) {
             this.entrepot[3].setQuantite(this.entrepot[3].getQuantite() - 1);
-            boisson = new Item("Boisson énergissante",Journal.consulterDescription(4));
-    
-        }else{boisson = null;System.out.println("\nIl n' y a plus de boisson énergissante.");}
+            boisson = new Item(Journal.consulterDescription(53),Journal.consulterDescription(4));    
+        }else{boisson = null;Menu.affichage(Journal.consulterDescription(85));}
         return boisson;
-    }
-
-    public Item[] getEntrepot() {
-        return entrepot;
-    }
-
-    public void setEntrepot(Item[] entrepot) {
-        this.entrepot = entrepot;
-    }
-
-    public int getNbRation() {
-        return nbRation;
-    }
-
-    public void setNbRation(int nbRation) {
-        this.nbRation = nbRation;
-    }
-
-    public ArrayList<Construction> getBatiment() {
-        return batiment;
-    }
-    
-    public ArrayList<Construction> getBatimentEnCours() {
-        return batimentEnCours;
-    }
-    public void setBatiment(ArrayList<Construction> construction) {
-        this.batiment = construction;
-    }
-    
-    public void setNouveauBatiment(Construction construction){
-        this.batiment.add(construction);
     }
 
 }

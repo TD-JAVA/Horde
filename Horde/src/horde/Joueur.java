@@ -208,18 +208,6 @@ public class Joueur {
         if(dependant){nbJourDependant+=1;if(nbJourDependant>=3){if(setPdv(pdv-5)){if(partie.dernierJoueur(this,k,false)){partie.finDePartie();}}}}
     }
 
-    /**
-     * @return the gourde
-     */
-    /*public int getGourde() {
-     return gourde;
-     }*/
-    /**
-     * @param gourde the gourde to set
-     */
-    /* public void setGourde(int gourde) {
-     this.gourde = gourde;
-     }*/
     // ---------------DEBUT DES METHODES---------------------
     // Permet au joueur de boire de l'eau
     /**
@@ -228,7 +216,6 @@ public class Joueur {
     public boolean boire() {
         int i=0;
         boolean changement=false;
-        
         if(!sac.isEmpty()){
             while(!(this.sac.get(i).getNom().equals(Journal.consulterDescription(52))) && i < this.sac.size()){
                 i++;
@@ -246,22 +233,13 @@ public class Joueur {
             }
         }else{
             System.out.println(Journal.consulterDescription(63));
-        }
-        
+        }   
         return changement;
     }
-
-// correspond à la méthode déplacement
-    public void deplacement() {
-
-    }
-
     //Permet au joueur de manger une ration s'il en dispose
     public boolean manger() {
-        
         int i=0;
         boolean changement=false;
-        
         if(!sac.isEmpty()){
             while(!(this.sac.get(i).getNom().equals(Journal.consulterDescription(51))) && i < this.sac.size()-1){
                 i++;
@@ -304,7 +282,7 @@ public class Joueur {
                 System.out.println(Journal.consulterDescription(67));
             }
         }else{
-            System.out.println("\nVous ne possèdez pas de boisson énergissante.");
+            System.out.println(Journal.consulterDescription(68));
         }
         return changement;
     }

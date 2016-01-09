@@ -280,7 +280,7 @@ public class Menu {
         }
     }
     public void accederEntrepot(){
-        partieActuelle.getMaVille().afficherEntrepot(partieActuelle.getMaVille().consulterEntrepot());
+        affichage(partieActuelle.getMaVille().consulterEntrepot());
         affichage(Journal.consulterDescription(15));
         if(conversionBoolean(sc.next())){
             affichage(Journal.consulterDescription(16));
