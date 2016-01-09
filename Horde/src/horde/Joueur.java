@@ -1,5 +1,7 @@
 package horde;
 
+import static horde.Menu.affichage;
+import static horde.Menu.conversionBoolean;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -41,8 +43,8 @@ public class Joueur {
     Scanner sc=new Scanner(System.in);
   
     //Tableau de 10 objets
-    private ArrayList<Item> sac = new ArrayList<Item>(10);
-    private ArrayList<String> carteJoueur = new ArrayList<String>();
+    private ArrayList<Item> sac = new ArrayList<>(10);
+    private ArrayList<String> carteJoueur = new ArrayList<>();
    
     
     public int getOrdonneeActuelle() {
@@ -73,8 +75,8 @@ public class Joueur {
         this.pa = 6;
         absysseActuelle = partie.getGrille().getxVille();
         ordonneeActuelle = partie.getGrille().getyVille();
-        this.sac = new ArrayList<Item>();
-        this.carteJoueur = new ArrayList<String>();
+        this.sac = new ArrayList<>();
+        this.carteJoueur = new ArrayList<>();
         this.indiceCase =338;
         this.dejaBu=false;
         this.dejaMange=false;
@@ -109,6 +111,7 @@ public class Joueur {
 
     /**
      * @param pdv the pdv to set
+     * @return changement si le joueur passe de la vie au trépas.
      */
     public boolean setPdv(int pdv) {
         this.pdv = pdv;
@@ -220,29 +223,29 @@ public class Joueur {
     // ---------------DEBUT DES METHODES---------------------
     // Permet au joueur de boire de l'eau
     /**
-     * @return changement to know a change has made
+     * @return changement to know if a change was made
      */
     public boolean boire() {
         int i=0;
         boolean changement=false;
         
         if(!sac.isEmpty()){
-            while(!(this.sac.get(i).getNom().equals("Gourde")) && i < this.sac.size()){
+            while(!(this.sac.get(i).getNom().equals(Journal.consulterDescription(52))) && i < this.sac.size()){
                 i++;
             }
-            if(this.sac.get(i).getNom().equals("Gourde")){
+            if(this.sac.get(i).getNom().equals(Journal.consulterDescription(52))){
                 this.setPa(this.getPa() + 6);
                 this.sac.remove(i);
-                System.out.println("Vous avez récupéré 6 points d'actions !");
+                System.out.println(Journal.consulterDescription(64));
                 changement=true;
                 dejaBu=true;
             }else{
                 if(i == this.sac.size()){
-                    System.out.println("Vous n'avez pas de gourde !");
+                    System.out.println(Journal.consulterDescription(63));
                 }
             }
         }else{
-            System.out.println("Vous n'avez pas de gourde !");
+            System.out.println(Journal.consulterDescription(63));
         }
         
         return changement;
@@ -260,52 +263,36 @@ public class Joueur {
         boolean changement=false;
         
         if(!sac.isEmpty()){
-            while(!(this.sac.get(i).getNom().equals("Ration")) && i < this.sac.size()-1){
+            while(!(this.sac.get(i).getNom().equals(Journal.consulterDescription(51))) && i < this.sac.size()-1){
                 i++;
             }
-            if(this.sac.get(i).getNom().equals("Ration")){
+            if(this.sac.get(i).getNom().equals(Journal.consulterDescription(51))){
                 this.setPa(this.getPa() + 6);
                 this.sac.remove(i);
-                System.out.println("Vous avez récupéré 6 points d'actions !");
+                System.out.println(Journal.consulterDescription(64));
                 changement=true;
                 dejaMange=true;
             }else{
                 if(i == this.sac.size()){
-                    System.out.println("Vous n'avez pas de ration !");
+                    System.out.println(Journal.consulterDescription(65));
                 }
             }
         }else{
-            System.out.println("Vous n'avez pas de ration !");
+            System.out.println(Journal.consulterDescription(65));
         }
-        
         return changement;
-        
-        /*for (int i = 0; i < this.sac.size(); i++) {
-            if (this.sac.get(i).getNom() == "Ration") {
-                this.setPa(this.getPa() + 6);
-                if (this.sac.get(i).getQuantite() == 1) {
-                    this.sac.remove(i);
-                } else {
-                    this.sac.get(i).setQuantite(this.sac.get(i).getQuantite() - 1);
-                }
-
-                System.out.print("Vous avez récupéré 6 points d'actions !");
-                break;
-            }
-        }
-        System.out.print("Vous n'avez pas de gourde !");*/
     }
 
     public boolean boireBoisson(){
         boolean changement=false;
         int i=0;
         
-        while(!sac.get(i).getNom().equals("Boisson énergissante")&&i<sac.size()){
+        while(!sac.get(i).getNom().equals(Journal.consulterDescription(53))&&i<sac.size()){
             i++;
         }
         
-        if(sac.get(i).getNom().equals("Boisson énergissante")){
-            System.out.println("\nSouhaitez vous boire une boisson énergissante ?(O/N)");
+        if(sac.get(i).getNom().equals(Journal.consulterDescription(53))){
+            System.out.println(Journal.consulterDescription(66));
             if(Menu.conversionBoolean(sc.next())){
                 changement=true;
                 setPa(pa+4);
@@ -314,18 +301,12 @@ public class Joueur {
                 }
                 dependant=true;
                 sac.remove(i);
-                System.out.println("Vous récupérez 4 points d'action.");
+                System.out.println(Journal.consulterDescription(67));
             }
         }else{
             System.out.println("\nVous ne possèdez pas de boisson énergissante.");
         }
         return changement;
-    }
-    // Permet au joueur de construire des défenses
-
-    // Permet au joueur de terminer son tour sans consommer tous ses points d'action
-    public void terminerTour() {
-
     }
 
     // Permet au joueur de remplir son sac
@@ -334,7 +315,54 @@ public class Joueur {
     }
 
     // Permet au joueur de vider son sac
-    public void viderSac() {
+    public void viderSac(Jeu partieActuelle) {
+        if(!partieActuelle.getJoueurActuel().getSac().isEmpty()){
+            if(partieActuelle.getJoueurActuel().getIndiceCase()!=338){
+            affichage(Journal.consulterDescription(28));
+            affichage(Journal.afficherContenuSac(partieActuelle.getJoueurActuel()));
+            int num=Menu.donnerReponseChiffre(partieActuelle.getJoueurActuel().getSac().size()-1);
+            affichage(Journal.consulterDescription(29)+partieActuelle.getJoueurActuel().getSac().get(num).getNom()+ Journal.consulterDescription(30) );
+            if(conversionBoolean(sc.next())){
+                if(!partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals(Journal.consulterDescription(51))&&!partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals(Journal.consulterDescription(52))){
+                    if(partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals(Journal.consulterDescription(54))){
+                        partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(0).setQuantite(partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(0).getQuantite()+1);
+                    }else{
+                        if(partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals(Journal.consulterDescription(55))){
+                        partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(1).setQuantite(partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(1).getQuantite()+1);    
+                        }else{  
+                            partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(2).setQuantite(partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(2).getQuantite()+1);
+                        }
+                    }
+                }
+                partieActuelle.getJoueurActuel().getSac().remove(num);
+            }
+        }else{
+            affichage(Journal.consulterDescription(28));
+            affichage(Journal.afficherContenuSac(partieActuelle.getJoueurActuel()));
+            int num=Menu.donnerReponseChiffre(partieActuelle.getJoueurActuel().getSac().size()-1);
+            if(!partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals(Journal.consulterDescription(52))){
+                affichage(Journal.consulterDescription(31)+partieActuelle.getJoueurActuel().getSac().get(num).getNom()+Journal.consulterDescription(32));
+                if(partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals(Journal.consulterDescription(51))){
+                    partieActuelle.getMaVille().getEntrepot()[0].setQuantite(partieActuelle.getMaVille().getEntrepot()[0].getQuantite()+1);
+                }else{
+                    if(partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals(Journal.consulterDescription(54))){
+                        partieActuelle.getMaVille().getEntrepot()[1].setQuantite(partieActuelle.getMaVille().getEntrepot()[1].getQuantite()+1);
+                    }else{
+                        if(partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals(Journal.consulterDescription(55))){
+                            partieActuelle.getMaVille().getEntrepot()[2].setQuantite(partieActuelle.getMaVille().getEntrepot()[2].getQuantite()+1);
+                        }else{  
+                            partieActuelle.getMaVille().getEntrepot()[3].setQuantite(partieActuelle.getMaVille().getEntrepot()[3].getQuantite()+1);
+                        }
+                    }
+                }    
 
+            }else{
+                affichage(Journal.consulterDescription(31)+partieActuelle.getJoueurActuel().getSac().get(num).getNom()+Journal.consulterDescription(33));
+            }
+            partieActuelle.getJoueurActuel().getSac().remove(num);
+        }
+    }else{
+        affichage(Journal.consulterDescription(34));
+    }
     }
 }

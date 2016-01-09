@@ -120,7 +120,7 @@ public class Journal {
         }
     }
     public static String afficherDescriptionJoueur(Joueur ceJoueur){
-        return ""+ceJoueur.getNom()+" a "+ceJoueur.getPa()+" point(s) d'action et "+ ceJoueur.getPdv()+" point de vie";
+        return ""+ceJoueur.getNom()+" a "+ceJoueur.getPa()+" point(s) d'action et "+ ceJoueur.getPdv()+" points de vie";
     }
     public static String afficherContenuSac(Joueur ceJoueur){
         String str="\n";
@@ -242,7 +242,7 @@ public class Journal {
                     break;
             case 41:description="\n0. Résumé du jeu(J)\n1. Situation(S)\n2. Règle du jeu(K)\n3. Item dans l'entrepôt(I)\n4. Liste des constructions(C)\n5.Afficher le contenu du sac(N)\n6. Mettre à jour la carte(M)\n7. Voir la carte(V)\nRetour (R)";
                     break;
-            case 42:description="\n0. Résumé du jeu(J)\n1. Situation(S)\n2. Règle du jeu(K)\n3. Afficher le contenu du sac(N)\n4. Mettre à jour la carte(M\n5. Voir la carte(V)\nRetour (R)";
+            case 42:description="\n0. Résumé du jeu(J)\n1. Situation(S)\n2. Règle du jeu(K)\n3. Afficher le contenu du sac(N)\n4. Mettre à jour la carte(M)\n5. Voir la carte(V)\nRetour (R)";
                     break;
             case 43:description="\nBoire (B)\nManger (M)\nVider le sac(V)\nRetour(R)\n";
                     break;
@@ -284,7 +284,21 @@ public class Journal {
                     break;
             case 62:description="\nLa partie est terminée. Merci d'avoir joué!\nSouhaitez vous rejouer ?(O/N)";
                     break;
-        }           
+            case 63:description="Vous n'avez pas de gourde !";
+                    break;
+            case 64:description="Vous avez récupéré 6 points d'actions !";
+                    break;
+            case 65:description="Vous n'avez pas de ration !";
+                    break;
+            case 66:description="\nSouhaitez vous boire une boisson énergissante ?(O/N)";
+                    break;
+            case 67:description="Vous récupérez 4 points d'action.";
+                    break;
+            case 68:description="\nVous ne possèdez pas de boisson énergissante.";
+                    break;
+            case 69:description="Position sexuelle";
+                    break;
+        }      
         
         
         return description;

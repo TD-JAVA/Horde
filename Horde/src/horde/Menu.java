@@ -482,54 +482,7 @@ public class Menu {
     }
     
     public void accederVider(){
-        if(!partieActuelle.getJoueurActuel().getSac().isEmpty()){
-            if(partieActuelle.getJoueurActuel().getIndiceCase()!=338){
-            affichage(Journal.consulterDescription(28));
-            affichage(partieActuelle.getMonJournal().afficherContenuSac(partieActuelle.getJoueurActuel()));
-            int num=Menu.donnerReponseChiffre(partieActuelle.getJoueurActuel().getSac().size()-1);
-            affichage(Journal.consulterDescription(29)+partieActuelle.getJoueurActuel().getSac().get(num).getNom()+ Journal.consulterDescription(30) );
-            if(conversionBoolean(sc.next())){
-                if(!partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals(Journal.consulterDescription(51))&&!partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals(Journal.consulterDescription(52))){
-                    if(partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals(Journal.consulterDescription(54))){
-                        partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(0).setQuantite(partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(0).getQuantite()+1);
-                    }else{
-                        if(partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals(Journal.consulterDescription(55))){
-                        partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(1).setQuantite(partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(1).getQuantite()+1);    
-                        }else{  
-                            partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(2).setQuantite(partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(2).getQuantite()+1);
-                        }
-                    }
-                }
-                partieActuelle.getJoueurActuel().getSac().remove(num);
-            }
-        }else{
-            affichage(Journal.consulterDescription(28));
-            affichage(partieActuelle.getMonJournal().afficherContenuSac(partieActuelle.getJoueurActuel()));
-            int num=Menu.donnerReponseChiffre(partieActuelle.getJoueurActuel().getSac().size()-1);
-            if(!partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals(Journal.consulterDescription(52))){
-                affichage(Journal.consulterDescription(31)+partieActuelle.getJoueurActuel().getSac().get(num).getNom()+Journal.consulterDescription(32));
-                if(partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals(Journal.consulterDescription(51))){
-                    partieActuelle.getMaVille().getEntrepot()[0].setQuantite(partieActuelle.getMaVille().getEntrepot()[0].getQuantite()+1);
-                }else{
-                    if(partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals(Journal.consulterDescription(54))){
-                        partieActuelle.getMaVille().getEntrepot()[1].setQuantite(partieActuelle.getMaVille().getEntrepot()[1].getQuantite()+1);
-                    }else{
-                        if(partieActuelle.getJoueurActuel().getSac().get(num).getNom().equals(Journal.consulterDescription(55))){
-                            partieActuelle.getMaVille().getEntrepot()[2].setQuantite(partieActuelle.getMaVille().getEntrepot()[2].getQuantite()+1);
-                        }else{  
-                            partieActuelle.getMaVille().getEntrepot()[3].setQuantite(partieActuelle.getMaVille().getEntrepot()[3].getQuantite()+1);
-                        }
-                    }
-                }    
-
-            }else{
-                affichage(Journal.consulterDescription(31)+partieActuelle.getJoueurActuel().getSac().get(num).getNom()+Journal.consulterDescription(33));
-            }
-            partieActuelle.getJoueurActuel().getSac().remove(num);
-        }
-    }else{
-        affichage(Journal.consulterDescription(34));
-    }
+        partieActuelle.getJoueurActuel().viderSac(partieActuelle);
 }
     public void accederBoireE(){
         consommationDePA=true;
