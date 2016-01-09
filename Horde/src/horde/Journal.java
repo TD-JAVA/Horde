@@ -85,7 +85,6 @@ public class Journal {
                 choix='E';
             }
         }
-        
         switch (choix){
             case 'J':
                 break;
@@ -106,6 +105,8 @@ public class Journal {
             case 'V':   this.voirCarte();
                         break; 
             case 'R':   partie.getMenuPartie().retournerMenu(1);
+                        break;
+            default:    
                         break;
         }
         return string;
@@ -138,6 +139,20 @@ public class Journal {
         String str="\n";
         for(int index=0;index<listeDeMorts.size();index++){str+=listeDeMorts.get(index)+";\n";}
         return str;
+    }
+    public static String afficherMort(Jeu partie, boolean nuit,boolean pasDrogue){
+        String str="";
+        if(!nuit){
+            if(pasDrogue){
+                str= "\n"+partie.getJoueurActuel().getNom()+" est décédé(e) le "+partie.getTempsPartie().getNumTour()+" tour(s) du jour"+partie.getTempsPartie().getNbJour()+" par une attaque de zombies";
+            }else{
+                str= "\n"+partie.getJoueurActuel().getNom()+" est décédé(e) le "+partie.getTempsPartie().getNumTour()+" tour(s) du jour"+partie.getTempsPartie().getNbJour()+" à cause de votre dépendance.";
+            }
+            return str;
+        }else{
+            str= "\n"+partie.getJoueurActuel().getNom()+" est décédé(e) dans la nuit du jour"+partie.getTempsPartie().getNbJour()+" par une attaque de zombies";
+            return str;
+        }
     }
     public static String consulterDescription(int choix){
         String description="";
@@ -255,7 +270,20 @@ public class Journal {
                     break;
             case 55:description="Plaque de métal";
                     break;
-                
+            case 56:description="**************************************************\n**************************************************\n******************* H O R D E ********************\n**************************************************\n**************************************************\nBienvenue dans Horde, une reproduction simplifié du Jeu de Twinoid.\nCe programme a été réalisé dans un cadre scolaire.\nIl n'est pas commercialisable. Les créateurs de ce programme et les intervenants de l'université de Lorraine ne pourront être tenu responsable des effets de ce logiciel et de ce logiciel.\nProgramme réalisé par Sébastien Brogniart, Gabriel Giroud et Valère Richier alors tous trois étudiants en année de Licence MIASHS.\n";
+                    break;
+            case 57:description="Combien y a t il de joueur pour cette partie ?(entre 1 et 20 joueurs)";
+                    break;
+            case 58:description="Quel est le nom du joueur ";
+                    break;
+            case 59:description="Initialisation terminée, accèdez au journal par le sous menu pour connaitre les règles du jeu";
+                    break;
+            case 60:description="\nVous êtes mort ! Fin de partie pour vous.";
+                    break;
+            case 61:description=" a gagné la partie.";
+                    break;
+            case 62:description="\nLa partie est terminée. Merci d'avoir joué!\nSouhaitez vous rejouer ?(O/N)";
+                    break;
         }           
         
         

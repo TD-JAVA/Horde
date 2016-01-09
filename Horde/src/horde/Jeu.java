@@ -12,7 +12,6 @@ import java.util.ArrayList;
  * @author oneiroi
  */
 public class Jeu {
-    //C'est un commentaire le temps de créer la classe joueur
     private ArrayList<Joueur> tabJoueur;
     private int nombreJoueur;
     private int indexJoueurActuel;
@@ -49,65 +48,43 @@ public class Jeu {
     }
     public Carte getGrille() {return grille;}
     public void setGrille(Carte grille) {this.grille = grille;}
-    
     public Jeu(){
-        
     }
     
     public void lancerJeu(){
-        //this.setPartie(false);
-        //String answersUser = new String();
-        
-        System.out.println("**************************************************");
-        System.out.println("**************************************************");
-        System.out.println("******************* H O R D E ********************");
-        System.out.println("**************************************************");
-        System.out.println("**************************************************");
-        System.out.println("Bienvenue dans Horde, une reproduction simplifié du Jeu de Twinoid");
-        System.out.println("Ce programme a été réalisé dans un cadre scolaire");
-        System.out.println("Il n'est pas commercialisable. Les créateurs de ce programme et les intervenants de l'université de Lorraine ne pourront être tenu responsable des effets de ce logiciel et de ce logiciel");
-        System.out.println("Programme réalisé par Sébastien Brogniart, Gabriel Giroud et Valère Richier alors tous trois étudiants en année de Licence MIASHS.\n");
+        Menu.affichage(Journal.consulterDescription(56));
         tempsPartie= new Temps();
         grille=new Carte(this);
         maVille=new Ville(this);
         monJournal=new Journal();
         menuPartie=new Menu();
         Scanner sc = new Scanner(System.in);        
-        System.out.println("Combien y a t il de joueur pour cette partie ?(entre 1 et 20 joueurs)");
-        nombreJoueur=menuPartie.conversionInt(sc.next());
-        //nombreJoueur=sc.nextInt();
-        
+        Menu.affichage(Journal.consulterDescription(57));
+        nombreJoueur=menuPartie.conversionInt(sc.next());   
         tabJoueur=new ArrayList<Joueur>(nombreJoueur);
         for(int i=0;i<nombreJoueur;i++){
-            System.out.println("Quel est le nom du joueur "+i+" ?");
+            Menu.affichage(Journal.consulterDescription(58)+i+" ?");
             String nomJoueur=sc.next();
             Joueur unJoueur= new Joueur(this,nomJoueur);
             tabJoueur.add(unJoueur);
-            
         }
         setJoueurActuel(0);
-        
-        //while((answersUser=="y") || (answersUser=="Y") || (answersUser=="yes") || (answersUser=="Yes") || (answersUser=="YES") || (answersUser=="O") || (answersUser=="o") || (answersUser=="Oui") || (answersUser=="oui") || (answersUser=="OUI")){
-            
-        //}
-        //while(tempsPartie.getNbJour()!=2){
-            this.getMenuPartie().demarrer(this);   
-        //}
+        this.getMenuPartie().demarrer(this);   
     }
     
     public void initialisation(){
         boolean finInitialisation = true;
         setPartie(finInitialisation);
-        System.out.println("Initialisation terminée, accèdez au journal par le sous menu pour connaitre les règles du jeu");    
+        Menu.affichage(Journal.consulterDescription(59));    
     }
     
     public boolean dernierJoueur(){
         String str="";
         if(!tempsPartie.getNuit()){
-            System.out.println("\nVous êtes mort ! Fin de partie pour vous.");
-            str= "\n"+joueurActuel.getNom()+" est décédé(e) le "+tempsPartie.getNumTour()+" tour(s) du jour"+tempsPartie.getNbJour()+" par une attaque de zombies";
+            Menu.affichage(Journal.consulterDescription(60));
+            Journal.afficherMort(this, !tempsPartie.getNuit(), true);
         }else{
-            str= "\n"+joueurActuel.getNom()+" est décédé(e) dans la nuit du jour"+tempsPartie.getNbJour()+" par une attaque de zombies";
+            Journal.afficherMort(this, tempsPartie.getNuit(), true);
         }
             monJournal.ajouterListeDeMorts(str);
             nombreJoueur-=1;
@@ -119,13 +96,13 @@ public class Jeu {
         String str="";
         if(!tempsPartie.getNuit()){
             if(k){
-            System.out.println("\nVous êtes mort ! Fin de partie pour vous.");
-            str= "\n"+joueur.getNom()+" est décédé(e) le "+tempsPartie.getNumTour()+" tour(s) du jour"+tempsPartie.getNbJour()+" par une attaque de zombies.";
+            Menu.affichage(Journal.consulterDescription(60));
+            Journal.afficherMort(this, !tempsPartie.getNuit(), k);
             }else{
-            str= "\n"+joueur.getNom()+" est décédé(e) le "+tempsPartie.getNumTour()+" tour(s) du jour"+tempsPartie.getNbJour()+" à cause de votre dépendance.";
+            Journal.afficherMort(this, !tempsPartie.getNuit(), !k);
             }
         }else{
-            str= "\n"+joueur.getNom()+" est décédé(e) dans la nuit du jour"+tempsPartie.getNbJour()+" par une attaque de zombies.";
+            Journal.afficherMort(this, tempsPartie.getNuit(), false);
         }
             monJournal.ajouterListeDeMorts(str);
             nombreJoueur-=1;
@@ -136,15 +113,13 @@ public class Jeu {
     public void finDePartie(){
         boolean continuerPartie = false;
         Scanner sc=new Scanner(System.in);
-        System.out.println("\n"+this.tabJoueur.get(0).getNom()+" a gagné la partie.");
+        Menu.affichage("\n"+this.tabJoueur.get(0).getNom()+Journal.consulterDescription(61));
         sc.next();
-        System.out.println("\nLa partie est terminée. Merci d'avoir joué!");
-        System.out.println("\nSouhaitez vous rejouer ?(O/N)");
+        Menu.affichage(Journal.consulterDescription(62));
         if(Menu.conversionBoolean(sc.next())){
             setPartie(continuerPartie);
         }else{
             menuPartie.menuNiveauZero('Q');
         }
-        
     }
 }
