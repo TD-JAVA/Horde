@@ -154,7 +154,7 @@ public class Menu {
                         break;
             case 'F':   this.finirTour();
                         break;
-            case 'S':   interagirSac(afficher(4));
+            case 'S':   this.interagirSac(afficher(4));
                         break;      
             case 'R':   this.retournerMenu(0);
                         break;
@@ -382,6 +382,7 @@ public class Menu {
             if(partieActuelle.getJoueurActuel().getSac().size()<10){
                 partieActuelle.getJoueurActuel().getSac().add(new Item(nom,description));
                 partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(num).setQuantite(partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(num).getQuantite()-1);
+                affichage(Journal.consulterDescription(31)+nom+Journal.consulterDescription(110));
             }else{
                 affichage(Journal.consulterDescription(8));
             }

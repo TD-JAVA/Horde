@@ -37,19 +37,19 @@ public class Journal {
     public Journal(){
         ArrayList tab=new ArrayList(2);
         tab.add(0, 10);tab.add(1,20);
-        tabConstruction.add(0,new Construction("Mur d'enceinte",tab,10,20));
+        tabConstruction.add(0,new Construction(Journal.consulterDescription(87),tab,10,20));
         tab.add(0, 10);tab.add(1,20);
-        tabConstruction.add(1,new Construction("Fils barbelés",tab,20,30));
+        tabConstruction.add(1,new Construction(Journal.consulterDescription(88),tab,20,30));
         tab.add(0, 50);tab.add(1,25);
-        tabConstruction.add(2,new Construction("Fosses à Zombies",tab,30,50));
+        tabConstruction.add(2,new Construction(Journal.consulterDescription(89),tab,30,50));
         tab.add(0, 10);tab.add(1,50);
-        tabConstruction.add(3,new Construction("Mines autour de la ville",tab,30,50));
+        tabConstruction.add(3,new Construction(Journal.consulterDescription(90),tab,30,50));
         tab.add(0, 50);tab.add(1,50);
-        tabConstruction.add(4,new Construction("Portes blindées",tab,40,100));
+        tabConstruction.add(4,new Construction(Journal.consulterDescription(91),tab,40,100));
         tab.add(0, 75);tab.add(1,75);
-        tabConstruction.add(5,new Construction("Miradors avec mitrailleuses",tab,50,200));
+        tabConstruction.add(5,new Construction(Journal.consulterDescription(92),tab,50,200));
         tab.add(0, 100);tab.add(1,200);
-        tabConstruction.add(6,new Construction("Abris anti-atomique",tab,60,500));
+        tabConstruction.add(6,new Construction(Journal.consulterDescription(93),tab,60,500));
         for(int i =0;i<625;i++){
             carte.add(i,"");
         }
@@ -57,7 +57,7 @@ public class Journal {
     }
 // Permet de voir la liste et les détails des constructions
     public String consulterConstruction() {
-        String tabNom="\n   Nom de la construction - Ressources nécessaires - PA - Réssistance\n";
+        String tabNom=Journal.consulterDescription(94);
         for(int i=0;i<tabConstruction.size();i++){
             tabNom+=i+" :"+tabConstruction.get(i).getNom()+" - "+tabConstruction.get(i).getRessources(0)+";"+tabConstruction.get(i).getRessources(1)+" - "+tabConstruction.get(i).getConso_pa()+" - +"+tabConstruction.get(i).getResistance()+"\n";
         }
@@ -79,7 +79,7 @@ public class Journal {
         Temps temps=partie.getTempsPartie();
         Joueur joueur=partie.getJoueurActuel();
         Ville ville=partie.getMaVille();
-        String string=""; //="Résumé du Jeu. Le nombre de tours est de "+temps.getNumTour()+" tour(s), le nombre de jours est de "+temps.getNbJour()+" jour(s), les items dans l'entrepot sont :"+ ville.consulterEntrepot()+" ,la liste des batiments sont : \n"+this.consulterConstruction()+"";
+        String string=""; 
         if(joueur.getIndiceCase()!=338){
             if(choix=='C'||choix=='I'){
                 choix='E';
@@ -89,8 +89,8 @@ public class Journal {
             case 'J':
                 break;
             case 'S':
-                string = "Le nombre de tours est de "+temps.getNumTour()+" tour(s), le nombre de jours est de "+temps.getNbJour()+" jour(s)"
-                        + "\nLa position du joueur est la suivante:"+this.afficherPosition(partie, joueur)+"\n"+afficherDescriptionJoueur(joueur);
+                string = Journal.consulterDescription(95)+temps.getNumTour()+Journal.consulterDescription(96)+temps.getNbJour()+Journal.consulterDescription(97)
+                        + Journal.consulterDescription(98)+this.afficherPosition(partie, joueur)+"\n"+afficherDescriptionJoueur(joueur);
                 break;
             case 'K':
                 break;
@@ -114,20 +114,20 @@ public class Journal {
     
     public String afficherPosition(Jeu partie,Joueur ceJoueur){
         if(ceJoueur.getAbsysseActuelle()== partie.getGrille().getxVille() && ceJoueur.getOrdonneeActuelle()==partie.getGrille().getyVille()){
-            return ""+ceJoueur.getNom()+" est dans la ville";
+            return ""+ceJoueur.getNom()+Journal.consulterDescription(99);
         }else{
-            return ""+ceJoueur.getNom()+" est sur la case ("+ceJoueur.getAbsysseActuelle()+";"+ceJoueur.getOrdonneeActuelle()+") et la ville se trouve en (13;-13).";
+            return ""+ceJoueur.getNom()+Journal.consulterDescription(100)+ceJoueur.getAbsysseActuelle()+";"+ceJoueur.getOrdonneeActuelle()+Journal.consulterDescription(101);
         }
     }
     public static String afficherDescriptionJoueur(Joueur ceJoueur){
-        return ""+ceJoueur.getNom()+" a "+ceJoueur.getPa()+" point(s) d'action et "+ ceJoueur.getPdv()+" points de vie";
+        return ""+ceJoueur.getNom()+Journal.consulterDescription(102)+ceJoueur.getPa()+Journal.consulterDescription(103)+ ceJoueur.getPdv()+Journal.consulterDescription(104);
     }
     public static String afficherContenuSac(Joueur ceJoueur){
         String str="\n";
         if(!ceJoueur.getSac().isEmpty()){
             for(int index=0;index<ceJoueur.getSac().size();index++){str+=index+" "+ceJoueur.getSac().get(index).getNom()+";\n";}
         }else{
-            str+="Le sac ne contient rien.";
+            str+=Journal.consulterDescription(34);
         }
         
         return str;
@@ -144,13 +144,13 @@ public class Journal {
         String str="";
         if(!nuit){
             if(pasDrogue){
-                str= "\n"+partie.getJoueurActuel().getNom()+" est décédé(e) le "+partie.getTempsPartie().getNumTour()+" tour(s) du jour"+partie.getTempsPartie().getNbJour()+" par une attaque de zombies";
+                str= "\n"+partie.getJoueurActuel().getNom()+Journal.consulterDescription(105)+partie.getTempsPartie().getNumTour()+Journal.consulterDescription(106)+partie.getTempsPartie().getNbJour()+Journal.consulterDescription(107);
             }else{
-                str= "\n"+partie.getJoueurActuel().getNom()+" est décédé(e) le "+partie.getTempsPartie().getNumTour()+" tour(s) du jour"+partie.getTempsPartie().getNbJour()+" à cause de votre dépendance.";
+                str= "\n"+partie.getJoueurActuel().getNom()+Journal.consulterDescription(105)+partie.getTempsPartie().getNumTour()+Journal.consulterDescription(106)+partie.getTempsPartie().getNbJour()+Journal.consulterDescription(108);
             }
             return str;
         }else{
-            str= "\n"+partie.getJoueurActuel().getNom()+" est décédé(e) dans la nuit du jour"+partie.getTempsPartie().getNbJour()+" par une attaque de zombies";
+            str= "\n"+partie.getJoueurActuel().getNom()+Journal.consulterDescription(109)+partie.getTempsPartie().getNbJour()+Journal.consulterDescription(107);
             return str;
         }
     }
@@ -198,7 +198,7 @@ public class Journal {
                     break;
             case 19:description="Cet objet ne peut être mis dans le sac.";
                     break;
-            case 20:description="\"Voulez vous remplir une gourde ?(O/N)\"";
+            case 20:description="Voulez vous remplir une gourde ?(O/N)";
                     break;
             case 21:description="Votre total défense est de :";
                     break;
@@ -330,8 +330,58 @@ public class Journal {
                     break; 
             case 85:description="\nIl n' y a plus de boisson énergissante.";
                     break; 
-            //case 86:description=;
-            //        break; 
+            case 86:description="La carte a été mise à jour";
+                   break; 
+            case 87:description="Mur d'enceinte";
+                   break; 
+            case 88:description="Fils barbelés";
+                   break; 
+            case 89:description="Fosses à Zombies";
+                   break; 
+            case 90:description="Mines autour de la ville";
+                   break; 
+            case 91:description="Portes blindées";
+                   break; 
+            case 92:description="Miradors avec mitrailleuses";
+                   break; 
+            case 93:description="Abris anti-atomique";
+                   break; 
+            case 94:description="\n   Nom de la construction - Ressources nécessaires - PA - Réssistance\n";
+                   break;
+            case 95:description="Le nombre de tours est de ";
+                   break; 
+            case 96:description=" tour(s), le nombre de jours est de ";
+                   break; 
+            case 97:description=" jour(s)";
+                   break; 
+            case 98:description="\nLa position du joueur est la suivante:";
+                   break; 
+            case 99:description=" est dans la ville";
+                   break;
+            case 100:description=" est sur la case (";
+                   break; 
+            case 101:description=") et la ville se trouve en (13;-13).";
+                   break; 
+            case 102:description=" a ";
+                   break; 
+            case 103:description=" point(s) d'action et ";
+                   break; 
+            case 104:description=" points de vie ";
+                   break;     
+            case 105:description=" est décédé(e) le ";
+                   break;  
+            case 106:description=" tour(s) du jour ";
+                   break;
+            case 107:description=" par une attaque de zombies.";
+                   break;
+            case 108:description=" à cause de votre dépendance.";
+                   break;
+            case 109:description=" est décédé(e) dans la nuit du jour ";
+                   break; 
+            case 110:description=" a été ajouté â votre sac. ";
+                   break; 
+            case 111:description=" a été retiré de votre sac.";
+                   break; 
         }      
         
         
@@ -340,7 +390,7 @@ public class Journal {
     
     public void miseAJourCarte(Joueur joueur){
     
-        //System.out.println(joueur.getIndiceCase());
+        //Menu.affichage(joueur.getIndiceCase());
        int index = 0;
      
        while(!joueur.getCarteJoueur().isEmpty()){
@@ -353,13 +403,13 @@ public class Journal {
             joueur.getCarteJoueur().remove(0);
             
         }
-       System.out.println("La carte a été mise à jour");
+       Menu.affichage(Journal.consulterDescription(86));
     }
     
     public void voirCarte(){
         carte.add(1,"sss");
         carte.add(621,"dds");
-        System.out.println("test :"+carte.get(1));
+        Menu.affichage("test :"+carte.get(1));
          for(int j=1;j<26;j++){
             for(int i=1;i<26;i++){
                 if(!carte.get(i*j).equals("")){
@@ -369,7 +419,7 @@ public class Journal {
                     System.out.printf("| |");
                 }
             }
-            System.out.println("");
+            Menu.affichage("");
         }
     }
 }

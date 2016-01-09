@@ -5,6 +5,7 @@
  */
 package horde;
 
+import static horde.Menu.affichage;
 import static horde.Menu.conversionBoolean;
 import static horde.Menu.conversionCaractere;
 import java.util.ArrayList;
@@ -160,6 +161,7 @@ public class Ville extends Case {
     
     public Item remplirGourde(){
         Item gourde = new Item(Journal.consulterDescription(52),Journal.consulterDescription(0));
+        affichage(Journal.consulterDescription(31)+Journal.consulterDescription(52)+Journal.consulterDescription(110));
         return gourde;
     }
     
@@ -169,6 +171,7 @@ public class Ville extends Case {
         if (this.entrepot[0].getQuantite()>0) {
             this.entrepot[0].setQuantite(this.entrepot[0].getQuantite() - 1);
             ration = new Item(Journal.consulterDescription(51),Journal.consulterDescription(1));
+            affichage(Journal.consulterDescription(31)+Journal.consulterDescription(51)+Journal.consulterDescription(110));
         }else{ration = null;Menu.affichage(Journal.consulterDescription(84));}
         return ration;
     }
@@ -177,7 +180,8 @@ public class Ville extends Case {
         Item boisson;
         if (this.entrepot[3].getQuantite()>0) {
             this.entrepot[3].setQuantite(this.entrepot[3].getQuantite() - 1);
-            boisson = new Item(Journal.consulterDescription(53),Journal.consulterDescription(4));    
+            boisson = new Item(Journal.consulterDescription(53),Journal.consulterDescription(4));
+            affichage(Journal.consulterDescription(31)+Journal.consulterDescription(51)+Journal.consulterDescription(110));
         }else{boisson = null;Menu.affichage(Journal.consulterDescription(85));}
         return boisson;
     }

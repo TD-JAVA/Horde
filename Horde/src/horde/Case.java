@@ -51,6 +51,9 @@ public class Case {
         return tabItem;
     }
     
+    public String itemCarte(){
+        return "P"+this.items.get(0).getQuantite()+" M"+this.items.get(1).getQuantite()+" B"+this.items.get(2).getQuantite();
+    }
     
     public boolean getFouillee(){
         return fouillee;
