@@ -372,6 +372,13 @@ public class Menu {
         }
     }
     public void accederObjet(){
+        /*if(partieActuelle.getJoueurActuel().getCarteJoueur().get(partieActuelle.getJoueurActuel().getIndiceCase()).isEmpty()){
+            partieActuelle.getJoueurActuel().getCarteJoueur().get(partieActuelle.getJoueurActuel().getIndiceCase()).set('ff');
+        }*/
+        
+        if(partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getFouillee()){
+          partieActuelle.getJoueurActuel().getCarteJoueur().add(partieActuelle.getJoueurActuel().getIndiceCase()+":"+partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).itemCarte());
+        }
         affichage(partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).afficherItems());
         affichage(Journal.consulterDescription(15));
         if(conversionBoolean(sc.next())){
