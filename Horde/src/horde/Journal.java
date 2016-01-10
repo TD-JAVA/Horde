@@ -391,33 +391,40 @@ public class Journal {
     public void miseAJourCarte(Joueur joueur){
     
         //Menu.affichage(joueur.getIndiceCase());
-       int index = 0;
-     
-       while(!joueur.getCarteJoueur().isEmpty()){
-           String indice[] = joueur.getCarteJoueur().get(0).split(":");
-           index = Integer.parseInt(indice[0]);
-           if (!carte.get(joueur.getIndiceCase()).isEmpty()){
-                carte.remove(joueur.getIndiceCase());
-           }
-            carte.add(index,indice[1]);
-            joueur.getCarteJoueur().remove(0);
-            
+        if(joueur.getPa() ==0){
+            Menu.affichage(Journal.consulterDescription(5));
         }
-       Menu.affichage(Journal.consulterDescription(86));
+        else{
+            int index = 0;
+     
+            while(!joueur.getCarteJoueur().isEmpty()){
+                String indice[] = joueur.getCarteJoueur().get(0).split(":");
+                index = Integer.parseInt(indice[0]);
+                if (!carte.get(joueur.getIndiceCase()).isEmpty()){
+                     carte.remove(joueur.getIndiceCase());
+                }
+                 carte.add(index,indice[1]);
+                 joueur.getCarteJoueur().remove(0);
+             }
+            Menu.affichage(Journal.consulterDescription(86));
+        }
+       
     }
     
     public void voirCarte(){
-        carte.add(1,"sss");
-        carte.add(621,"dds");
+        //carte.add(1,"sss");
+        //carte.add(621,"dds");
         Menu.affichage("test :"+carte.get(1));
-         for(int j=1;j<26;j++){
-            for(int i=1;i<26;i++){
-                if(!carte.get(i*j).equals("")){
-                    System.out.printf("|"+carte.get(i*j)+"|");
+        int k=0;
+         for(int i=1;i<26;i++){
+            for(int j=1;j<26;j++){
+                if(carte.get(k).isEmpty()){
+                    System.out.printf("|"+"        "+"|");
                 }
                 else{
-                    System.out.printf("| |");
+                     System.out.printf("|"+carte.get(k)+"|");
                 }
+                k++;
             }
             Menu.affichage("");
         }
