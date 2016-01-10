@@ -517,7 +517,11 @@ public class Menu {
     /********Fin des fonctions du menu de niveau 1********/
     
     /***************Outils d'affichage dans la console******************/
+     
     /*
+     * 
+     * 
+     * @return  
      * @param niveau est le menu à afficher. 
      */
     public char afficher(int niveau){

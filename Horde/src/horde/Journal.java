@@ -86,14 +86,13 @@ public class Journal {
             }
         }
         switch (choix){
-            case 'J':
-                break;
-            case 'S':
-                string = Journal.consulterDescription(95)+temps.getNumTour()+Journal.consulterDescription(96)+temps.getNbJour()+Journal.consulterDescription(97)
+            case 'J':   string = Journal.consulterDescription(112);
+                        break;
+            case 'S':   string = Journal.consulterDescription(95)+temps.getNumTour()+Journal.consulterDescription(96)+temps.getNbJour()+Journal.consulterDescription(97)
                         + Journal.consulterDescription(98)+this.afficherPosition(partie, joueur)+"\n"+afficherDescriptionJoueur(joueur);
-                break;
-            case 'K':
-                break;
+                        break;
+            case 'K':   string = Journal.consulterDescription(113);
+                        break;
             case 'I':   string=ville.consulterEntrepot();
                         break;
             case 'C':   string=consulterConstruction();
@@ -106,7 +105,7 @@ public class Journal {
                         break; 
             case 'R':   partie.getMenuPartie().retournerMenu(1);
                         break;
-            default:    
+            default:    string=consulterDescription(6);
                         break;
         }
         return string;
@@ -331,57 +330,61 @@ public class Journal {
             case 85:description="\nIl n' y a plus de boisson énergissante.";
                     break; 
             case 86:description="La carte a été mise à jour";
-                   break; 
+                    break; 
             case 87:description="Mur d'enceinte";
-                   break; 
+                    break; 
             case 88:description="Fils barbelés";
-                   break; 
+                    break; 
             case 89:description="Fosses à Zombies";
-                   break; 
+                    break; 
             case 90:description="Mines autour de la ville";
-                   break; 
+                    break; 
             case 91:description="Portes blindées";
-                   break; 
+                    break; 
             case 92:description="Miradors avec mitrailleuses";
-                   break; 
+                    break; 
             case 93:description="Abris anti-atomique";
-                   break; 
+                    break; 
             case 94:description="\n   Nom de la construction - Ressources nécessaires - PA - Réssistance\n";
-                   break;
+                    break;
             case 95:description="Le nombre de tours est de ";
-                   break; 
+                    break; 
             case 96:description=" tour(s), le nombre de jours est de ";
-                   break; 
+                    break; 
             case 97:description=" jour(s)";
-                   break; 
+                    break; 
             case 98:description="\nLa position du joueur est la suivante:";
-                   break; 
+                    break; 
             case 99:description=" est dans la ville";
-                   break;
+                    break;
             case 100:description=" est sur la case (";
-                   break; 
+                    break; 
             case 101:description=") et la ville se trouve en (13;-13).";
-                   break; 
+                    break; 
             case 102:description=" a ";
-                   break; 
+                    break; 
             case 103:description=" point(s) d'action et ";
-                   break; 
+                    break; 
             case 104:description=" points de vie ";
-                   break;     
+                    break;     
             case 105:description=" est décédé(e) le ";
-                   break;  
+                    break;  
             case 106:description=" tour(s) du jour ";
-                   break;
+                    break;
             case 107:description=" par une attaque de zombies.";
-                   break;
+                    break;
             case 108:description=" à cause de votre dépendance.";
-                   break;
+                    break;
             case 109:description=" est décédé(e) dans la nuit du jour ";
-                   break; 
+                    break; 
             case 110:description=" a été ajouté â votre sac. ";
-                   break; 
+                    break; 
             case 111:description=" a été retiré de votre sac.";
-                   break; 
+                    break; 
+            case 112:description="";
+                    break;
+            case 113:description="";
+                    break;
         }      
         
         
