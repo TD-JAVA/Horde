@@ -90,7 +90,7 @@ public class Journal {
             case 'J':   string = Journal.consulterDescription(112);
                         break;
             case 'S':   string = Journal.consulterDescription(95)+temps.getNumTour()+Journal.consulterDescription(96)+temps.getNbJour()+Journal.consulterDescription(97)
-                        + Journal.consulterDescription(98)+Journal.afficherPosition(partie, joueur)+"\n"+afficherDescriptionJoueur(joueur)+partie.getJoueurActuel().getIndiceCase()+"\n";
+                        + Journal.consulterDescription(98)+Journal.afficherPosition(partie, joueur)+"\n"+afficherDescriptionJoueur(joueur)+"\n";
                         break;
             case 'K':   string = Journal.consulterDescription(113);
                         break;
