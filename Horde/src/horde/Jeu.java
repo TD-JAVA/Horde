@@ -52,18 +52,18 @@ public class Jeu {
     }
     
     public void lancerJeu(){
-        Menu.affichage(Journal.consulterDescription(56));
+        Outils.affichage(Journal.consulterDescription(56));
         tempsPartie= new Temps();
         grille=new Carte(this);
         maVille=new Ville(this);
         monJournal=new Journal();
         menuPartie=new Menu();
         Scanner sc = new Scanner(System.in);        
-        Menu.affichage(Journal.consulterDescription(57));
-        nombreJoueur=menuPartie.conversionInt(sc.next());   
+        Outils.affichage(Journal.consulterDescription(57));
+        nombreJoueur=Outils.conversionInt(sc.next());   
         tabJoueur=new ArrayList<Joueur>(nombreJoueur);
         for(int i=0;i<nombreJoueur;i++){
-            Menu.affichage(Journal.consulterDescription(58)+i+" ?");
+            Outils.affichage(Journal.consulterDescription(58)+i+" ?");
             String nomJoueur=sc.next();
             Joueur unJoueur= new Joueur(this,nomJoueur);
             tabJoueur.add(unJoueur);
@@ -75,13 +75,13 @@ public class Jeu {
     public void initialisation(){
         boolean finInitialisation = true;
         setPartie(finInitialisation);
-        Menu.affichage(Journal.consulterDescription(59));    
+        Outils.affichage(Journal.consulterDescription(59));    
     }
     
     public boolean dernierJoueur(){
         String str="";
         if(!tempsPartie.getNuit()){
-            Menu.affichage(Journal.consulterDescription(60));
+            Outils.affichage(Journal.consulterDescription(60));
             Journal.afficherMort(this, !tempsPartie.getNuit(), true);
         }else{
             Journal.afficherMort(this, tempsPartie.getNuit(), true);
@@ -96,7 +96,7 @@ public class Jeu {
         String str="";
         if(!tempsPartie.getNuit()){
             if(k){
-            Menu.affichage(Journal.consulterDescription(60));
+            Outils.affichage(Journal.consulterDescription(60));
             Journal.afficherMort(this, !tempsPartie.getNuit(), k);
             }else{
             Journal.afficherMort(this, !tempsPartie.getNuit(), !k);
@@ -113,10 +113,10 @@ public class Jeu {
     public void finDePartie(){
         boolean continuerPartie = false;
         Scanner sc=new Scanner(System.in);
-        Menu.affichage("\n"+this.tabJoueur.get(0).getNom()+Journal.consulterDescription(61));
+        Outils.affichage("\n"+this.tabJoueur.get(0).getNom()+Journal.consulterDescription(61));
         sc.next();
-        Menu.affichage(Journal.consulterDescription(62));
-        if(Menu.conversionBoolean(sc.next())){
+        Outils.affichage(Journal.consulterDescription(62));
+        if(Outils.conversionBoolean(sc.next())){
             setPartie(continuerPartie);
         }else{
             menuPartie.menuNiveauZero('Q');

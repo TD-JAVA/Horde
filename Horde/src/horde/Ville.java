@@ -5,9 +5,9 @@
  */
 package horde;
 
-import static horde.Menu.affichage;
-import static horde.Menu.conversionBoolean;
-import static horde.Menu.conversionCaractere;
+import static horde.Outils.affichage;
+import static horde.Outils.conversionBoolean;
+import static horde.Outils.conversionCaractere;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -57,7 +57,7 @@ public class Ville extends Case {
     public boolean getOuverturePorte(){return ouverturePorte;}
     
     public void construire(Jeu partie,int choix) {
-        Menu.affichage(Journal.consulterDescription(71));
+        Outils.affichage(Journal.consulterDescription(71));
         boolean batimentDejaFait=false;
         for(int i=0;i<batiment.size();i++){
             if(partie.getMonJournal().getConstruction(choix).getNom().equals(batimentEnCours.get(i).getNom())||partie.getMonJournal().getConstruction(choix).getNom().equals(batiment.get(i).getNom())){
@@ -69,24 +69,24 @@ public class Ville extends Case {
                 partie.getJoueurActuel().setPa(partie.getJoueurActuel().getPa()-1);
                 batimentEnCours.add(partie.getMonJournal().getConstruction(choix));
             } else {
-                Menu.affichage(Journal.consulterDescription(72));
+                Outils.affichage(Journal.consulterDescription(72));
             }
         }else{
-            Menu.affichage(Journal.consulterDescription(72));
+            Outils.affichage(Journal.consulterDescription(72));
         }    
     }
     
     public String[] participerAuChantier(Joueur ceJoueur){
         String[] fini={"",""};
         int num,pointUse;
-        Menu.affichage(afficherConstructionEnCours());
-        Menu.affichage(Journal.consulterDescription(36));
-        num=Menu.donnerReponseChiffre(batimentEnCours.size()-1);
-        Menu.affichage(Journal.consulterDescription(74)+batimentEnCours.get(num).getConso_pa()+Journal.consulterDescription(75));
-        Menu.affichage(Journal.consulterDescription(76));
-        if(Menu.conversionBoolean(sc.next())){
-            Menu.affichage(Journal.consulterDescription(77));
-            num=Menu.donnerReponseChiffre(ceJoueur.getPa());
+        Outils.affichage(afficherConstructionEnCours());
+        Outils.affichage(Journal.consulterDescription(36));
+        num=Outils.donnerReponseChiffre(batimentEnCours.size()-1);
+        Outils.affichage(Journal.consulterDescription(74)+batimentEnCours.get(num).getConso_pa()+Journal.consulterDescription(75));
+        Outils.affichage(Journal.consulterDescription(76));
+        if(Outils.conversionBoolean(sc.next())){
+            Outils.affichage(Journal.consulterDescription(77));
+            num=Outils.donnerReponseChiffre(ceJoueur.getPa());
             pointUse=batimentEnCours.get(num).getConso_pa();
             if(batimentEnCours.get(num).setConso_pa((batimentEnCours.get(num).getConso_pa()-num))){
                 fini[0]="Y";
@@ -127,15 +127,15 @@ public class Ville extends Case {
         boolean changement=false;
         if (ouverturePorte == true) {
             System.out.print(Journal.consulterDescription(78));
-            Menu.affichage(Journal.consulterDescription(79));
-            if(Menu.conversionBoolean(sc.next())){
+            Outils.affichage(Journal.consulterDescription(79));
+            if(Outils.conversionBoolean(sc.next())){
                 ouverturePorte=false;
                 changement=true;
             }
         } else {
             System.out.print(Journal.consulterDescription(80));
-            Menu.affichage(Journal.consulterDescription(81));
-            if(Menu.conversionBoolean(sc.next())){
+            Outils.affichage(Journal.consulterDescription(81));
+            if(Outils.conversionBoolean(sc.next())){
                 ouverturePorte=true;
                 changement=true;
             }
@@ -172,7 +172,7 @@ public class Ville extends Case {
             this.entrepot[0].setQuantite(this.entrepot[0].getQuantite() - 1);
             ration = new Item(Journal.consulterDescription(51),Journal.consulterDescription(1));
             affichage(Journal.consulterDescription(31)+Journal.consulterDescription(51)+Journal.consulterDescription(110));
-        }else{ration = null;Menu.affichage(Journal.consulterDescription(84));}
+        }else{ration = null;Outils.affichage(Journal.consulterDescription(84));}
         return ration;
     }
 
@@ -182,7 +182,7 @@ public class Ville extends Case {
             this.entrepot[3].setQuantite(this.entrepot[3].getQuantite() - 1);
             boisson = new Item(Journal.consulterDescription(53),Journal.consulterDescription(4));
             affichage(Journal.consulterDescription(31)+Journal.consulterDescription(51)+Journal.consulterDescription(110));
-        }else{boisson = null;Menu.affichage(Journal.consulterDescription(85));}
+        }else{boisson = null;Outils.affichage(Journal.consulterDescription(85));}
         return boisson;
     }
 

@@ -5,6 +5,8 @@
  */
 package horde;
 
+import static horde.Outils.affichage;
+import static horde.Outils.conversionBoolean;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -47,6 +49,7 @@ public class Menu {
      * @return menuActuel
      */
     public Menu getMenuActuel(){return menuActuel;}
+    public ArrayList<Case> getTabGrille(){return tabGrille;}
     
     /**********Fin des getters setters**************/
     
@@ -82,10 +85,7 @@ public class Menu {
             outilInitPartie(partie);
         }
     }
-    
-    public static void affichage(String str){
-        System.out.println(str);
-    }
+  
     /********************* Outils de démarrage **************************/
     //Ces deux méthodes servent à simplifier la première.
     //Pour outilInitPartie: on lance le jeu, on l'initialise.
@@ -107,7 +107,7 @@ public class Menu {
     public void outilInitGrille(Jeu partie){
         this.setPartieActuelle(partie);
         tabGrille=partieActuelle.getGrille().getTabCase();
-        this.menuNiveauZero(this.getMenuActuel().conversionCaractere(this.afficher(0)));
+        this.menuNiveauZero(Outils.conversionCaractere(Outils.afficher(0,partieActuelle)));
     }
     /************************ Fin des outils de démarrage***********************/
     /*
@@ -122,10 +122,10 @@ public class Menu {
             case 'D':   //this.getPartieActuelle().lancerJeu();
                         this.demarrer(this.getPartieActuelle());
                         break;
-            case 'S':   this.menuNiveauUn(Menu.conversionCaractere(this.afficher(1)));
+            case 'S':   this.menuNiveauUn(Outils.conversionCaractere(Outils.afficher(1,partieActuelle)));
                         break;
             default :   affichage(Journal.consulterDescription(6));
-                        this.menuNiveauZero(afficher(0));
+                        this.menuNiveauZero(Outils.afficher(0,partieActuelle));
         }           
     }
     
@@ -150,16 +150,16 @@ public class Menu {
                         break;
             case 'D':   this.seDeplacer();
                         break;
-            case 'I':   this.interagirCase(verifier(this.afficher(2)));
+            case 'I':   this.interagirCase(Outils.verifier(Outils.afficher(2,partieActuelle),partieActuelle));
                         break;
             case 'F':   this.finirTour();
                         break;
-            case 'S':   this.interagirSac(afficher(4));
+            case 'S':   this.interagirSac(Outils.afficher(4,partieActuelle));
                         break;      
             case 'R':   this.retournerMenu(0);
                         break;
             default :   affichage(Journal.consulterDescription(6));
-                        this.menuNiveauUn(afficher(1));
+                        this.menuNiveauUn(Outils.afficher(1,partieActuelle));
         }
     }
     
@@ -168,23 +168,23 @@ public class Menu {
      */
     
     public void retournerMenu(int niveau){
-        if(niveau==1){this.menuNiveauUn(this.afficher(niveau));
-        }else{this.menuNiveauZero(this.afficher(niveau));}
+        if(niveau==1){this.menuNiveauUn(Outils.afficher(niveau,partieActuelle));
+        }else{this.menuNiveauZero(Outils.afficher(niveau, partieActuelle));}
     }
     
     public  void lireJournal(){
         affichage(Journal.consulterDescription(10));
-        partieActuelle.getMonJournal().afficherPosition(partieActuelle, partieActuelle.getJoueurActuel());
-        affichage(partieActuelle.getMonJournal().toString(partieActuelle,afficher(3))+"\n");
+        Journal.afficherPosition(partieActuelle, partieActuelle.getJoueurActuel());
+        affichage(Journal.toString(partieActuelle,Outils.afficher(3,partieActuelle))+"\n");
         sc.nextLine();
         String str = sc.nextLine();
         affichage("");
-        menuNiveauUn(conversionCaractere(afficher(1)));
+        menuNiveauUn(Outils.conversionCaractere(Outils.afficher(1,partieActuelle)));
     }
     
     public void seDeplacer(){
         if(!tabGrille.get(partieActuelle.getJoueurActuel().getIndiceCase()).getFouillee()||tabGrille.get(partieActuelle.getJoueurActuel().getIndiceCase()).getNbZombiesRestants()==0){
-            char choix=afficher(5);
+            char choix=Outils.afficher(5,partieActuelle);
             consommationDePA=false;
                 if(partieActuelle.getJoueurActuel().getPa()>0||(choix!='Z'&&choix!='Q'&&choix!='D'&&choix!='S')){
                     switch (choix) {
@@ -205,7 +205,7 @@ public class Menu {
                 affichage(Journal.consulterDescription(5));
             }
             consommerPA();
-            sc.nextLine();
+            //sc.nextLine();
             this.seDeplacer();
         }else{
             affichage(Journal.consulterDescription(7));
@@ -274,9 +274,9 @@ public class Menu {
     public void accederConstruction(){
         affichage(Journal.consulterDescription(13));
         if(conversionBoolean(sc.next())){
-            affichage(partieActuelle.getMonJournal().consulterConstruction());
+            affichage(Journal.consulterConstruction(partieActuelle.getMonJournal()));
             affichage(Journal.consulterDescription(14));
-            partieActuelle.getMaVille().construire(partieActuelle, donnerReponseChiffre(6) );
+            partieActuelle.getMaVille().construire(partieActuelle, Outils.donnerReponseChiffre(6) );
         }
     }
     public void accederEntrepot(){
@@ -284,7 +284,7 @@ public class Menu {
         affichage(Journal.consulterDescription(15));
         if(conversionBoolean(sc.next())){
             affichage(Journal.consulterDescription(16));
-            int num=Menu.donnerReponseChiffre(partieActuelle.getMaVille().getEntrepot().length-1);
+            int num=Outils.donnerReponseChiffre(partieActuelle.getMaVille().getEntrepot().length-1);
             if(partieActuelle.getMaVille().getEntrepot()[num].getNom().equals(Journal.consulterDescription(51))){
                 affichage(Journal.consulterDescription(17));
                 if(conversionBoolean(sc.next())){
@@ -372,10 +372,6 @@ public class Menu {
         }
     }
     public void accederObjet(){
-        /*if(partieActuelle.getJoueurActuel().getCarteJoueur().get(partieActuelle.getJoueurActuel().getIndiceCase()).isEmpty()){
-            partieActuelle.getJoueurActuel().getCarteJoueur().get(partieActuelle.getJoueurActuel().getIndiceCase()).set('ff');
-        }*/
-        
         if(partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getFouillee()){
           partieActuelle.getJoueurActuel().getCarteJoueur().add(partieActuelle.getJoueurActuel().getIndiceCase()+":"+partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).itemCarte());
         }
@@ -383,7 +379,7 @@ public class Menu {
         affichage(Journal.consulterDescription(15));
         if(conversionBoolean(sc.next())){
             affichage(Journal.consulterDescription(16));
-            int num=Menu.donnerReponseChiffre(partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().size()-1);
+            int num=Outils.donnerReponseChiffre(partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().size()-1);
             String nom=partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(num).getNom();
             String description=partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(num).getDescription();
             if(partieActuelle.getJoueurActuel().getSac().size()<10){
@@ -422,7 +418,7 @@ public class Menu {
                 case 'R':   this.retournerMenu(1);
                             break;
                 default :   affichage(Journal.consulterDescription(6));
-                            this.interagirCase(afficher(2));
+                            this.interagirCase(Outils.afficher(2,partieActuelle));
             }    
         }else{
             affichage(Journal.consulterDescription(7));
@@ -513,7 +509,7 @@ public class Menu {
             case 'R':   this.retournerMenu(1);
                         break;
                     }
-        this.interagirSac(afficher(4));
+        this.interagirSac(Outils.afficher(4,partieActuelle));
     }
     
     
@@ -523,161 +519,5 @@ public class Menu {
     
     /********Fin des fonctions du menu de niveau 1********/
     
-    /***************Outils d'affichage dans la console******************/
-     
-    /*
-     * 
-     * 
-     * @return  
-     * @param niveau est le menu à afficher. 
-     */
-    public char afficher(int niveau){
-        affichage(partieActuelle.getMonJournal().toString(partieActuelle, 'S'));
-        switch (niveau) {
-            case 0:     affichage(Journal.consulterDescription(35));
-                        affichage(Journal.consulterDescription(36));
-                        
-                        return this.verification(sc.next(),0);
-                        
-            case 1:     affichage(Journal.consulterDescription(37));
-                        affichage(Journal.consulterDescription(36));
-                        
-                        return this.verification(sc.next(),0);
-                
-            case 2:     if(partieActuelle.getJoueurActuel().getAbsysseActuelle()== partieActuelle.getGrille().getxVille() && partieActuelle.getJoueurActuel().getOrdonneeActuelle()==partieActuelle.getGrille().getyVille()){
-                            affichage(Journal.consulterDescription(38));
-                        }else{
-                            if(tabGrille.get(partieActuelle.getJoueurActuel().getIndiceCase()).getFouillee()){
-                                affichage(Journal.consulterDescription(39));
-                            }else{
-                                affichage(Journal.consulterDescription(40));
-                            }
-                        }
-                        affichage(Journal.consulterDescription(36));
-                        return this.verification(sc.next(),0);
-            case 3:     if(partieActuelle.getJoueurActuel().getAbsysseActuelle()== partieActuelle.getGrille().getxVille() && partieActuelle.getJoueurActuel().getOrdonneeActuelle()==partieActuelle.getGrille().getyVille()){
-                            affichage(Journal.consulterDescription(41));
-                        }else{
-                            affichage(Journal.consulterDescription(42));
-                        }
-                        affichage(Journal.consulterDescription(36));
-                        return this.verification(sc.next(),0);
-            case 4:     affichage(Journal.consulterDescription(43));
-                        affichage(Journal.consulterDescription(36));
-                        return this.verification(sc.next(),0);
-            case 5:     affichage(Journal.consulterDescription(44));
-                        affichage(Journal.consulterDescription(45));
-                        affichage(Journal.consulterDescription(36));
-                        return this.verification(sc.next(),0);
-                        
-        }
-        return 'e';
-    }
-    
-    /*
-     * @param lettre est le caractère à convertir en majuscule est le choix de menu donnée par l'utilisateur.
-     */
-    public static char conversionCaractere(char lettre){
-    
-        return Character.toUpperCase(lettre);
-    }
-    
-    public char verification(String str, int choix){
-        str = str.toUpperCase();
-        char[] lettres = str.toCharArray();
-        if(choix==1) {
-           
-                    while((str!="Y")||(str!="O")||(str!="YES")||(str!="OUI")||(str!="N")||(str!="NON")||(str!="NO")){
-                        affichage(Journal.consulterDescription(46));
-                        verification(sc.next(),1);
-                    }
-                    return lettres[0];
-                    
-        }else{
-            
-                  while(lettres[0]<'A' && lettres[0]>'Z'){
-                      affichage(Journal.consulterDescription(47));
-                      verification(sc.next(),0);
-                  }
-                  return lettres[0];
-                  
-        }     
-    }
-    
-    public char verifier(char choix){
-    if(partieActuelle.getJoueurActuel().getIndiceCase()!=338){
-                    if(choix=='C'||choix=='E'||choix=='I'||choix=='B'||choix=='D'||choix=='P'){
-                        choix='K';
-                    }
-                    if(!tabGrille.get(partieActuelle.getJoueurActuel().getIndiceCase()).getFouillee()){
-                        if(choix=='M'||choix=='A'||choix=='O'){
-                            choix='K';
-                        }
-                    }
-                }
-                return choix;
-    }
-        
-    public int conversionInt(String str){
-        char[] lettres=str.toCharArray();
-        int longueur=str.length();
-        int num=0;
-        
-        if((longueur<2)){
-            if((int)(lettres[0])>57 ||(int)(lettres[0])<49){
-                affichage(Journal.consulterDescription(48));
-                
-                num=conversionInt(sc.next());
-            }else{
-                num=Integer.parseInt(str);
-            }
-        }else{
-                if((int)(lettres[0])>50 ||(int)(lettres[0])<49 && (int)(lettres[1])>57 ||(int)(lettres[1])<48){
-                    affichage(Journal.consulterDescription(48));
-                    
-                    num=conversionInt(sc.next());
-                }else{
-                num = Integer.parseInt(str);
-                }
-        }
-        
-        
-        return num;
-    }
-    public static boolean conversionBoolean(String str){
-        char[] lettres =  str.toCharArray();
-        if(conversionCaractere(lettres[0])=='Y'||conversionCaractere(lettres[0])=='O'){
-            return true;
-        }else{ 
-            if(conversionCaractere(lettres[0])=='N'){
-                return false;
-            }else{
-                affichage(Journal.consulterDescription(50));
-                return false;
-            }
-        }
-    }
-    
-    public static char conversionChar(String str){
-        char[] lettres =  str.toCharArray();
-        return lettres[0];
-    }
-    
-    public static int donnerReponseChiffre(int max){
-        String str;
-        int longueur,num;
-        Scanner sc = new Scanner(System.in);
-        char[] lettres;
-        do{
-            affichage(Journal.consulterDescription(49)+max);
-            str=sc.next();
-            longueur=str.length();
-            lettres=str.toCharArray();
-        }while(longueur!=1 ||((int)(lettres[0])>57 ||(int)(lettres[0])<48));
-        num=Integer.parseInt(str);
-        return num;
-    }
-    
-    /**********************Fin des outils************************/
 }
 

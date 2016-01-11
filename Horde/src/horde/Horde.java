@@ -20,5 +20,4 @@ public class Horde {
         Jeu partie = new Jeu();
         partie.lancerJeu();
     }
-    
 }

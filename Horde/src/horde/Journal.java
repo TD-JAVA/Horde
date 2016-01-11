@@ -53,13 +53,14 @@ public class Journal {
         for(int i =0;i<625;i++){
             carte.add(i,"");
         }
+        carte.set(338,consulterDescription(114));
 
     }
 // Permet de voir la liste et les détails des constructions
-    public String consulterConstruction() {
+    public static String consulterConstruction(Journal journal) {
         String tabNom=Journal.consulterDescription(94);
-        for(int i=0;i<tabConstruction.size();i++){
-            tabNom+=i+" :"+tabConstruction.get(i).getNom()+" - "+tabConstruction.get(i).getRessources(0)+";"+tabConstruction.get(i).getRessources(1)+" - "+tabConstruction.get(i).getConso_pa()+" - +"+tabConstruction.get(i).getResistance()+"\n";
+        for(int i=0;i<journal.tabConstruction.size();i++){
+            tabNom+=i+" :"+journal.tabConstruction.get(i).getNom()+" - "+journal.tabConstruction.get(i).getRessources(0)+";"+journal.tabConstruction.get(i).getRessources(1)+" - "+journal.tabConstruction.get(i).getConso_pa()+" - +"+journal.tabConstruction.get(i).getResistance()+"\n";
         }
         return tabNom;
     }
@@ -75,7 +76,7 @@ public class Journal {
     }
 
 //Permet d'afficher un résumé du jeu
-    public String toString(Jeu partie, char choix) {
+    public static String toString(Jeu partie, char choix) {
         Temps temps=partie.getTempsPartie();
         Joueur joueur=partie.getJoueurActuel();
         Ville ville=partie.getMaVille();
@@ -89,19 +90,19 @@ public class Journal {
             case 'J':   string = Journal.consulterDescription(112);
                         break;
             case 'S':   string = Journal.consulterDescription(95)+temps.getNumTour()+Journal.consulterDescription(96)+temps.getNbJour()+Journal.consulterDescription(97)
-                        + Journal.consulterDescription(98)+this.afficherPosition(partie, joueur)+"\n"+afficherDescriptionJoueur(joueur);
+                        + Journal.consulterDescription(98)+Journal.afficherPosition(partie, joueur)+"\n"+afficherDescriptionJoueur(joueur)+partie.getJoueurActuel().getIndiceCase()+"\n";
                         break;
             case 'K':   string = Journal.consulterDescription(113);
                         break;
             case 'I':   string=ville.consulterEntrepot();
                         break;
-            case 'C':   string=consulterConstruction();
+            case 'C':   string= Journal.consulterConstruction(partie.getMonJournal());
                         break;
             case 'N':   string=afficherContenuSac(joueur);
                         break;
-            case 'M':   this.miseAJourCarte(joueur);
+            case 'M':   string= Journal.miseAJourCarte(joueur,partie.getMonJournal());
                         break; 
-            case 'V':   this.voirCarte();
+            case 'V':   string= Journal.voirCarte(partie.getMonJournal());
                         break; 
             case 'R':   partie.getMenuPartie().retournerMenu(1);
                         break;
@@ -111,7 +112,7 @@ public class Journal {
         return string;
     }
     
-    public String afficherPosition(Jeu partie,Joueur ceJoueur){
+    public static String afficherPosition(Jeu partie,Joueur ceJoueur){
         if(ceJoueur.getAbsysseActuelle()== partie.getGrille().getxVille() && ceJoueur.getOrdonneeActuelle()==partie.getGrille().getyVille()){
             return ""+ceJoueur.getNom()+Journal.consulterDescription(99);
         }else{
@@ -385,17 +386,17 @@ public class Journal {
                     break;
             case 113:description="";
                     break;
+            case 114:description=" VILLE  ";
+                    break;
         }      
         
         
         return description;
     }
     
-    public void miseAJourCarte(Joueur joueur){
-    
-        //Menu.affichage(joueur.getIndiceCase());
+    public static String miseAJourCarte(Joueur joueur, Journal journal){
         if(joueur.getPa() ==0){
-            Menu.affichage(Journal.consulterDescription(5));
+            return Journal.consulterDescription(5);
         }
         else{
             int index = 0;
@@ -403,33 +404,31 @@ public class Journal {
             while(!joueur.getCarteJoueur().isEmpty()){
                 String indice[] = joueur.getCarteJoueur().get(0).split(":");
                 index = Integer.parseInt(indice[0]);
-                if (!carte.get(joueur.getIndiceCase()).isEmpty()){
-                     carte.remove(joueur.getIndiceCase());
+                if (!journal.carte.get(joueur.getIndiceCase()).isEmpty()){
+                     journal.carte.remove(joueur.getIndiceCase());
                 }
-                 carte.add(index,indice[1]);
+                 journal.carte.add(index,indice[1]);
                  joueur.getCarteJoueur().remove(0);
              }
-            Menu.affichage(Journal.consulterDescription(86));
+            return Journal.consulterDescription(86);
         }
-       
     }
     
-    public void voirCarte(){
-        //carte.add(1,"sss");
-        //carte.add(621,"dds");
-        Menu.affichage("test :"+carte.get(1));
+    public static String voirCarte(Journal journal){
+        String str="";
         int k=0;
-         for(int i=1;i<26;i++){
-            for(int j=1;j<26;j++){
-                if(carte.get(k).isEmpty()){
-                    System.out.printf("|"+"        "+"|");
+         for(int i=0;i<25;i++){
+            for(int j=0;j<25;j++){
+                if(journal.carte.get(k).isEmpty()){
+                    str+="|"+"        "+"|";
                 }
                 else{
-                     System.out.printf("|"+carte.get(k)+"|");
+                     str+="|"+journal.carte.get(k)+"|";
                 }
                 k++;
             }
-            Menu.affichage("");
+            str+="\n";
         }
+         return str;
     }
 }

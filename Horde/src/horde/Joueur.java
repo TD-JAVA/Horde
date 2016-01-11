@@ -1,7 +1,7 @@
 package horde;
 
-import static horde.Menu.affichage;
-import static horde.Menu.conversionBoolean;
+import static horde.Outils.affichage;
+import static horde.Outils.conversionBoolean;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -298,7 +298,7 @@ public class Joueur {
             if(indiceCase!=338){
             affichage(Journal.consulterDescription(28));
             affichage(Journal.afficherContenuSac(partieActuelle.getJoueurActuel()));
-            int num=Menu.donnerReponseChiffre(sac.size()-1);
+            int num=Outils.donnerReponseChiffre(sac.size()-1);
             affichage(Journal.consulterDescription(29)+sac.get(num).getNom()+ Journal.consulterDescription(30) );
             if(conversionBoolean(sc.next())){
                 if(!sac.get(num).getNom().equals(Journal.consulterDescription(51))&&!sac.get(num).getNom().equals(Journal.consulterDescription(52))){
@@ -319,7 +319,7 @@ public class Joueur {
         }else{
             affichage(Journal.consulterDescription(28));
             affichage(Journal.afficherContenuSac(partieActuelle.getJoueurActuel()));
-            int num=Menu.donnerReponseChiffre(sac.size()-1);
+            int num=Outils.donnerReponseChiffre(sac.size()-1);
             if(!sac.get(num).getNom().equals(Journal.consulterDescription(52))){
                 affichage(Journal.consulterDescription(31)+sac.get(num).getNom()+Journal.consulterDescription(32));
                 if(sac.get(num).getNom().equals(Journal.consulterDescription(51))){

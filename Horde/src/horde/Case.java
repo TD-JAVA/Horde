@@ -5,8 +5,8 @@
  */
 package horde;
 
-import static horde.Menu.conversionBoolean;
-import static horde.Menu.conversionCaractere;
+import static horde.Outils.conversionBoolean;
+import static horde.Outils.conversionCaractere;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -67,11 +67,11 @@ public class Case {
     }    
     public boolean fouiller(){ // On donne le choix au joueur de fouiller la case ou non
         boolean changement=false;
-        Menu.affichage(Journal.consulterDescription(70));
+        Outils.affichage(Journal.consulterDescription(70));
         
         if(conversionBoolean(sc.next())){
             nbZombiesRestants=Zombies.nbZombiesCase();
-            Menu.affichage(Journal.consulterDescription(22)+nbZombiesRestants+Journal.consulterDescription(23));
+            Outils.affichage(Journal.consulterDescription(22)+nbZombiesRestants+Journal.consulterDescription(23));
             fouillee=true;
             changement=true;
         }

@@ -72,6 +72,6 @@ public class Temps {
         }
     }
     public void debuterTour(Jeu partie){
-        partie.getMenuPartie().menuNiveauUn(Menu.conversionCaractere(partie.getMenuPartie().afficher(1)));
+        partie.getMenuPartie().menuNiveauUn(Outils.conversionCaractere(Outils.afficher(1,partie)));
     }
 }
