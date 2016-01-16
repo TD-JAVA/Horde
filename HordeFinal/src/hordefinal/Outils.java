@@ -44,8 +44,8 @@ public abstract class Outils  {
     public static void afficher(int niveau, Jeu partieActuelle){ 
         //Outils.affichage(partieActuelle.getMonJournal().toString(partieActuelle, 'S'),partieActuelle.getMonInterface());
         switch (niveau) {
-            case 0:     Outils.affichage(partieActuelle.getMonJournal().toString(partieActuelle, 'S'),partieActuelle.getMonInterface());
-                    Outils.affichage(Journal.consulterDescription(35),partieActuelle.getMonInterface());
+            case 0:     //Outils.affichage(partieActuelle.getMonJournal().toString(partieActuelle, 'S'),partieActuelle.getMonInterface());
+                        Outils.affichage(Journal.consulterDescription(35),partieActuelle.getMonInterface());
                         Outils.affichage(Journal.consulterDescription(36),partieActuelle.getMonInterface());
                         
                         //sm=new SousMenu(partieActuelle.getMonInterface());
@@ -54,7 +54,8 @@ public abstract class Outils  {
                         break;
                         
                         
-            case 1:     Outils.affichage(Journal.consulterDescription(37),partieActuelle.getMonInterface());
+            case 1:     Outils.affichage(Journal.toString(partieActuelle,'S'),partieActuelle.getMonInterface());
+                        Outils.affichage(Journal.consulterDescription(37),partieActuelle.getMonInterface());
                         Outils.affichage(Journal.consulterDescription(36),partieActuelle.getMonInterface());
                         
                         

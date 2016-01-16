@@ -390,6 +390,7 @@ public class Journal {
                     break;
             case 115:description="\nIl n'y a aucune construction en cours\n";
                     break;
+            case 116:description="\nCette case ne contient pas cette item.";
         }      
         
         

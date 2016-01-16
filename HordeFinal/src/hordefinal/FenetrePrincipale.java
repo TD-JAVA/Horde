@@ -38,6 +38,14 @@ public class FenetrePrincipale extends javax.swing.JFrame {
     String strReceived="";
     int cpt=0;
 
+    public int getChoix() {
+        return choix;
+    }
+
+    public void setChoix(int choix) {
+        this.choix = choix;
+    }
+
     public boolean isB() {
         return b;
     }
@@ -439,6 +447,18 @@ public class FenetrePrincipale extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+            
+            this.jPanel2.setVisible(false);
+            
+            this.jPanel1.setVisible(false);
+            this.jPanel3.setVisible(false);
+        if(!partieDemarree){
+                partie=new Jeu();
+                partie.lancerJeu(this);
+                menu=partie.getMenuPartie();
+            }
+            jLabel1.setText(Journal.consulterDescription(57));
+            this.jPanel2.setVisible(true);        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
@@ -501,8 +521,10 @@ public class FenetrePrincipale extends javax.swing.JFrame {
             case 6:
                     jButton5.doClick();
                     //C)\nParticiper aux chantiers(P)\nConsulter les défenses(D)\nConsulter l'entrepot(E)\nInteragir avec la porte(I)\nRemplir une gourde(B)\nPrendre une ration(M)\nRetour(R)\n";
+                if(!menu.getTabGrille().get(partie.getJoueurActuel().getIndiceCase()).getFouillee()||menu.getTabGrille().get(partie.getJoueurActuel().getIndiceCase()).getNbZombiesRestants()==0||choix=='A'){    
                     switch(Outils.verifier(Outils.conversionCaractere(strReceived.charAt(0)),partie)){
-                        case 'F':System.out.println("caca");
+                        case 'F':Outils.affichage(Journal.consulterDescription(70),this);
+                            cpt+=13;
                             break;
                         case 'C':
                                 Outils.affichage(Journal.consulterDescription(13),this);
@@ -515,22 +537,30 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                                 break;
                         case 'D':menu.accederDefense();
                                 break;
-                        case 'I':menu.interagirPorte();
+                        case 'I':b=partie.getMaVille().ouverturePorte(this.partie);
+                                cpt+=10;
                                 break;
-                        case 'B':menu.accederBoire();
+                        case 'B':Outils.affichage(Journal.consulterDescription(20),this);
+                                cpt+=11;
                                 break;
-                        case 'M':menu.accederManger();
+                        case 'M':Outils.affichage(Journal.consulterDescription(17),this);
+                                cpt+=12;
                                 break;
                         case 'A':menu.attaquerZombies();
                                 break;
                         case 'O':menu.accederObjet();
+                                cpt+=15;
                                 break;
-                        case 'V':menu.accederVider();
+                        case 'V':b=menu.accederVider();
+                                cpt+=17;
                                 break;
-                        case 'R':
+                        case 'R':cpt-=4;
+                                menu.retournerMenu();
                                 break;
                     }
-                    
+                    }else{
+            Outils.affichage(Journal.consulterDescription(7),this);
+        }
                     break;
             case 7: jButton5.doClick();
                     if(b){
@@ -574,7 +604,89 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                     cpt-=14;
                     menu.menuNiveauUn('I');
                     break;
-        }
+            case 16:jButton5.doClick();
+                    if(Outils.conversionBoolean(strReceived, partie)){
+                        menu.interagirPorte(b);
+                        b=false;
+                    }
+                    cpt-=15;
+                    menu.menuNiveauUn('I');
+                    break;
+            case 17:jButton5.doClick();
+                    menu.prendreGourde(Outils.conversionBoolean(strReceived, partie));
+                    cpt-=16;
+                    menu.menuNiveauUn('I');
+                    break;
+            case 18:jButton5.doClick();
+                    menu.prendreRation(Outils.conversionBoolean(strReceived, partie));
+                    cpt-=17;
+                    menu.menuNiveauUn('I');
+                    break;
+            case 19:jButton5.doClick();
+                    menu.fouillerCase(Outils.conversionBoolean(strReceived, partie));
+                    cpt-=18;
+                    menu.menuNiveauUn('I');
+                    break;
+            case 20:jButton5.doClick();
+                    menu.attaquer(Outils.conversionBoolean(strReceived, partie));
+                    break;
+            case 21:jButton5.doClick();
+                    if(Outils.conversionBoolean(strReceived, partie)){
+                    Outils.affichage(Journal.consulterDescription(16),this);
+                    cpt+=1;}else{
+                    cpt-=20;
+                    menu.menuNiveauUn('I');
+                    }
+                    break;
+            case 22:jButton5.doClick();
+                    menu.prendreObjetCase(Outils.donnerReponseChiffre(2, partie, strReceived));
+                    cpt-=21;
+                    menu.menuNiveauUn('I');
+                    break;
+            case 23:jButton5.doClick();
+                    partie.getJoueurActuel().outilViderSac(b, Outils.conversionInt(strReceived, partie), partie);
+                    cpt-=22;
+                    menu.menuNiveauUn('I');
+                    break;
+            case 24:jButton5.doClick();
+                    menu.interagirSac(Outils.verification(strReceived, choix, partie));
+                    break;
+            case 25:jButton5.doClick();
+                       if(Outils.conversionBoolean(strReceived, partie)){
+                            partie.getJoueurActuel().actionBoireBoisson(partie, choix);
+                            menu.consommerPA();
+                       }
+                           cpt-=24;
+                           menu.menuNiveauUn('I');
+                       
+                    
+                    break;
+            case 26:jButton5.doClick();
+                    menu.actionManger(Outils.conversionBoolean(strReceived, partie));
+                    cpt-=25;
+                    menu.menuNiveauUn('I');
+                    break;    
+                    
+                    
+            case 27:jButton5.doClick();
+                    menu.actionBoire(Outils.conversionBoolean(strReceived, partie));
+                    cpt-=26;
+                    menu.menuNiveauUn('I');
+                    break;
+            case 28:jButton5.doClick();
+                    b=Outils.conversionBoolean(strReceived, partie);
+                    if(b){
+                        cpt=0;
+                        this.getjButton4().doClick();
+                    }else{
+                        cpt=0;
+                        Outils.afficher(0,partie);
+                    }
+                    break;
+            case 29:jButton5.doClick();
+                    break;
+                
+        }       
         
         
     }//GEN-LAST:event_jButton3MouseClicked
@@ -610,6 +722,15 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(!partie.getPartie()){
             menu.demarrer(partie, this);
+        }else{
+            if(b){
+                this.partieDemarree=false;
+                isNbJoueurSet=false;
+                this.jTextArea1.setText("");
+                jButton2.doClick();
+            }else{
+                Outils.afficher(0, partie);
+            }
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 

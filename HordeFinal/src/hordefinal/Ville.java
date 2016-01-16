@@ -121,23 +121,27 @@ public class Ville extends Case {
 
     public boolean ouverturePorte(Jeu partieActuelle) {
         //bool ouverte -> 1 sinon 0
-        boolean changement=false;
+        
         if (ouverturePorte == true) {
             Outils.affichage(Journal.consulterDescription(78),partieActuelle.getMonInterface());
             Outils.affichage(Journal.consulterDescription(79),partieActuelle.getMonInterface());
-            if(Outils.conversionBoolean(sc.next(),partieActuelle)){
-                ouverturePorte=false;
-                changement=true;
-            }
+            return true;
+            
         } else {
             Outils.affichage(Journal.consulterDescription(80),partieActuelle.getMonInterface());
             Outils.affichage(Journal.consulterDescription(81),partieActuelle.getMonInterface());
-            if(Outils.conversionBoolean(sc.next(),partieActuelle)){
-                ouverturePorte=true;
-                changement=true;
-            }
+            return false;
         }
-        return changement;
+        
+    }
+    
+    public boolean actionnerPorte(boolean b){
+        if(b){
+            ouverturePorte=false;
+        }else{
+            ouverturePorte=true;
+        }
+        return true;    
     }
 
     public String afficherConstruction() {

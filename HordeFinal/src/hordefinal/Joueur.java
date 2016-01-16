@@ -213,7 +213,7 @@ public class Joueur {
     /**
      * @return changement to know if a change was made
      */
-    public boolean boire() {
+    public boolean boire(Jeu partie) {
         int i=0;
         boolean changement=false;
         if(!sac.isEmpty()){
@@ -223,21 +223,21 @@ public class Joueur {
             if(this.sac.get(i).getNom().equals(Journal.consulterDescription(52))){
                 this.setPa(this.getPa() + 6);
                 this.sac.remove(i);
-                System.out.println(Journal.consulterDescription(64));
+                Outils.affichage(Journal.consulterDescription(64),partie.getMonInterface());
                 changement=true;
                 dejaBu=true;
             }else{
                 if(i == this.sac.size()){
-                    System.out.println(Journal.consulterDescription(63));
+                    Outils.affichage(Journal.consulterDescription(63),partie.getMonInterface());
                 }
             }
         }else{
-            System.out.println(Journal.consulterDescription(63));
+            Outils.affichage(Journal.consulterDescription(63),partie.getMonInterface());
         }   
         return changement;
     }
     //Permet au joueur de manger une ration s'il en dispose
-    public boolean manger() {
+    public boolean manger(Jeu partie) {
         int i=0;
         boolean changement=false;
         if(!sac.isEmpty()){
@@ -247,22 +247,22 @@ public class Joueur {
             if(this.sac.get(i).getNom().equals(Journal.consulterDescription(51))){
                 this.setPa(this.getPa() + 6);
                 this.sac.remove(i);
-                System.out.println(Journal.consulterDescription(64));
+                Outils.affichage(Journal.consulterDescription(64),partie.getMonInterface());
                 changement=true;
                 dejaMange=true;
             }else{
                 if(i == this.sac.size()){
-                    System.out.println(Journal.consulterDescription(65));
+                    Outils.affichage(Journal.consulterDescription(65),partie.getMonInterface());
                 }
             }
         }else{
-            System.out.println(Journal.consulterDescription(65));
+            Outils.affichage(Journal.consulterDescription(65),partie.getMonInterface());
         }
         return changement;
     }
 
-    public boolean boireBoisson(Jeu partieActuelle){
-        boolean changement=false;
+    public int boireBoisson(Jeu partieActuelle){
+        
         int i=0;
         
         while(!sac.get(i).getNom().equals(Journal.consulterDescription(53))&&i<sac.size()){
@@ -270,21 +270,26 @@ public class Joueur {
         }
         
         if(sac.get(i).getNom().equals(Journal.consulterDescription(53))){
-            System.out.println(Journal.consulterDescription(66));
-            if(Outils.conversionBoolean(sc.next(),partieActuelle)){
-                changement=true;
+            Outils.affichage(Journal.consulterDescription(66),partieActuelle.getMonInterface());
+            
+        }else{
+            Outils.affichage(Journal.consulterDescription(68),partieActuelle.getMonInterface());
+        }
+        return i;
+    }
+    
+    public boolean actionBoireBoisson(Jeu partieActuelle,int i){
+        
+                
                 setPa(pa+4);
                 if(dependant){
                     nbJourDependant=0;
                 }
                 dependant=true;
                 sac.remove(i);
-                System.out.println(Journal.consulterDescription(67));
-            }
-        }else{
-            System.out.println(Journal.consulterDescription(68));
-        }
-        return changement;
+                Outils.affichage(Journal.consulterDescription(67),partieActuelle.getMonInterface());
+                return true;
+            
     }
 
     // Permet au joueur de remplir son sac
@@ -293,12 +298,27 @@ public class Joueur {
     }
 
     // Permet au joueur de vider son sac
-    public void viderSac(Jeu partieActuelle) {
+    public boolean viderSac(Jeu partieActuelle) {
         if(!sac.isEmpty()){
-            if(indiceCase!=338){
+           
             Outils.affichage(Journal.consulterDescription(28),partieActuelle.getMonInterface());
             Outils.affichage(Journal.afficherContenuSac(partieActuelle.getJoueurActuel()),partieActuelle.getMonInterface());
-            int num=0;//Outils.donnerReponseChiffre(sac.size()-1,partieActuelle);
+            if(indiceCase!=338){
+                return true;
+            
+            }else{
+                return false;
+            
+            }
+        
+    }else{
+        Outils.affichage(Journal.consulterDescription(34),partieActuelle.getMonInterface());
+        return false;
+        }
+    }
+    public void outilViderSac(boolean b,int num, Jeu partieActuelle){
+        if(b){
+        //int num=0;//Outils.donnerReponseChiffre(sac.size()-1,partieActuelle);
             Outils.affichage(Journal.consulterDescription(29)+sac.get(num).getNom()+ Journal.consulterDescription(30),partieActuelle.getMonInterface());
             if(Outils.conversionBoolean(sc.next(),partieActuelle)){
                 if(!sac.get(num).getNom().equals(Journal.consulterDescription(51))&&!sac.get(num).getNom().equals(Journal.consulterDescription(52))){
@@ -314,36 +334,30 @@ public class Joueur {
                 }
                 Outils.affichage(Journal.consulterDescription(31)+sac.get(num).getNom()+Journal.consulterDescription(111),partieActuelle.getMonInterface());
                 sac.remove(num);
-                
-            }
-        }else{
-            Outils.affichage(Journal.consulterDescription(28),partieActuelle.getMonInterface());
-            Outils.affichage(Journal.afficherContenuSac(partieActuelle.getJoueurActuel()),partieActuelle.getMonInterface());
-            int num=0;//Outils.donnerReponseChiffre(sac.size()-1,partieActuelle);
-            if(!sac.get(num).getNom().equals(Journal.consulterDescription(52))){
-                Outils.affichage(Journal.consulterDescription(31)+sac.get(num).getNom()+Journal.consulterDescription(32),partieActuelle.getMonInterface());
-                if(sac.get(num).getNom().equals(Journal.consulterDescription(51))){
-                    partieActuelle.getMaVille().getEntrepot()[0].setQuantite(partieActuelle.getMaVille().getEntrepot()[0].getQuantite()+1);
-                }else{
-                    if(sac.get(num).getNom().equals(Journal.consulterDescription(54))){
-                        partieActuelle.getMaVille().getEntrepot()[1].setQuantite(partieActuelle.getMaVille().getEntrepot()[1].getQuantite()+1);
-                    }else{
-                        if(sac.get(num).getNom().equals(Journal.consulterDescription(55))){
-                            partieActuelle.getMaVille().getEntrepot()[2].setQuantite(partieActuelle.getMaVille().getEntrepot()[2].getQuantite()+1);
-                        }else{  
-                            partieActuelle.getMaVille().getEntrepot()[3].setQuantite(partieActuelle.getMaVille().getEntrepot()[3].getQuantite()+1);
-                        }
-                    }
-                }    
-
             }else{
-                Outils.affichage(Journal.consulterDescription(31)+sac.get(num).getNom()+Journal.consulterDescription(33),partieActuelle.getMonInterface());
+            //int num=0;//Outils.donnerReponseChiffre(sac.size()-1,partieActuelle);
+                if(!sac.get(num).getNom().equals(Journal.consulterDescription(52))){
+                    Outils.affichage(Journal.consulterDescription(31)+sac.get(num).getNom()+Journal.consulterDescription(32),partieActuelle.getMonInterface());
+                    if(sac.get(num).getNom().equals(Journal.consulterDescription(51))){
+                        partieActuelle.getMaVille().getEntrepot()[0].setQuantite(partieActuelle.getMaVille().getEntrepot()[0].getQuantite()+1);
+                    }else{
+                        if(sac.get(num).getNom().equals(Journal.consulterDescription(54))){
+                            partieActuelle.getMaVille().getEntrepot()[1].setQuantite(partieActuelle.getMaVille().getEntrepot()[1].getQuantite()+1);
+                        }else{
+                            if(sac.get(num).getNom().equals(Journal.consulterDescription(55))){
+                                partieActuelle.getMaVille().getEntrepot()[2].setQuantite(partieActuelle.getMaVille().getEntrepot()[2].getQuantite()+1);
+                            }else{  
+                                partieActuelle.getMaVille().getEntrepot()[3].setQuantite(partieActuelle.getMaVille().getEntrepot()[3].getQuantite()+1);
+                            }
+                        }
+                    }    
+
+                }else{
+                    Outils.affichage(Journal.consulterDescription(31)+sac.get(num).getNom()+Journal.consulterDescription(33),partieActuelle.getMonInterface());
+                }
+                Outils.affichage(Journal.consulterDescription(31)+sac.get(num).getNom()+Journal.consulterDescription(111),partieActuelle.getMonInterface());
+                sac.remove(num);  
             }
-            Outils.affichage(Journal.consulterDescription(31)+sac.get(num).getNom()+Journal.consulterDescription(111),partieActuelle.getMonInterface());
-            sac.remove(num);
         }
-    }else{
-        Outils.affichage(Journal.consulterDescription(34),partieActuelle.getMonInterface());
-    }
     }
 }

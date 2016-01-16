@@ -63,11 +63,11 @@ public class Case {
     public ArrayList<Item> getItem(){
         return items;
     }    
-    public boolean fouiller(Jeu partieActuelle){ // On donne le choix au joueur de fouiller la case ou non
+    public boolean fouiller(Jeu partieActuelle, boolean b){ // On donne le choix au joueur de fouiller la case ou non
         boolean changement=false;
-        Outils.affichage(Journal.consulterDescription(70),partieActuelle.getMonInterface());
         
-        if(Outils.conversionBoolean(sc.next(),partieActuelle)){
+        
+        if(b){
             nbZombiesRestants=Zombies.nbZombiesCase();
             Outils.affichage(Journal.consulterDescription(22)+nbZombiesRestants+Journal.consulterDescription(23),partieActuelle.getMonInterface());
             fouillee=true;
