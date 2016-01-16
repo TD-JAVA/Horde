@@ -300,9 +300,10 @@ public class Joueur {
     // Permet au joueur de vider son sac
     public boolean viderSac(Jeu partieActuelle) {
         if(!sac.isEmpty()){
-           
+            partieActuelle.getMenuPartie().getMonInterface().setCpt(partieActuelle.getMenuPartie().getMonInterface().getCpt()+5);
             Outils.affichage(Journal.consulterDescription(28),partieActuelle.getMonInterface());
             Outils.affichage(Journal.afficherContenuSac(partieActuelle.getJoueurActuel()),partieActuelle.getMonInterface());
+            Outils.affichage(Journal.consulterDescription(36),partieActuelle.getMonInterface());
             if(indiceCase!=338){
                 return true;
             
@@ -313,14 +314,15 @@ public class Joueur {
         
     }else{
         Outils.affichage(Journal.consulterDescription(34),partieActuelle.getMonInterface());
+        Outils.afficher(4, partieActuelle);
         return false;
         }
     }
     public void outilViderSac(boolean b,int num, Jeu partieActuelle){
         if(b){
         //int num=0;//Outils.donnerReponseChiffre(sac.size()-1,partieActuelle);
-            Outils.affichage(Journal.consulterDescription(29)+sac.get(num).getNom()+ Journal.consulterDescription(30),partieActuelle.getMonInterface());
-            if(Outils.conversionBoolean(sc.next(),partieActuelle)){
+            
+            
                 if(!sac.get(num).getNom().equals(Journal.consulterDescription(51))&&!sac.get(num).getNom().equals(Journal.consulterDescription(52))){
                     if(sac.get(num).getNom().equals(Journal.consulterDescription(54))){
                         partieActuelle.getGrille().getTabCase().get(indiceCase).getItem().get(0).setQuantite(partieActuelle.getGrille().getTabCase().get(indiceCase).getItem().get(0).getQuantite()+1);
@@ -334,7 +336,7 @@ public class Joueur {
                 }
                 Outils.affichage(Journal.consulterDescription(31)+sac.get(num).getNom()+Journal.consulterDescription(111),partieActuelle.getMonInterface());
                 sac.remove(num);
-            }else{
+        }else{
             //int num=0;//Outils.donnerReponseChiffre(sac.size()-1,partieActuelle);
                 if(!sac.get(num).getNom().equals(Journal.consulterDescription(52))){
                     Outils.affichage(Journal.consulterDescription(31)+sac.get(num).getNom()+Journal.consulterDescription(32),partieActuelle.getMonInterface());
@@ -351,13 +353,14 @@ public class Joueur {
                             }
                         }
                     }    
-
+                    
                 }else{
                     Outils.affichage(Journal.consulterDescription(31)+sac.get(num).getNom()+Journal.consulterDescription(33),partieActuelle.getMonInterface());
+                      
                 }
                 Outils.affichage(Journal.consulterDescription(31)+sac.get(num).getNom()+Journal.consulterDescription(111),partieActuelle.getMonInterface());
                 sac.remove(num);  
             }
-        }
+        
     }
 }

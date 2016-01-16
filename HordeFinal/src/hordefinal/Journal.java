@@ -270,7 +270,7 @@ public class Journal {
                     break;
             case 55:description="Plaque de métal";
                     break;
-            case 56:description="<html>*****************************************************<br />*****************************************************<br />********************* H O R D E *********************<br />*****************************************************<br />*****************************************************<br />Bienvenue dans Horde, une reproduction simplifié du Jeu de Twinoid.<br />Ce programme a été réalisé dans un cadre scolaire.<br />Il n'est pas commercialisable.<br />Les créateurs de ce programme et les intervenants de l'université de Lorraine<br /> ne pourront être tenu responsable des effets de ce logiciel et de ce logiciel.<br />Programme réalisé par Sébastien Brogniart,<br />Gabriel Giroud et Valère Richier alors tous trois étudiants en année de Licence MIASHS.";
+            case 56:description="<html>*****************************************************<br />*****************************************************<br />********************* H O R D E *********************<br />*****************************************************<br />*****************************************************<br />Bienvenue dans Horde, une reproduction simplifié du Jeu de Twinoid.<br />Ce programme a été réalisé dans un cadre scolaire.<br />Il n'est pas commercialisable.<br />Les créateurs de ce programme et les intervenants de l'Université de Lorraine<br />ne pourront être tenu responsable des effets de ce logiciel et de ce logiciel.<br />Programme réalisé par Sébastien Brogniart, Gabriel Giroud et Valère Richier<br />alors tous trois étudiants en deuxième année de Licence MIASHS.";
                     break;
             case 57:description="\nCombien y a t il de joueur pour cette partie ?(entre 1 et 20 joueurs)";
                     break;
@@ -391,6 +391,8 @@ public class Journal {
             case 115:description="\nIl n'y a aucune construction en cours\n";
                     break;
             case 116:description="\nCette case ne contient pas cette item.";
+                    break;
+            case 117:description="\nVous ne pouvez choisir que la proposition ayant l'indice 0.";
                     break;
             default:description="Erreur.";
                     break;

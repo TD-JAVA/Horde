@@ -569,17 +569,17 @@ public class Menu {
                     consommationDePA=consoSup;
                     consommerPA();
                     monInterface.setCpt(monInterface.getCpt()-23);
-                    menuNiveauUn('I');
+                    menuNiveauUn('S');
                 }
             }else{
                 Outils.affichage(Journal.consulterDescription(5),this.getMonInterface());            
                 monInterface.setCpt(monInterface.getCpt()-23);
-                    menuNiveauUn('I');
+                    menuNiveauUn('S');
             }
         }else{
                 Outils.affichage(Journal.consulterDescription(26),this.getMonInterface());            
                 monInterface.setCpt(monInterface.getCpt()-23);
-                    menuNiveauUn('I');
+                    menuNiveauUn('S');
         }
     }
     
@@ -596,18 +596,18 @@ public class Menu {
                     consommationDePA=consoSup;
                     consommerPA();
                     monInterface.setCpt(monInterface.getCpt()-23);
-                    menuNiveauUn('I');
+                    menuNiveauUn('S');
 
                 }
             }else{
                 Outils.affichage(Journal.consulterDescription(5),this.getMonInterface()); 
                 monInterface.setCpt(monInterface.getCpt()-23);
-                menuNiveauUn('I');
+                menuNiveauUn('S');
             }
         }else{
                 Outils.affichage(Journal.consulterDescription(27),this.getMonInterface());            
                 monInterface.setCpt(monInterface.getCpt()-23);
-                menuNiveauUn('I');
+                menuNiveauUn('S');
         }
     }
     
@@ -652,14 +652,17 @@ public class Menu {
                         break;
             case 'M':   accederManger();
                         break;
-            case 'V':   accederVider();    
+            case 'V':   monInterface.setB(accederVider());    
                         break;
             case 'E':   accederBoireE();
                         break;
-            case 'R':   this.retournerMenu(2);
+            case 'R':   monInterface.setCpt(monInterface.getCpt()-22);
+                        this.retournerMenu();
                         break;
+            default:    Outils.affichage(Journal.consulterDescription(36), monInterface);
+                        Outils.afficher(4,partieActuelle);
                     }
-        Outils.afficher(4,partieActuelle);
+        
     }
     
     

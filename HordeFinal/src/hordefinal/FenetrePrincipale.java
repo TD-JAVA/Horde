@@ -135,7 +135,6 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jProgressBar1 = new javax.swing.JProgressBar();
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -173,7 +172,8 @@ public class FenetrePrincipale extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Horde");
-        setPreferredSize(new java.awt.Dimension(500, 300));
+        setPreferredSize(new java.awt.Dimension(550, 300));
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -262,10 +262,7 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(83, 83, 83)
-                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(184, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -277,9 +274,7 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(145, Short.MAX_VALUE))
+                .addContainerGap(177, Short.MAX_VALUE))
         );
 
         jPanel3.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -485,30 +480,32 @@ public class FenetrePrincipale extends javax.swing.JFrame {
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         // TODO add your handling code here:
         //Outils.affichage(""+cpt, this);
+        strReceived=jTextField2.getText();
+        jTextField2.setText("");
         switch(cpt){
-            case 0: jButton5.doClick();
+            case 0: //jButton5.doClick();
                     menu.menuNiveauZero(Outils.verification(getStrReceived(),0,partie));
                     break;
             case 1:
-                        jButton5.doClick();
+                        //jButton5.doClick();
                         menu.menuNiveauUn(Outils.verification(strReceived,0,partie));
                         break;
             case 2:     
-                        jButton5.doClick();
+                        //jButton5.doClick();
                         menu.interagirCase(Outils.verification(strReceived,0,partie));
                         break;
-            case 3:     jButton5.doClick();
+            case 3:     //jButton5.doClick();
                         Outils.affichage(Journal.toString(partie,Outils.verification(strReceived,0,partie)),this);
                         cpt-=1;
                         menu.retournerMenu();
                         break;
-            case 4:     jButton5.doClick();
+            case 4:     //jButton5.doClick();
                         menu.seDeplacer(Outils.verification(strReceived,0,partie));
                         cpt-=1;
                         menu.retournerMenu();
                         break;
                         
-            case 5: jButton5.doClick();
+            case 5: //jButton5.doClick();
                     if(menu.accederConstruction(strReceived)){
                                     Outils.affichage(Journal.consulterConstruction(partie.getMonJournal()),this);
                                     Outils.affichage(Journal.consulterDescription(14),this);
@@ -521,7 +518,7 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                     
                     break;
             case 6:
-                    jButton5.doClick();
+                    //jButton5.doClick();
                     //C)\nParticiper aux chantiers(P)\nConsulter les défenses(D)\nConsulter l'entrepot(E)\nInteragir avec la porte(I)\nRemplir une gourde(B)\nPrendre une ration(M)\nRetour(R)\n";
                 if(!menu.getTabGrille().get(partie.getJoueurActuel().getIndiceCase()).getFouillee()||menu.getTabGrille().get(partie.getJoueurActuel().getIndiceCase()).getNbZombiesRestants()==0||choix=='A'){    
                     switch(Outils.verifier(Outils.conversionCaractere(strReceived.charAt(0)),partie)){
@@ -562,36 +559,39 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                     }
                     }else{
             Outils.affichage(Journal.consulterDescription(7),this);
+            cpt-=5;
+            menu.menuNiveauUn('I');
+            
         }
                     break;
-            case 7: jButton5.doClick();
+            case 7: //jButton5.doClick();
                     if(b){
                         menu.prendreObjet(Outils.donnerReponseChiffre(partie.getMaVille().getEntrepot().length-1,this.partie,strReceived));
                         b=false;
                     }
                     break;
-            case 8: jButton5.doClick();
+            case 8: //jButton5.doClick();
                     partie.getMaVille().accederAuChantier(partie.getJoueurActuel(), partie, Outils.donnerReponseChiffre(partie.getMaVille().getBatimentEnCours().size(), partie, strReceived));
                     //Outils.affichage(Journal.consulterDescription(36), this);
                     cpt+=5;
                     break;
-            case 9: jButton5.doClick();
+            case 9: //jButton5.doClick();
                     b=menu.accederEntrepot(strReceived);
                     break;
-            case 10:jButton5.doClick();
+            case 10://jButton5.doClick();
                     partie.getMaVille().construire(partie, Outils.donnerReponseChiffre(6,partie,strReceived) );
                     break;
-            case 11:jButton5.doClick();
+            case 11://jButton5.doClick();
                     choix =menu.prendreObjet(Outils.donnerReponseChiffre(3, partie, strReceived));
                     break;
-            case 12:jButton5.doClick();
+            case 12://jButton5.doClick();
                     menu.accesObjet(Outils.conversionBoolean(strReceived, partie), choix);
                     break;
-            case 13:jButton5.doClick();
+            case 13://jButton5.doClick();
                     b=Outils.conversionBoolean(strReceived, partie);
                     cpt+=1;
                     break;
-            case 14:jButton5.doClick();
+            case 14://jButton5.doClick();
                     if(b){
                         Outils.affichage(Journal.consulterDescription(77),this);
                         b=false;
@@ -601,12 +601,12 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                         menu.menuNiveauUn('I');
                     }
                     break;
-            case 15:jButton5.doClick();
+            case 15://jButton5.doClick();
                     partie.getMaVille().participerAuChantier(partie, Outils.donnerReponseChiffre(partie.getJoueurActuel().getPa(), partie, strReceived), choix);
                     cpt-=14;
                     menu.menuNiveauUn('I');
                     break;
-            case 16:jButton5.doClick();
+            case 16://jButton5.doClick();
                     if(Outils.conversionBoolean(strReceived, partie)){
                         menu.interagirPorte(b);
                         b=false;
@@ -614,25 +614,25 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                     cpt-=15;
                     menu.menuNiveauUn('I');
                     break;
-            case 17:jButton5.doClick();
+            case 17://jButton5.doClick();
                     menu.prendreGourde(Outils.conversionBoolean(strReceived, partie));
                     cpt-=16;
                     menu.menuNiveauUn('I');
                     break;
-            case 18:jButton5.doClick();
+            case 18://jButton5.doClick();
                     menu.prendreRation(Outils.conversionBoolean(strReceived, partie));
                     cpt-=17;
                     menu.menuNiveauUn('I');
                     break;
-            case 19:jButton5.doClick();
+            case 19://jButton5.doClick();
                     menu.fouillerCase(Outils.conversionBoolean(strReceived, partie));
                     cpt-=18;
                     menu.menuNiveauUn('I');
                     break;
-            case 20:jButton5.doClick();
+            case 20://jButton5.doClick();
                     menu.attaquer(Outils.conversionBoolean(strReceived, partie));
                     break;
-            case 21:jButton5.doClick();
+            case 21://jButton5.doClick();
                     if(Outils.conversionBoolean(strReceived, partie)){
                     Outils.affichage(Journal.consulterDescription(16),this);
                     cpt+=1;}else{
@@ -640,20 +640,23 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                     menu.menuNiveauUn('I');
                     }
                     break;
-            case 22:jButton5.doClick();
+            case 22://jButton5.doClick();
                     menu.prendreObjetCase(Outils.donnerReponseChiffre(2, partie, strReceived));
                     cpt-=21;
                     menu.menuNiveauUn('I');
                     break;
-            case 23:jButton5.doClick();
-                    partie.getJoueurActuel().outilViderSac(b, Outils.conversionInt(strReceived, partie), partie);
+            case 23://jButton5.doClick();
+                    if(Outils.conversionBoolean(strReceived, partie)){
+                        partie.getJoueurActuel().outilViderSac(b, choix, partie);
+                    }
+                    
                     cpt-=22;
-                    menu.menuNiveauUn('I');
+                    menu.menuNiveauUn('S');
                     break;
-            case 24:jButton5.doClick();
+            case 24://jButton5.doClick();
                     menu.interagirSac(Outils.verification(strReceived, choix, partie));
                     break;
-            case 25:jButton5.doClick();
+            case 25://jButton5.doClick();
                        if(Outils.conversionBoolean(strReceived, partie)){
                             partie.getJoueurActuel().actionBoireBoisson(partie, choix);
                             menu.consommerPA();
@@ -663,19 +666,19 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                        
                     
                     break;
-            case 26:jButton5.doClick();
+            case 26://jButton5.doClick();
                     menu.actionManger(Outils.conversionBoolean(strReceived, partie));
                     cpt-=25;
-                    menu.menuNiveauUn('I');
+                    menu.menuNiveauUn('S');
                     break;    
                     
                     
-            case 27:jButton5.doClick();
+            case 27://jButton5.doClick();
                     menu.actionBoire(Outils.conversionBoolean(strReceived, partie));
                     cpt-=26;
-                    menu.menuNiveauUn('I');
+                    menu.menuNiveauUn('S');
                     break;
-            case 28:jButton5.doClick();
+            case 28://jButton5.doClick();
                     b=Outils.conversionBoolean(strReceived, partie);
                     if(b){
                         cpt=0;
@@ -685,7 +688,17 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                         Outils.afficher(0,partie);
                     }
                     break;
-            case 29:jButton5.doClick();
+            case 29://jButton5.doClick();
+                    choix=Outils.donnerReponseChiffre(partie.getJoueurActuel().getSac().size()-1, partie, strReceived);
+                    if(choix>0&&choix<partie.getJoueurActuel().getSac().size()-1){
+                        Outils.affichage(Journal.consulterDescription(29)+partie.getJoueurActuel().getSac().get(choix).getNom()+ Journal.consulterDescription(30),partie.getMonInterface());
+                        cpt-=6;
+                    }else{
+                        Outils.afficher(4, partie);
+                        cpt-=5;
+                    }
+                    
+                    
                     break;
                 
         }       
@@ -791,7 +804,6 @@ public class FenetrePrincipale extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
@@ -846,13 +858,6 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         this.jPanel2 = jPanel2;
     }
 
-    public JProgressBar getjProgressBar1() {
-        return jProgressBar1;
-    }
-
-    public void setjProgressBar1(JProgressBar jProgressBar1) {
-        this.jProgressBar1 = jProgressBar1;
-    }
 
     public JTextField getjTextField1() {
         return jTextField1;

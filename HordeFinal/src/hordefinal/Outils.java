@@ -175,7 +175,11 @@ public abstract class Outils  {
                     
                     //num=conversionInt("2",partieActuelle);
                 }else{
-                num = Integer.parseInt(str);
+                    num = Integer.parseInt(str);
+                    if(num>20){
+                    Outils.affichage(Journal.consulterDescription(48),partieActuelle.getMonInterface());    
+                    num=0;
+                    }
                 }
         }
         return num;
@@ -204,11 +208,22 @@ public abstract class Outils  {
         int longueur=str.length(),num;
         char[] lettres=str.toCharArray();
         if(longueur!=1 ||((int)(lettres[0])>57 ||(int)(lettres[0])<48)){
-            Outils.affichage(Journal.consulterDescription(49)+max,partieActuelle.getMonInterface());
+            if(max==0){
+                Outils.affichage(Journal.consulterDescription(117),partieActuelle.getMonInterface());
+            }else{
+                Outils.affichage(Journal.consulterDescription(49)+max,partieActuelle.getMonInterface());
+            }
+            
             return -1;
         }else{
+            
             num=Integer.parseInt(str);
-            return num;
+            if(num<=max&&num>=0){
+                return num;
+            }else{
+                return -1;
+            }
+            
         }
         
         
