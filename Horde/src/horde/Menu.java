@@ -323,6 +323,8 @@ public class Menu {
         String[] str=partieActuelle.getMaVille().participerAuChantier(partieActuelle.getJoueurActuel());
         if(conversionBoolean(str[0])){
             partieActuelle.getMaVille().setNouveauBatiment(partieActuelle.getMonJournal().getConstruction(str[1]));
+        }else{
+            Outils.affichage(str[1]);
         }
     }
     

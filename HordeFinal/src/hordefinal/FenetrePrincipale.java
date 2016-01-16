@@ -411,10 +411,12 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         
             if(!isNbJoueurSet){
                 partie.setNombreJoueur(Outils.conversionInt(this.getjTextField1().getText(),partie));   
+                if(partie.getNombreJoueur()!=0){
                 setTabJoueur=new ArrayList<Joueur>(partie.getNombreJoueur());
                 copieNbJoueur=0;
                 isNbJoueurSet=true;
                 Outils.affichage(Journal.consulterDescription(58)+copieNbJoueur+" ?",this);
+                }
             }else{
                 if(copieNbJoueur<partie.getNombreJoueur()){
                     //Outils.affichage(Journal.consulterDescription(58)+copieNbJoueur+" ?",this);

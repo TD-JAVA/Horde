@@ -78,24 +78,30 @@ public class Ville extends Case {
     
     public String[] participerAuChantier(Joueur ceJoueur){
         String[] fini={"",""};
-        int num,pointUse;
+        int num,choix,pointUse;
+        if(!this.getBatimentEnCours().isEmpty()){
         Outils.affichage(afficherConstructionEnCours());
         Outils.affichage(Journal.consulterDescription(36));
-        num=Outils.donnerReponseChiffre(batimentEnCours.size()-1);
-        Outils.affichage(Journal.consulterDescription(74)+batimentEnCours.get(num).getConso_pa()+Journal.consulterDescription(75));
+        choix=Outils.donnerReponseChiffre(batimentEnCours.size()-1);
+        Outils.affichage(Journal.consulterDescription(74)+batimentEnCours.get(choix).getConso_pa()+Journal.consulterDescription(75));
         Outils.affichage(Journal.consulterDescription(76));
         if(Outils.conversionBoolean(sc.next())){
             Outils.affichage(Journal.consulterDescription(77));
             num=Outils.donnerReponseChiffre(ceJoueur.getPa());
-            pointUse=batimentEnCours.get(num).getConso_pa();
-            if(batimentEnCours.get(num).setConso_pa((batimentEnCours.get(num).getConso_pa()-num))){
+            pointUse=batimentEnCours.get(choix).getConso_pa();
+            if(batimentEnCours.get(choix).setConso_pa((batimentEnCours.get(choix).getConso_pa()-num))){
                 fini[0]="Y";
-                fini[1]=batimentEnCours.get(num).getNom();
+                fini[1]=batimentEnCours.get(choix).getNom();
                 ceJoueur.setPa(ceJoueur.getPa()-pointUse);
             }else{
-                ceJoueur.setPa(0);
+                ceJoueur.setPa(ceJoueur.getPa()-num);
             }
         }
+        }else{
+            fini[0]="N";
+            fini[1]=Journal.consulterDescription(115);
+        }
+        
         return fini;
     }
     

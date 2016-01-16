@@ -165,7 +165,7 @@ public abstract class Outils  {
             if((int)(lettres[0])>57 ||(int)(lettres[0])<49){
                 Outils.affichage(Journal.consulterDescription(48),partieActuelle.getMonInterface());
                 
-                num=conversionInt("2",partieActuelle);
+                //num=conversionInt("2",partieActuelle);
             }else{
                 num=Integer.parseInt(str);
             }
@@ -173,7 +173,7 @@ public abstract class Outils  {
                 if((int)(lettres[0])>50 ||(int)(lettres[0])<49 && (int)(lettres[1])>57 ||(int)(lettres[1])<48){
                     Outils.affichage(Journal.consulterDescription(48),partieActuelle.getMonInterface());
                     
-                    num=conversionInt("2",partieActuelle);
+                    //num=conversionInt("2",partieActuelle);
                 }else{
                 num = Integer.parseInt(str);
                 }
