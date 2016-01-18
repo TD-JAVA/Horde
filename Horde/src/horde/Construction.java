@@ -45,6 +45,7 @@ public class Construction {
     public ArrayList<Integer> getRessources_necessaire() {
         return ressources_necessaire;
     }
+    
     public int getRessources( int choix){
         return ressources_necessaire.get(choix);
     }
@@ -57,6 +58,7 @@ public class Construction {
         return conso_pa;
     }
 
+    //Renvoie un booléen qui indique si le batiment est terminé
     public boolean setConso_pa(int conso_pa) {
         boolean fini=false;
         this.conso_pa = conso_pa;

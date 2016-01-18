@@ -31,6 +31,8 @@ public class Carte {
     public int getxVille() {return xVille;}
     
     public int getyVille() {return yVille;}
+    
+    //Setter qui indique la position de la ville sur la carte
     public void setxyVille(int x,int y) {this.xVille = x;this.yVille = y;}
     
     public ArrayList<Case> getTabCase() {return tabCase;}

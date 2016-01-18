@@ -42,13 +42,18 @@ public class Jeu {
     public int getNombreJoueur(){return nombreJoueur;}    
     public void setIndexJoueurActuel(int i){indexJoueurActuel=i;}    
     public int getIndexJoueurActuel(){return indexJoueurActuel;}
+    
+    //On vérifie qu'il ne reste pas qu'un seul joueur. Si c'est le cas, la partie est terminée.
     public void setJoueurActuel(int i){if(nombreJoueur==1){finDePartie();}else{joueurActuel=tabJoueur.get(i);}}    
+    
     public Joueur getJoueurActuel(){return joueurActuel;}
     public boolean getPartie(){return partieDemarree;}
     public void setPartie(boolean demarree){
         this.partieDemarree = demarree;
+        //Si l'attribut  renvoie que le jeu n'est pas démarré
         if(!this.partieDemarree){
-        lancerJeu();
+            //On lance le jeu
+            lancerJeu();
         }
     }
     public Carte getGrille() {return grille;}

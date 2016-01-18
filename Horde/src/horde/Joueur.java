@@ -60,6 +60,7 @@ public class Joueur {
         this.absysseActuelle = absysseActuelle;
     }
 
+    //Change les coordonnées actuelles du joueur
     public void setCoordonneeActuelle(int absysseActuelle, int ordonneeActuelle) {
         this.ordonneeActuelle = ordonneeActuelle;
         this.absysseActuelle = absysseActuelle;
