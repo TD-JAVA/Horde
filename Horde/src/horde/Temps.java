@@ -79,12 +79,12 @@ public class Temps {
                 // Lz moitié des joueurs sont tués
                 int nbATue= (int)(partie.getNombreJoueur()/2);
                 //Pour la moitié des joueurs
-                for(int j=0; j<nbATue;j++){
+                for(int j=1; j<nbATue;j++){
                     //On selectionne aléatoirement les joueurs qui mourront
                     int k=ra.nextInt(partie.getNombreJoueur()-1);
                     Joueur ceJoueur=partie.getJoueur(k);
                     ceJoueur.setPdv(0);
-                    //S'il ne reste plus qu'un joueur, la partie est erminée
+                    //S'il ne reste plus qu'un joueur, la partie est terminée
                     if(partie.dernierJoueur(ceJoueur,k,true)){partie.finDePartie();}
                 }
             }
