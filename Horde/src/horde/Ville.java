@@ -40,10 +40,16 @@ public class Ville extends Case {
         partie.getGrille().setTabCase(i, this);
         super.laVille = true;
         partie.getGrille().setxyVille(13, -13);
+        entrepot[0]=new Item(Journal.consulterDescription(51),5000,Journal.consulterDescription(1));
+        entrepot[1]=new Item(Journal.consulterDescription(54),5000,Journal.consulterDescription(2));
+        entrepot[2]=new Item("Plaques de métal",5000,Journal.consulterDescription(3));
+        entrepot[3]=new Item(Journal.consulterDescription(53),5000,Journal.consulterDescription(4));
+        /*
         entrepot[0]=new Item(Journal.consulterDescription(51),50,Journal.consulterDescription(1));
         entrepot[1]=new Item(Journal.consulterDescription(54),0,Journal.consulterDescription(2));
         entrepot[2]=new Item("Plaques de métal",0,Journal.consulterDescription(3));
         entrepot[3]=new Item(Journal.consulterDescription(53),0,Journal.consulterDescription(4));
+        */
     }
 
     public Ville(Jeu partie, int absysse, int ordonnee) {
@@ -116,7 +122,6 @@ public class Ville extends Case {
             fini[0]="N";
             fini[1]=Journal.consulterDescription(115);
         }
-        
         return fini;
     }
     

@@ -357,11 +357,14 @@ public class Menu {
     // Méthode qui permet à un joueur de participer à une construction
     public void accederChantier(){
         String[] str=partieActuelle.getMaVille().participerAuChantier(partieActuelle.getJoueurActuel());
-        if(conversionBoolean(str[0])){
+        if(!str[0].isEmpty()){
+             if(conversionBoolean(str[0])){
             partieActuelle.getMaVille().setNouveauBatiment(partieActuelle.getMonJournal().getConstruction(str[1]));
         }else{
             Outils.affichage(str[1]);
         }
+        }
+       
     }
     
     //Méthode qui renvoie le taux de défense de la ville
