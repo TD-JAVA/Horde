@@ -6,15 +6,18 @@
 package hordefinal;
 
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Scanner;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+
+
+/*
+La classe outils est une classe abstraite car il n'y a pas d'instantiation d'objet.
+Elle contient tous les outils nécessaires au bon fonctionnement du programme.
+Convertion, affichage...
+*/
 
 /**
  *
- * @author oneiroi
+ * @author Sébastien,Gabriel,Valère
  */
 public abstract class Outils  {
     
@@ -28,7 +31,7 @@ public abstract class Outils  {
      */
     
    
-    
+    //Permet d'ajouter du texte dans le textArea ou dans un label lors d'un cas particulier.
     public static void affichage(String str,FenetrePrincipale uneInterface){
         if(uneInterface.getjPanel2().isVisible()){
             uneInterface.getjLabel1().setText(str); 
@@ -36,29 +39,20 @@ public abstract class Outils  {
             uneInterface.getjTextArea1().append(str);
             uneInterface.pack();
         }
-        
-        //uneInterface.pack();
-        //uneInterface.validate();
     }
-    
+    //permet d'afficher les menus jeu.
     public static void afficher(int niveau, Jeu partieActuelle){ 
-        //Outils.affichage(partieActuelle.getMonJournal().toString(partieActuelle, 'S'),partieActuelle.getMonInterface());
+
         switch (niveau) {
-            case 0:     //Outils.affichage(partieActuelle.getMonJournal().toString(partieActuelle, 'S'),partieActuelle.getMonInterface());
+            case 0:     
                         Outils.affichage(Journal.consulterDescription(35),partieActuelle.getMonInterface());
                         Outils.affichage(Journal.consulterDescription(36),partieActuelle.getMonInterface());
-                        
-                        //sm=new SousMenu(partieActuelle.getMonInterface());
-                        //partieActuelle.getMonInterface().getjButton5().addActionListener(sm);
-                        //while(partieActuelle.getMenuPartie().getStrReceived().isEmpty()){}
                         break;
                         
                         
             case 1:     Outils.affichage(Journal.toString(partieActuelle,'S'),partieActuelle.getMonInterface());
                         Outils.affichage(Journal.consulterDescription(37),partieActuelle.getMonInterface());
                         Outils.affichage(Journal.consulterDescription(36),partieActuelle.getMonInterface());
-                        
-                        
                         break;
                 
             case 2:     if(partieActuelle.getJoueurActuel().getAbsysseActuelle()== partieActuelle.getGrille().getxVille() && partieActuelle.getJoueurActuel().getOrdonneeActuelle()==partieActuelle.getGrille().getyVille()){
@@ -115,11 +109,12 @@ public abstract class Outils  {
         return Character.toUpperCase(lettre);
     }
     
+    //Vérification de la saisie de l'utilisateur. Soit la vérification porte un caractère soit sur une réponse convertible en booléen.
+    //Cette fonction servait pour la version du programme sans interface graphique.
     public static char verification(String str, int choix, Jeu partieActuelle){
         if(!str.isEmpty()){
             str = str.toUpperCase();
         }
-        
         Scanner sc=new Scanner(System.in);
         char[] lettres = str.toCharArray();
         if(choix==1) {
@@ -141,6 +136,8 @@ public abstract class Outils  {
         }     
     }
     
+    //
+    //Vérification de la saisie de l'utilisateur. Soit la vérification porte un caractère.
     public static char verifier(char choix,Jeu partieActuelle){
     if(partieActuelle.getJoueurActuel().getIndiceCase()!=338){
                     if(choix=='C'||choix=='E'||choix=='I'||choix=='B'||choix=='D'||choix=='P'){
@@ -154,7 +151,9 @@ public abstract class Outils  {
                 }
                 return choix;
     }
-        
+    
+    
+    //Convertie une string en int
     public static int conversionInt(String str,Jeu partieActuelle){
         Scanner sc=new Scanner(System.in);
         char[] lettres=str.toCharArray();
@@ -164,16 +163,12 @@ public abstract class Outils  {
         if((longueur<2)){
             if((int)(lettres[0])>57 ||(int)(lettres[0])<49){
                 Outils.affichage(Journal.consulterDescription(48),partieActuelle.getMonInterface());
-                
-                //num=conversionInt("2",partieActuelle);
             }else{
                 num=Integer.parseInt(str);
             }
         }else{
                 if((int)(lettres[0])>50 ||(int)(lettres[0])<49 && (int)(lettres[1])>57 ||(int)(lettres[1])<48){
                     Outils.affichage(Journal.consulterDescription(48),partieActuelle.getMonInterface());
-                    
-                    //num=conversionInt("2",partieActuelle);
                 }else{
                     num = Integer.parseInt(str);
                     if(num>20){
@@ -184,6 +179,8 @@ public abstract class Outils  {
         }
         return num;
     }
+    
+    //Convertie une string en boolean
     public static boolean conversionBoolean(String str,Jeu partieActuelle){
         char[] lettres =  str.toCharArray();
         if(conversionCaractere(lettres[0])=='Y'||conversionCaractere(lettres[0])=='O'){
@@ -198,11 +195,14 @@ public abstract class Outils  {
         }
     }
     
+    //Convertie une str en char
     public static char conversionChar(String str){
         char[] lettres =  str.toCharArray();
         return lettres[0];
     }
     
+    
+    //Convertie une str en int dans un contexte donné
     public static int donnerReponseChiffre(int max,Jeu partieActuelle,String str){
         
         int longueur=str.length(),num;

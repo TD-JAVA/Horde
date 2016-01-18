@@ -12,7 +12,7 @@ import java.util.Scanner;
  */
 /**
  *
- * @author Seb
+ * @author Sebastien, Valère, Gabriel
  */
 public class Joueur {
 

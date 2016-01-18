@@ -15,9 +15,33 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+/***
+ * 
+ * Ceci est une interface de test afin de comprendre comment fonctionne les
+ * interface graphique en Java. Il a donc fallu modifier fondamentalement le
+ * code. Nous l'avions pensé de manière modulaire mais pas suffisamment pour ce type
+ * d'interface. En effet, tout le déroulement du jeu n'utilise qu'un bouton.
+ * Précédemment, le programme s'executait de manière à n'en jamais sortir tant
+ * que ce n'est pas l'utilisateur qui demande de le quitter. Il y avait donc des
+ * imbrications de fonctions. Ici, il s'agit de programmation événementielle et
+ * le seul événement que nous prenons en compte est le clic sur le bouton.
+ * Donc, il faut sortir des méthodes à chaque fois que le traitement est fini.
+ * Et il faut également sortir des méthodes lorsqu'on a besoin des données
+ * de l'utilisateur. Nous avons pensé le programme pour qu'il puisse être multilingue.
+ * tous les textes du programme sont stockés dans une méthode de la classe Journal
+ * Malheureusement, on ne savait gérer les fichiers au moment de ce td du coup 
+ * l'ensemble des lignes de texte sont compilés dans le reste du programme dans
+ * un énorme switch. Deuxième point noir, nous découvrons seulement le fonctionnement
+ * des interfaces graphiques donc l'ensemble des textes propres à l'interface sont
+ * en français et non modifiable. Le nom des variables est en lien avec son 
+ * utilisation. Toujours pour des raisons de découverte les noms des objets graphiques
+ * ne sont pas intelligent pour nous aider à mieux appréhender leur comportements.
+ * 
+ */
+
 /**
  *
- * @author oneiroi
+ * @author Gabriel,Sébastien, Valère
  */
 public class FenetrePrincipale extends javax.swing.JFrame {
 
@@ -27,99 +51,63 @@ public class FenetrePrincipale extends javax.swing.JFrame {
     public FenetrePrincipale() {
         initComponents();
     }
-    private boolean partieDemarree=false;
-    private boolean isNbJoueurSet=false;
-    private boolean b=false;
-    private int choix=0;
-    private Jeu partie;
-    private int copieNbJoueur;
-    private Menu menu;
-    ArrayList<Joueur> setTabJoueur;
-    String strReceived="";
-    int cpt=0;
-
-    public int getChoix() {
-        return choix;
-    }
-
-    public void setChoix(int choix) {
-        this.choix = choix;
-    }
-
-    public boolean isB() {
-        return b;
-    }
-
-    public void setB(boolean b) {
-        this.b = b;
-    }
     
-    public String getStrReceived() {
-        return strReceived;
-    }
+//Attribut de la classe     
+    private boolean partieDemarree=false; //permet d'indiquer si l'objet Jeu a été instancié.
+    private boolean isNbJoueurSet=false; //permet d'indiquer si le nombre de joueur a été renseigné lors de l'initialisation.
+    private boolean b=false; //booléen libre permettant de communiquer des informations entre plusieurs méthodes.
+    private int choix=0; //int libre permettant de communiquer des informations entre plusieurs méthodes.
+    private Jeu partie; // variable permettant de stocker la partie en cours 
+    private int copieNbJoueur; //variable servant dans l'initialisation des joueurs car on appelle plusieurs fois la même fonction de manière évênementiel 
+    private Menu menu; //variable permettant de stocker le menu de la partie en cours 
+    ArrayList<Joueur> setTabJoueur; //tableau servant dans l'initialisation des joueurs. Il permet de stocker temporairement les joueurs avant de les stocker de la partie. 
+    String strReceived=""; //Chaine récupérant les données par l'utilisateur utilisateur 
+    int cpt=0; // Compteur libre permettant de communiquer des informations entre plusieurs méthodes.(il sert à voyager dans le switch principale)
+/****************************Getter&Setter*************************************/
+    public int getChoix() {return choix;}
+    public void setChoix(int choix) {this.choix = choix;}
+    public boolean isB() {return b;}
+    public void setB(boolean b) {this.b = b;}
+    public String getStrReceived() {return strReceived;}
+    public void setStrReceived(String strReceived) {this.strReceived = strReceived;}
+    public Jeu getPartie() {return partie;}
+    public void setPartie(Jeu partie) {this.partie = partie;}
+    public Menu getMenu() {return menu;}
+    public void setMenu(Menu menu) {this.menu = menu;}
+    public JButton getjButton2() {return jButton2;}
+    public boolean isPartieDemarree() {return partieDemarree;}
+    public void setPartieDemarree(boolean partieDemarree) {this.partieDemarree = partieDemarree;}
+    public JTextField getjTextField2() {return jTextField2;}
+    public void setjTextField2(JTextField jTextField2) {this.jTextField2 = jTextField2;}
+    public JTextArea getjTextArea1() {return jTextArea1;}
+    public void setjTextArea1(JTextArea jTextArea1) {this.jTextArea1 = jTextArea1;}
+    public JButton getjButton3() {return jButton3;}
+    public JPanel getjPanel3() {return jPanel3;}
+    public void setjPanel3(JPanel jPanel3) {this.jPanel3 = jPanel3;}
+    public JLabel getjLabel1() {return jLabel1;}
+    public int getCpt() {return cpt;}
+    public void setCpt(int cpt) {this.cpt = cpt;}
+    public JButton getjButton4() {return jButton4;}
+    public void setjButton4(JButton jButton4) {this.jButton4 = jButton4;}
+    public JButton getjButton5() {return jButton5;}
+    public void setjButton5(JButton jButton5) {this.jButton5 = jButton5;}
+    public JButton getjButton1() {return jButton1;}
+    public void setjButton1(JButton jButton1) {this.jButton1 = jButton1;}
+    public JLabel getjLabel2() {return jLabel2;}
+    public void setjLabel2(JLabel jLabel1) {this.jLabel2 = jLabel1;}
+    public JPanel getjPanel1() {return jPanel1;}
+    public void setjPanel1(JPanel jPanel1) {this.jPanel1 = jPanel1;}
+    public JPanel getjPanel2() {return jPanel2;}
+    public void setjPanel2(JPanel jPanel2) {this.jPanel2 = jPanel2;}
+    public JTextField getjTextField1() {return jTextField1;}
+    public void setjTextField1(JTextField jTextField1) {this.jTextField1 = jTextField1;}
+/*****************************Fin Getter&Setter********************************/    
 
-    public void setStrReceived(String strReceived) {
-        this.strReceived = strReceived;
-    }
     
-    public Jeu getPartie() {
-        return partie;
-    }
-
-    public void setPartie(Jeu partie) {
-        this.partie = partie;
-    }
-
-    public Menu getMenu() {
-        return menu;
-    }
-
-    public void setMenu(Menu menu) {
-        this.menu = menu;
-    }
-    
-
-    public JButton getjButton2() {
-        return jButton2;
-    }
-
-    public boolean isPartieDemarree() {
-        return partieDemarree;
-    }
-
-    public void setPartieDemarree(boolean partieDemarree) {
-        this.partieDemarree = partieDemarree;
-    }
-
-    public JTextField getjTextField2() {
-        return jTextField2;
-    }
-
-    public void setjTextField2(JTextField jTextField2) {
-        this.jTextField2 = jTextField2;
-    }
-
-    public JTextArea getjTextArea1() {
-        return jTextArea1;
-    }
-
-    public void setjTextArea1(JTextArea jTextArea1) {
-        this.jTextArea1 = jTextArea1;
-    }
-    
-    public JButton getjButton3() {
-        return jButton3;
-    }
-
-    public JPanel getjPanel3() {
-        return jPanel3;
-    }
-
-    public void setjPanel3(JPanel jPanel3) {
-        this.jPanel3 = jPanel3;
-    }
-    
-
+/*
+    Certaines des méthodes qui suivent n'ont pas de contenu. Netbeans génére
+    automatiquement du code et nous ne savons pas comment le retirer.
+    */    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -254,12 +242,10 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -387,10 +373,6 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public JLabel getjLabel1() {
-        return jLabel1;
-    }
-
     private void jPanel1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel1FocusGained
         // TODO add your handling code here:
         
@@ -399,22 +381,33 @@ public class FenetrePrincipale extends javax.swing.JFrame {
     private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1KeyPressed
-
+/*
+    Phase d'initialisation des joueurs.
+    */
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-        //String str = this.jTextField1.getText();
+            
         
             if(!isNbJoueurSet){
+                //Si le nombre de joueur n'a pas été renseigné, on va récupérer les données saisies par l'utilisateur. on Les convertie en int.
+                //On vérifie ensuite que le nombre de joueur soit différent de 0.
+                //Si oui, on instancie et affecte les bons contenus aux bonnes variables.
+                //On demande le nom du premier joueur. 
                 partie.setNombreJoueur(Outils.conversionInt(this.getjTextField1().getText(),partie));   
                 if(partie.getNombreJoueur()!=0){
-                setTabJoueur=new ArrayList<Joueur>(partie.getNombreJoueur());
-                copieNbJoueur=0;
-                isNbJoueurSet=true;
-                Outils.affichage(Journal.consulterDescription(58)+copieNbJoueur+" ?",this);
+                    setTabJoueur=new ArrayList<Joueur>(partie.getNombreJoueur());
+                    copieNbJoueur=0;
+                    isNbJoueurSet=true;
+                    Outils.affichage(Journal.consulterDescription(58)+copieNbJoueur+" ?",this);
                 }
+                //Sinon on ne fait rien
             }else{
+                //Si la variable est initialisé alors on compare notre compteur au nombre de joueur présent dans la partie.
+                //On prend le nom du joueur et créer un nouveau joueur qu'on ajoute à notre tableau temporaire de joueur 
+                //Après incrémentation du compteur, on compare notre compteur au nombre de joueur présent dans la partie.
+                //Si il y a, on demande le nom du joueur suivant.
+                
                 if(copieNbJoueur<partie.getNombreJoueur()){
-                    //Outils.affichage(Journal.consulterDescription(58)+copieNbJoueur+" ?",this);
                     String nomJoueur=this.getjTextField1().getText();
                     Joueur unJoueur= new Joueur(this.partie,nomJoueur);
                     partie.getTabJoueur().add(unJoueur);
@@ -422,13 +415,16 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                     if(copieNbJoueur<partie.getNombreJoueur()){
                         Outils.affichage(Journal.consulterDescription(58)+copieNbJoueur+" ?",this);
                     }else{
+                        //Sinon on actualise le premier joueur et on commence l'affichage du menu du jeu. 
+                        //On "efface"/cache le deuxième panel et on affiche le suivant.
+                        //le bouton 4 n'apparait pas dans l'interface. Il sert à la fin de l'initialisation, le redemarrage et l'affichage du premier menu.
                         partie.setJoueurActuel(0);
-                    this.jPanel2.setVisible(false);
-                    Outils.affichage(partie.getMonJournal().toString(partie, 'S'),partie.getMonInterface());
-                    Outils.affichage(Journal.consulterDescription(35),partie.getMonInterface());
+                        this.jPanel2.setVisible(false);
+                        Outils.affichage(partie.getMonJournal().toString(partie, 'S'),partie.getMonInterface());
+                        Outils.affichage(Journal.consulterDescription(35),partie.getMonInterface());
                         Outils.affichage(Journal.consulterDescription(36),partie.getMonInterface());
-                     this.jPanel3.setVisible(true);
-                     jButton4.doClick();
+                        this.jPanel3.setVisible(true);
+                        jButton4.doClick();
                 }          
             }            
         }
@@ -436,6 +432,7 @@ public class FenetrePrincipale extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
+        // Lorsque la fenetre est ouverte, on souhaite la bienvenue, on cache les panel 2 et 3 et on affiche le premier. 
         this.jLabel2.setText(Journal.consulterDescription(56));
         this.jPanel1.setVisible(true);
         this.jPanel2.setVisible(false);
@@ -444,32 +441,23 @@ public class FenetrePrincipale extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        //On cache les trois panels et on commence l'initialisation, on finit par demander le nombre de joueur.   
+        this.jPanel2.setVisible(false);
+        this.jPanel1.setVisible(false);
+        this.jPanel3.setVisible(false);
             
-            this.jPanel2.setVisible(false);
-            
-            this.jPanel1.setVisible(false);
-            this.jPanel3.setVisible(false);
         if(!partieDemarree){
-                partie=new Jeu();
-                partie.lancerJeu(this);
-                menu=partie.getMenuPartie();
-            }
-            jLabel1.setText(Journal.consulterDescription(57));
-            this.jPanel2.setVisible(true);        
+            partie=new Jeu();
+            partie.lancerJeu(this);
+            menu=partie.getMenuPartie();
+        }
+        
+        jLabel1.setText(Journal.consulterDescription(57));
+        this.jPanel2.setVisible(true);        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        // TODO add your handling code here:
-        
-            this.jPanel1.setVisible(false);
-            this.jPanel3.setVisible(false);
-            if(!partieDemarree){
-                partie=new Jeu();
-                partie.lancerJeu(this);
-                menu=partie.getMenuPartie();
-            }
-            jLabel1.setText(Journal.consulterDescription(57));
-            this.jPanel2.setVisible(true);        
+        // TODO add your handling code here:        
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jPanel2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel2FocusGained
@@ -479,119 +467,120 @@ public class FenetrePrincipale extends javax.swing.JFrame {
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         // TODO add your handling code here:
-        //Outils.affichage(""+cpt, this);
+        // Il s'agit de la grosse fonction du programme, elle contient toutes les fonctionnalités des menus du jeu.
+        // On y accède par par un clique sur le bouton 3 et avec le compteur de niveau cpt.
+        // Elle récupère le contenue du textfield2 et le stocke dans strReceived.
+        
         strReceived=jTextField2.getText();
         jTextField2.setText("");
+        
         switch(cpt){
-            case 0: //jButton5.doClick();
+            case 0: 
                     menu.menuNiveauZero(Outils.verification(getStrReceived(),0,partie));
                     break;
             case 1:
-                        //jButton5.doClick();
+                        
                         menu.menuNiveauUn(Outils.verification(strReceived,0,partie));
                         break;
-            case 2:     
-                        //jButton5.doClick();
-                        menu.interagirCase(Outils.verification(strReceived,0,partie));
-                        break;
-            case 3:     //jButton5.doClick();
+            //case 2:     
+                        
+                        //menu.interagirCase(Outils.verification(strReceived,0,partie));
+              //          break;
+            case 3:     
                         Outils.affichage(Journal.toString(partie,Outils.verification(strReceived,0,partie)),this);
                         cpt-=1;
                         menu.retournerMenu();
                         break;
-            case 4:     //jButton5.doClick();
+            case 4:     
                         menu.seDeplacer(Outils.verification(strReceived,0,partie));
                         cpt-=1;
                         menu.retournerMenu();
                         break;
                         
-            case 5: //jButton5.doClick();
+            case 5: 
                     if(menu.accederConstruction(strReceived)){
-                                    Outils.affichage(Journal.consulterConstruction(partie.getMonJournal()),this);
-                                    Outils.affichage(Journal.consulterDescription(14),this);
-                                    cpt+=5;
-                                }else{
-                                    cpt+=1;
-                                    menu.menuNiveauUn('I');
-                        
+                        Outils.affichage(Journal.consulterConstruction(partie.getMonJournal()),this);
+                        Outils.affichage(Journal.consulterDescription(14),this);
+                        cpt+=5;
+                    }else{
+                        cpt+=1;
+                        menu.menuNiveauUn('I');  
                     }
                     
                     break;
             case 6:
-                    //jButton5.doClick();
-                    //C)\nParticiper aux chantiers(P)\nConsulter les défenses(D)\nConsulter l'entrepot(E)\nInteragir avec la porte(I)\nRemplir une gourde(B)\nPrendre une ration(M)\nRetour(R)\n";
-                if(!menu.getTabGrille().get(partie.getJoueurActuel().getIndiceCase()).getFouillee()||menu.getTabGrille().get(partie.getJoueurActuel().getIndiceCase()).getNbZombiesRestants()==0||choix=='A'){    
-                    switch(Outils.verifier(Outils.conversionCaractere(strReceived.charAt(0)),partie)){
-                        case 'F':Outils.affichage(Journal.consulterDescription(70),this);
-                            cpt+=13;
-                            break;
-                        case 'C':
-                                Outils.affichage(Journal.consulterDescription(13),this);
-                                cpt-=1;
-                                break;
-                        case 'E':
-                                Outils.afficher(7, partie);
-                                break;
-                        case 'P':Outils.afficher(6, partie);
-                                break;
-                        case 'D':menu.accederDefense();
-                                break;
-                        case 'I':b=partie.getMaVille().ouverturePorte(this.partie);
-                                cpt+=10;
-                                break;
-                        case 'B':Outils.affichage(Journal.consulterDescription(20),this);
-                                cpt+=11;
-                                break;
-                        case 'M':Outils.affichage(Journal.consulterDescription(17),this);
-                                cpt+=12;
-                                break;
-                        case 'A':menu.attaquerZombies();
-                                break;
-                        case 'O':menu.accederObjet();
-                                cpt+=15;
-                                break;
-                        case 'V':b=menu.accederVider();
-                                cpt+=17;
-                                break;
-                        case 'R':cpt-=4;
-                                menu.retournerMenu();
-                                break;
-                    }
+        
+                    if(!menu.getTabGrille().get(partie.getJoueurActuel().getIndiceCase()).getFouillee()||menu.getTabGrille().get(partie.getJoueurActuel().getIndiceCase()).getNbZombiesRestants()==0||choix=='A'){    
+                        switch(Outils.verifier(Outils.conversionCaractere(strReceived.charAt(0)),partie)){
+                            case 'F':   Outils.affichage(Journal.consulterDescription(70),this);
+                                        cpt+=13;
+                                        break;
+                            case 'C':
+                                        Outils.affichage(Journal.consulterDescription(13),this);
+                                        cpt-=1;
+                                        break;
+                            case 'E':
+                                        Outils.afficher(7, partie);
+                                        break;
+                            case 'P':   Outils.afficher(6, partie);
+                                        break;
+                            case 'D':   menu.accederDefense();
+                                        break;
+                            case 'I':   b=partie.getMaVille().ouverturePorte(this.partie);
+                                        cpt+=10;
+                                        break;
+                            case 'B':   Outils.affichage(Journal.consulterDescription(20),this);
+                                        cpt+=11;
+                                        break;
+                            case 'M':   Outils.affichage(Journal.consulterDescription(17),this);
+                                        cpt+=12;
+                                        break;
+                            case 'A':   menu.attaquerZombies();
+                                        break;
+                            case 'O':   menu.accederObjet();
+                                        cpt+=15;
+                                        break;
+                            case 'V':   b=menu.accederVider();
+                                        cpt+=17;
+                                        break;
+                            case 'R':   cpt-=4;
+                                        menu.retournerMenu();
+                                        break;
+                        }
                     }else{
-            Outils.affichage(Journal.consulterDescription(7),this);
-            cpt-=5;
-            menu.menuNiveauUn('I');
-            
-        }
+                        Outils.affichage(Journal.consulterDescription(7),this);
+                        cpt-=5;
+                        menu.menuNiveauUn('I');
+                    }
                     break;
-            case 7: //jButton5.doClick();
+            case 7: 
                     if(b){
                         menu.prendreObjet(Outils.donnerReponseChiffre(partie.getMaVille().getEntrepot().length-1,this.partie,strReceived));
                         b=false;
                     }
                     break;
-            case 8: //jButton5.doClick();
+            case 8: 
                     partie.getMaVille().accederAuChantier(partie.getJoueurActuel(), partie, Outils.donnerReponseChiffre(partie.getMaVille().getBatimentEnCours().size(), partie, strReceived));
                     //Outils.affichage(Journal.consulterDescription(36), this);
                     cpt+=5;
                     break;
-            case 9: //jButton5.doClick();
+            case 9: 
                     b=menu.accederEntrepot(strReceived);
                     break;
-            case 10://jButton5.doClick();
+            case 10:
                     partie.getMaVille().construire(partie, Outils.donnerReponseChiffre(6,partie,strReceived) );
                     break;
-            case 11://jButton5.doClick();
+            case 11:
                     choix =menu.prendreObjet(Outils.donnerReponseChiffre(3, partie, strReceived));
                     break;
-            case 12://jButton5.doClick();
+            case 12:
                     menu.accesObjet(Outils.conversionBoolean(strReceived, partie), choix);
                     break;
-            case 13://jButton5.doClick();
+            case 13:
                     b=Outils.conversionBoolean(strReceived, partie);
                     cpt+=1;
                     break;
-            case 14://jButton5.doClick();
+            case 14:
                     if(b){
                         Outils.affichage(Journal.consulterDescription(77),this);
                         b=false;
@@ -601,12 +590,12 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                         menu.menuNiveauUn('I');
                     }
                     break;
-            case 15://jButton5.doClick();
+            case 15:
                     partie.getMaVille().participerAuChantier(partie, Outils.donnerReponseChiffre(partie.getJoueurActuel().getPa(), partie, strReceived), choix);
                     cpt-=14;
                     menu.menuNiveauUn('I');
                     break;
-            case 16://jButton5.doClick();
+            case 16:
                     if(Outils.conversionBoolean(strReceived, partie)){
                         menu.interagirPorte(b);
                         b=false;
@@ -614,38 +603,39 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                     cpt-=15;
                     menu.menuNiveauUn('I');
                     break;
-            case 17://jButton5.doClick();
+            case 17:
                     menu.prendreGourde(Outils.conversionBoolean(strReceived, partie));
                     cpt-=16;
                     menu.menuNiveauUn('I');
                     break;
-            case 18://jButton5.doClick();
+            case 18:
                     menu.prendreRation(Outils.conversionBoolean(strReceived, partie));
                     cpt-=17;
                     menu.menuNiveauUn('I');
                     break;
-            case 19://jButton5.doClick();
+            case 19:
                     menu.fouillerCase(Outils.conversionBoolean(strReceived, partie));
                     cpt-=18;
                     menu.menuNiveauUn('I');
                     break;
-            case 20://jButton5.doClick();
+            case 20:
                     menu.attaquer(Outils.conversionBoolean(strReceived, partie));
                     break;
-            case 21://jButton5.doClick();
+            case 21:
                     if(Outils.conversionBoolean(strReceived, partie)){
-                    Outils.affichage(Journal.consulterDescription(16),this);
-                    cpt+=1;}else{
-                    cpt-=20;
-                    menu.menuNiveauUn('I');
+                        Outils.affichage(Journal.consulterDescription(16),this);
+                        cpt+=1;
+                    }else{
+                        cpt-=20;
+                        menu.menuNiveauUn('I');
                     }
                     break;
-            case 22://jButton5.doClick();
+            case 22:
                     menu.prendreObjetCase(Outils.donnerReponseChiffre(2, partie, strReceived));
                     cpt-=21;
                     menu.menuNiveauUn('I');
                     break;
-            case 23://jButton5.doClick();
+            case 23:
                     if(Outils.conversionBoolean(strReceived, partie)){
                         partie.getJoueurActuel().outilViderSac(b, choix, partie);
                     }
@@ -653,32 +643,31 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                     cpt-=22;
                     menu.menuNiveauUn('S');
                     break;
-            case 24://jButton5.doClick();
+            case 24:
                     menu.interagirSac(Outils.verification(strReceived, choix, partie));
                     break;
-            case 25://jButton5.doClick();
-                       if(Outils.conversionBoolean(strReceived, partie)){
-                            partie.getJoueurActuel().actionBoireBoisson(partie, choix);
-                            menu.consommerPA();
-                       }
-                           cpt-=24;
-                           menu.menuNiveauUn('I');
-                       
-                    
+            case 25:
+                    if(Outils.conversionBoolean(strReceived, partie)){
+                         partie.getJoueurActuel().actionBoireBoisson(partie, choix);
+                         menu.consommerPA();
+                    }
+                        cpt-=24;
+                        menu.menuNiveauUn('I');
                     break;
-            case 26://jButton5.doClick();
+                
+            case 26:
                     menu.actionManger(Outils.conversionBoolean(strReceived, partie));
                     cpt-=25;
                     menu.menuNiveauUn('S');
                     break;    
                     
                     
-            case 27://jButton5.doClick();
+            case 27:
                     menu.actionBoire(Outils.conversionBoolean(strReceived, partie));
                     cpt-=26;
                     menu.menuNiveauUn('S');
                     break;
-            case 28://jButton5.doClick();
+            case 28:
                     b=Outils.conversionBoolean(strReceived, partie);
                     if(b){
                         cpt=0;
@@ -688,7 +677,7 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                         Outils.afficher(0,partie);
                     }
                     break;
-            case 29://jButton5.doClick();
+            case 29:
                     choix=Outils.donnerReponseChiffre(partie.getJoueurActuel().getSac().size()-1, partie, strReceived);
                     if(choix>0&&choix<partie.getJoueurActuel().getSac().size()-1){
                         Outils.affichage(Journal.consulterDescription(29)+partie.getJoueurActuel().getSac().get(choix).getNom()+ Journal.consulterDescription(30),partie.getMonInterface());
@@ -697,13 +686,9 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                         Outils.afficher(4, partie);
                         cpt-=5;
                     }
-                    
-                    
+                        
                     break;
-                
         }       
-        
-        
     }//GEN-LAST:event_jButton3MouseClicked
 
     private void jPanel3PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jPanel3PropertyChange
@@ -729,12 +714,12 @@ public class FenetrePrincipale extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        strReceived=jTextField2.getText();
         
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        //Elle sert à la fin de l'initialisation, au redemarrage et à l'affichage du premier menu.
         if(!partie.getPartie()){
             menu.demarrer(partie, this);
         }else{
@@ -742,6 +727,7 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                 this.partieDemarree=false;
                 isNbJoueurSet=false;
                 this.jTextArea1.setText("");
+                b=false;
                 jButton2.doClick();
             }else{
                 Outils.afficher(0, partie);
@@ -749,13 +735,6 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    public int getCpt() {
-        return cpt;
-    }
-
-    public void setCpt(int cpt) {
-        this.cpt = cpt;
-    }
 
     /**
      * @param args the command line arguments
@@ -809,61 +788,5 @@ public class FenetrePrincipale extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
-
-    public JButton getjButton4() {
-        return jButton4;
-    }
-
-    public void setjButton4(JButton jButton4) {
-        this.jButton4 = jButton4;
-    }
-
-    public JButton getjButton5() {
-        return jButton5;
-    }
-
-    public void setjButton5(JButton jButton5) {
-        this.jButton5 = jButton5;
-    }
-    
-    public JButton getjButton1() {
-        return jButton1;
-    }
-
-    public void setjButton1(JButton jButton1) {
-        this.jButton1 = jButton1;
-    }
-
-    public JLabel getjLabel2() {
-        return jLabel2;
-    }
-
-    public void setjLabel2(JLabel jLabel1) {
-        this.jLabel2 = jLabel1;
-    }
-
-    public JPanel getjPanel1() {
-        return jPanel1;
-    }
-
-    public void setjPanel1(JPanel jPanel1) {
-        this.jPanel1 = jPanel1;
-    }
-
-    public JPanel getjPanel2() {
-        return jPanel2;
-    }
-
-    public void setjPanel2(JPanel jPanel2) {
-        this.jPanel2 = jPanel2;
-    }
-
-
-    public JTextField getjTextField1() {
-        return jTextField1;
-    }
-
-    public void setjTextField1(JTextField jTextField1) {
-        this.jTextField1 = jTextField1;
-    }
 }
+ 

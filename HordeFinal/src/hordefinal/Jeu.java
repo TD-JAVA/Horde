@@ -10,7 +10,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 /**
  *
- * @author oneiroi
+ * @author Valère,Gabriel,Sébastien
  */
 public class Jeu {
     private FenetrePrincipale monInterface;

@@ -7,7 +7,7 @@ package hordefinal;
 
 /**
  *
- * @author Seb
+ * @author Sebastien,Gabriel,Valère
  */
 public class Item {
 

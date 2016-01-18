@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Seb
+ * @author Sebastien,Gabriel,Valère
  */
 
 public class Construction {

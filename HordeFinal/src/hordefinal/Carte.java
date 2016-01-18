@@ -10,7 +10,7 @@ import java.util.Random;
 
 /**
  *
- * @author oneiroi
+ * @author Gabriel,Sébastien,Valère
  */
 public class Carte {
     private ArrayList<Case> tabCase=new ArrayList<Case>();
