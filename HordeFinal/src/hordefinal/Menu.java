@@ -6,19 +6,16 @@
 package hordefinal;
 
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
  *
- * @author oneiroi
+ * @author Sébastien,Gabriel,Valère
  */
 public class Menu {
     
     //Variable memoire pour conserver le menu et le jeu 
-    private SousMenu sm;
     private Jeu partieActuelle;
     private Menu menuActuel;
     private ArrayList<Case> tabGrille=new ArrayList<>();
@@ -44,13 +41,6 @@ public class Menu {
         }
     }
 
-    public SousMenu getSm() {
-        return sm;
-    }
-
-    public void setSm(SousMenu sm) {
-        this.sm = sm;
-    }
     public FenetrePrincipale getMonInterface(){return monInterface;}
     /*
      * @param partie est ici la partie en cours de jeu
@@ -91,19 +81,13 @@ public class Menu {
      * lui affiche à nouveau le menu niveau 0. 
      *
      */
-    /*public  void    actionPerformed(ActionEvent e)
-        {
-            String str="";
-            this.strReceived=monInterface.getjTextField2().getText();
-        }*/
+   
     
     public void demarrer(Jeu partie,FenetrePrincipale uneInterface) {
         //this.setMenuActuel(this);
         monInterface = uneInterface;
         if(partie.getPartie()){
-            //Outils.affichage(Journal.consulterDescription(9),this.getMonInterface());
-            sm=new SousMenu(this.getMonInterface());
-            this.monInterface.getjButton3().addActionListener(sm);
+            //Outils.affichage(Journal.consulterDescription(9),this.getMonInterface());            
             while(strReceived==""){}
             if(Outils.conversionBoolean(strReceived,this.partieActuelle)){
                 partie.setPartie(false);
@@ -141,7 +125,6 @@ public class Menu {
     public void outilInitGrille(Jeu partie){
         this.setPartieActuelle(partie);
         tabGrille=partieActuelle.getGrille().getTabCase();
-        //this.menuNiveauZero(Outils.conversionCaractere(Outils.afficher(0,partieActuelle)));
     }
     /************************ Fin des outils de démarrage***********************/
     /*
@@ -157,10 +140,7 @@ public class Menu {
         switch (choix) {
             case 'Q':   this.quitter();
                         break;
-            case 'D':   //this.getPartieActuelle().lancerJeu();
-                        //this.demarrer(this.getPartieActuelle(),monInterface);
-                        //monInterface.getjButton4().doClick();
-                        if(partieActuelle.getPartie()){
+            case 'D':   if(partieActuelle.getPartie()){
                         Outils.affichage(Journal.consulterDescription(9),this.getMonInterface());monInterface.setCpt(monInterface.getCpt()+28);}else{monInterface.getjButton4().doClick();}
                         
                         break;
@@ -193,19 +173,17 @@ public class Menu {
     public void menuNiveauUn(char choix){
         switch (choix) {
             case 'J':   this.lireJournal();
-            //Outils.afficher(monInterface.getCpt(), partieActuelle);
+            
                         monInterface.setCpt(monInterface.getCpt()+1);
-                        //Outils.afficher(monInterface.getCpt(), partieActuelle);
                         break;
             case 'D':   if(!tabGrille.get(partieActuelle.getJoueurActuel().getIndiceCase()).getFouillee()||tabGrille.get(partieActuelle.getJoueurActuel().getIndiceCase()).getNbZombiesRestants()==0){
-            Outils.afficher(5,partieActuelle);
-            monInterface.setCpt(monInterface.getCpt()+3);
+                            Outils.afficher(5,partieActuelle);
+                            monInterface.setCpt(monInterface.getCpt()+3);
                         }else{
                             Outils.affichage(Journal.consulterDescription(5),this.getMonInterface());
                         }
                 
                         //
-            
                         break;
             case 'I':   
                         monInterface.setCpt(monInterface.getCpt()+5);
@@ -220,7 +198,6 @@ public class Menu {
                             }
                         }
                         Outils.affichage(Journal.consulterDescription(36),partieActuelle.getMonInterface());
-                        //this.interagirCase(Outils.verifier(Outils.afficher(monInterface.getCpt(),partieActuelle),partieActuelle));
                         
                         break;
             case 'F':   monInterface.getjTextArea1().setText("");
@@ -252,62 +229,46 @@ public class Menu {
     
     
     public void retournerMenu(int i,int niveau){
-    monInterface.setCpt(monInterface.getCpt()+i);
+        monInterface.setCpt(monInterface.getCpt()+i);
         Outils.afficher(niveau,partieActuelle);
-        
     }
     
     public  void lireJournal(){
         Outils.affichage(Journal.consulterDescription(10),this.getMonInterface());
         Journal.afficherPosition(partieActuelle, partieActuelle.getJoueurActuel());
-        //Outils.affichage(Journal.toString(partieActuelle,Outils.afficher(3,partieActuelle))+"\n",monInterface);
         if(partieActuelle.getJoueurActuel().getAbsysseActuelle()== partieActuelle.getGrille().getxVille() && partieActuelle.getJoueurActuel().getOrdonneeActuelle()==partieActuelle.getGrille().getyVille()){
-                            Outils.affichage(Journal.consulterDescription(41),monInterface);
-                        }else{
-                            Outils.affichage(Journal.consulterDescription(42),monInterface);
-                        }
-                        Outils.affichage(Journal.consulterDescription(36),monInterface);
-                        monInterface.setCpt(monInterface.getCpt()+1);
-                        
-        /*sc.nextLine();
-        String str = sc.nextLine();
-        Outils.affichage("",this.getMonInterface());
-        menuNiveauUn(Outils.conversionCaractere(Outils.afficher(1,partieActuelle)));*/
+            Outils.affichage(Journal.consulterDescription(41),monInterface);
+        }else{
+            Outils.affichage(Journal.consulterDescription(42),monInterface);
+        }
+        Outils.affichage(Journal.consulterDescription(36),monInterface);
+        monInterface.setCpt(monInterface.getCpt()+1);
     }
     
     public void seDeplacer(char choix){
-        //if(!tabGrille.get(partieActuelle.getJoueurActuel().getIndiceCase()).getFouillee()||tabGrille.get(partieActuelle.getJoueurActuel().getIndiceCase()).getNbZombiesRestants()==0){
-            //Outils.afficher(5,partieActuelle);
-            //monInterface.getjButton5().doClick();
-            System.out.println("coucou");
-            consommationDePA=false;
-                if(partieActuelle.getJoueurActuel().getPa()>0||(choix!='Z'&&choix!='Q'&&choix!='D'&&choix!='S')){
-                    switch (choix) {
-                        case 'Z':   outilDeplacement(false,true);
-                                    break;
-                        case 'Q':   outilDeplacement(true,false);
-                                    break;
-                        case 'D':   outilDeplacement(true,true);
-                                    break;
-                        case 'S':   outilDeplacement(false,false);
-                                    break;
-                        case 'R':   this.retournerMenu(2);
-                                    break;
-                        default :   Outils.affichage(Journal.consulterDescription(6),this.getMonInterface());
-                                    break;
-                    }
-            //}else{
-             //   Outils.affichage(Journal.consulterDescription(5),this.getMonInterface());
-            //}
+        consommationDePA=false;
+        if(partieActuelle.getJoueurActuel().getPa()>0||(choix!='Z'&&choix!='Q'&&choix!='D'&&choix!='S')){
+            switch (choix) {
+                case 'Z':   outilDeplacement(false,true);
+                            break;
+                case 'Q':   outilDeplacement(true,false);
+                            break;
+                case 'D':   outilDeplacement(true,true);
+                            break;
+                case 'S':   outilDeplacement(false,false);
+                            break;
+                case 'R':   this.retournerMenu(2);
+                            break;
+                default :   Outils.affichage(Journal.consulterDescription(6),this.getMonInterface());
+                            break;
+            }
+    
             consommerPA();
-            this.retournerMenu(-3);
-            //sc.nextLine();
-            
+            this.retournerMenu(-3);    
         }else{
             Outils.affichage(Journal.consulterDescription(7),this.getMonInterface());
             this.retournerMenu(2);
         }
-        
     }
     
     public void consommerPA(){
@@ -366,15 +327,14 @@ public class Menu {
             }
         }
     }
+    /*******************Fin fonctions du menu de niveau 1************************/
     
+    /**********************Fonctions de interaction case*******************/
     public boolean accederConstruction(String str){
-        
         return Outils.conversionBoolean(str,this.partieActuelle);
-            
-        
     }
-    public boolean accederEntrepot(String str){
-        
+    
+    public boolean accederEntrepot(String str){    
         boolean b=Outils.conversionBoolean(str,this.partieActuelle);
         if(b){
             Outils.affichage(Journal.consulterDescription(16),this.getMonInterface());
@@ -383,52 +343,51 @@ public class Menu {
             monInterface.setCpt(monInterface.getCpt()-2);
             retournerMenu();
         }
-        
         return b;
     }
 
     public void accesObjet(boolean b, int a){
-    
-    if(a==1){    
-        if(b){
-                        if(partieActuelle.getJoueurActuel().getSac().size()<10){
-                            partieActuelle.getJoueurActuel().getSac().add(partieActuelle.getMaVille().prendreRation(this.partieActuelle));
-                        }else{
-                            Outils.affichage(Journal.consulterDescription(8),this.getMonInterface());
-                        }
-                    }
-    }else{
-        if(b){
-                            if(partieActuelle.getJoueurActuel().getSac().size()<10){
-                                partieActuelle.getJoueurActuel().getSac().add(partieActuelle.getMaVille().prendreBoisson(this.partieActuelle));
-                            }else{
-                                Outils.affichage(Journal.consulterDescription(8),this.getMonInterface());
-                            }
-                        }
-        }
-    partieActuelle.getMonInterface().setCpt(partieActuelle.getMonInterface().getCpt()-11);
-    menuNiveauUn('I');
-    }
-    public int prendreObjet(int num){
-    if(partieActuelle.getMaVille().getEntrepot()[num].getNom().equals(Journal.consulterDescription(51))){
-                Outils.affichage(Journal.consulterDescription(17),this.getMonInterface());
-                partieActuelle.getMonInterface().setCpt(partieActuelle.getMonInterface().getCpt()+1);
-                return 1;   
-    }else{
-                if(partieActuelle.getMaVille().getEntrepot()[num].getNom().equals(Journal.consulterDescription(53))){
-                    Outils.affichage(Journal.consulterDescription(18),this.getMonInterface());
-                    partieActuelle.getMonInterface().setCpt(partieActuelle.getMonInterface().getCpt()+1);
-                    return 2;   
+        if(a==1){    
+            if(b){
+                if(partieActuelle.getJoueurActuel().getSac().size()<10){
+                    partieActuelle.getJoueurActuel().getSac().add(partieActuelle.getMaVille().prendreRation(this.partieActuelle));
                 }else{
-                    Outils.affichage(Journal.consulterDescription(19),this.getMonInterface());
-                    partieActuelle.getMonInterface().setCpt(partieActuelle.getMonInterface().getCpt()-10);
-                    menuNiveauUn('I');
-                    return -1;
+                    Outils.affichage(Journal.consulterDescription(8),this.getMonInterface());
                 }
             }
-        
-        
+        }else{
+            if(b){
+                if(partieActuelle.getJoueurActuel().getSac().size()<10){
+                    partieActuelle.getJoueurActuel().getSac().add(partieActuelle.getMaVille().prendreBoisson(this.partieActuelle));
+                }else{
+                    Outils.affichage(Journal.consulterDescription(8),this.getMonInterface());
+                }
+            }
+        }
+        partieActuelle.getMonInterface().setCpt(partieActuelle.getMonInterface().getCpt()-11);
+        menuNiveauUn('I');
     }
+    
+    public int prendreObjet(int num){
+        if(partieActuelle.getMaVille().getEntrepot()[num].getNom().equals(Journal.consulterDescription(51))){
+            Outils.affichage(Journal.consulterDescription(17),this.getMonInterface());
+            partieActuelle.getMonInterface().setCpt(partieActuelle.getMonInterface().getCpt()+1);
+            return 1;   
+        }else{
+            if(partieActuelle.getMaVille().getEntrepot()[num].getNom().equals(Journal.consulterDescription(53))){
+                Outils.affichage(Journal.consulterDescription(18),this.getMonInterface());
+                partieActuelle.getMonInterface().setCpt(partieActuelle.getMonInterface().getCpt()+1);
+                return 2;   
+            }else{
+                Outils.affichage(Journal.consulterDescription(19),this.getMonInterface());
+                partieActuelle.getMonInterface().setCpt(partieActuelle.getMonInterface().getCpt()-10);
+                menuNiveauUn('I');
+                return -1;
+            }
+        }
+    }
+    
+    
     public void interagirPorte(boolean b){
         if(partieActuelle.getJoueurActuel().getPa()>0){
             consommationDePA=partieActuelle.getMaVille().actionnerPorte(b);
@@ -461,10 +420,10 @@ public class Menu {
         
         if(b){
             if(partieActuelle.getJoueurActuel().getSac().size()<10){
-                        partieActuelle.getJoueurActuel().getSac().add(partieActuelle.getMaVille().prendreRation(this.partieActuelle));
-                    }else{
-                        Outils.affichage(Journal.consulterDescription(8),this.getMonInterface());
-                    }
+                partieActuelle.getJoueurActuel().getSac().add(partieActuelle.getMaVille().prendreRation(this.partieActuelle));
+            }else{
+                Outils.affichage(Journal.consulterDescription(8),this.getMonInterface());
+            }
         }
     }
     
@@ -472,6 +431,7 @@ public class Menu {
         consommationDePA=tabGrille.get(partieActuelle.getJoueurActuel().getIndiceCase()).fouiller(this.partieActuelle,b);
         consommerPA();
     }
+    
     public void attaquerZombies(){
         
         Outils.affichage(Journal.consulterDescription(22)+tabGrille.get(partieActuelle.getJoueurActuel().getIndiceCase()).getNbZombiesRestants() +Journal.consulterDescription(23),this.getMonInterface());
@@ -488,9 +448,9 @@ public class Menu {
     public void attaquer(boolean b){
         boolean joueurMort=false;
     if(b){
-                joueurMort=tabGrille.get(partieActuelle.getJoueurActuel().getIndiceCase()).attaquer(partieActuelle.getJoueurActuel());
-                Outils.affichage(Journal.consulterDescription(25)+tabGrille.get(partieActuelle.getJoueurActuel().getIndiceCase()).getNbZombiesRestants()+Journal.consulterDescription(23),this.getMonInterface());
-            }
+        joueurMort=tabGrille.get(partieActuelle.getJoueurActuel().getIndiceCase()).attaquer(partieActuelle.getJoueurActuel());
+        Outils.affichage(Journal.consulterDescription(25)+tabGrille.get(partieActuelle.getJoueurActuel().getIndiceCase()).getNbZombiesRestants()+Journal.consulterDescription(23),this.getMonInterface());
+        }
     if(joueurMort){
             if(partieActuelle.dernierJoueur()){partieActuelle.finDePartie();}else{finirTour();}
         }
@@ -506,7 +466,7 @@ public class Menu {
     
     public void prendreObjetCase(int num){
     
-            //int num=0;//=Outils.donnerReponseChiffre(partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().size()-1,this.partieActuelle);
+  
         if(partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(num).getQuantite()!=0){
             String nom=partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(num).getNom();
             String description=partieActuelle.getGrille().getTabCase().get(partieActuelle.getJoueurActuel().getIndiceCase()).getItem().get(num).getDescription();
@@ -522,38 +482,9 @@ public class Menu {
         }
         
     }
-    
-    public void interagirCase(char choix) {    
-        
-            switch (choix) {
-                case 'C':   //accederConstruction();
-                            break;
-                case 'E':   //accederEntrepot();
-                            break;
-                case 'I':   //interagirPorte();
-                            break;
-                case 'P':   //accederChantier();
-                            break;
-                case 'D':   accederDefense();
-                            break;
-                case 'B':   //prendreGourde();
-                            break;
-                case 'M':   //prendreRation();
-                            break;
-                case 'F':   //fouillerCase();
-                            break;
-                case 'A':   attaquerZombies();
-                            break;
-                case 'O':   accederObjet();                   
-                            break;
-                case 'R':   this.retournerMenu(1);
-                            break;
-                default :   Outils.affichage(Journal.consulterDescription(6),this.getMonInterface());
-                            Outils.afficher(2,partieActuelle);
-            }    
-        
-        this.retournerMenu(1);
-    }
+  
+    /**********************Fin de méthode d'interation Case****************************/
+    // des méthodes d'interaction avec le sac.
     
     public void accederBoire(){
         boolean consoSup=true;
@@ -612,32 +543,34 @@ public class Menu {
     }
     
     public void actionManger(boolean b){
-                    if(b){
-                        if(partieActuelle.getJoueurActuel().getSac().size()<10){
-                            Item ration=partieActuelle.getMaVille().prendreRation(this.partieActuelle);
-                            if(ration.getNom().equals(Journal.consulterDescription(51))){
-                                partieActuelle.getJoueurActuel().getSac().add(ration);
-                            }
+        if(b){
+            if(partieActuelle.getJoueurActuel().getSac().size()<10){
+                Item ration=partieActuelle.getMaVille().prendreRation(this.partieActuelle);
+                if(ration.getNom().equals(Journal.consulterDescription(51))){
+                    partieActuelle.getJoueurActuel().getSac().add(ration);
+                }
 
-                        }else{
-                            Outils.affichage(Journal.consulterDescription(8),this.getMonInterface());
-                        }
-                    }
+            }else{
+                Outils.affichage(Journal.consulterDescription(8),this.getMonInterface());
+            }
+        }
     }
     
     public void actionBoire(boolean b){
         if(b){
-                        if(partieActuelle.getJoueurActuel().getSac().size()<10){
-                            partieActuelle.getJoueurActuel().getSac().add(partieActuelle.getMaVille().remplirGourde(this.partieActuelle));
-                        }else{
-                            Outils.affichage(Journal.consulterDescription(8),this.getMonInterface());
-                        }
-                    }
+            if(partieActuelle.getJoueurActuel().getSac().size()<10){
+                partieActuelle.getJoueurActuel().getSac().add(partieActuelle.getMaVille().remplirGourde(this.partieActuelle));
+            }else{
+                Outils.affichage(Journal.consulterDescription(8),this.getMonInterface());
+            }
+        }
     }
+    //Permet de vider le sac du joueur une boisson énergissante
     public boolean accederVider(){
         return partieActuelle.getJoueurActuel().viderSac(partieActuelle);
         
-}
+    }
+    //Permet de boire une boisson énergissante
     public void accederBoireE(){
         consommationDePA=true;
         if(partieActuelle.getJoueurActuel().getPa()>6){consommationDePA=false;}
@@ -645,6 +578,10 @@ public class Menu {
         monInterface.setCpt(monInterface.getCpt()+1);
         
     }   
+    
+    //fin des méthodes d'interaction avec le sac.
+    
+    //Permet les intéraction avec le sac(menu et appel des fonctions)
     public void interagirSac(char choix){
         
         switch(choix){
@@ -665,12 +602,10 @@ public class Menu {
         
     }
     
-    
+    //Permet de finir le tour.
     public void finirTour() {
         partieActuelle.getTempsPartie().incrementerTour(partieActuelle);
     }
-    
     /********Fin des fonctions du menu de niveau 1********/
-    
 }
 

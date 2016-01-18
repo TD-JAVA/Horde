@@ -6,16 +6,15 @@
 package hordefinal;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  *
- * @author Seb
+ * @author Sebastien,Gabriel,Valère
  */
 public class Journal {
-    private ArrayList<String> listeDeMorts=new ArrayList<String>(19);
-    private ArrayList<Construction> tabConstruction=new ArrayList<Construction>(7);
-    private ArrayList<String> carte = new ArrayList<String>(625);
+    private ArrayList<String> listeDeMorts=new ArrayList<>(19);
+    private ArrayList<Construction> tabConstruction=new ArrayList<>(7);
+    private ArrayList<String> carte = new ArrayList<>(625);
     
     
     public ArrayList<Construction> getTabConstruction(){

@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author Gabriel
+ * @author Gabriel,Sébastien,Valère
  */
 public class Case {
     protected int longitude;
@@ -21,7 +21,7 @@ public class Case {
     private boolean fouillee;
     private boolean caseTrouve;
     protected boolean laVille = false;
-    private Zombies zomb=new Zombies();
+    //private Zombies zomb=new Zombies();
     Scanner sc= new Scanner(System.in);
     Random ra=new Random();
 
@@ -34,10 +34,6 @@ public class Case {
         this.items.add(0,new Item(Journal.consulterDescription(54),0,Journal.consulterDescription(2)));
         this.items.add(1,new Item(Journal.consulterDescription(55),0,Journal.consulterDescription(3)));
         this.items.add(2,new Item(Journal.consulterDescription(53),0,Journal.consulterDescription(4)));
-    }
-    
-    public Zombies getZombies(){
-        return zomb;
     }
     
     public String afficherItems(){
