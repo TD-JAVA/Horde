@@ -43,18 +43,20 @@ public class Carte {
             
         }
         dispertionDesItems();
-        
     }
-    
+    //Méthode qui permet d'ajouter aléatoirement des items sur toutes les cases de la grille du jeu
     public void dispertionDesItems(){
+
         int r=-1;
         int n=1;
         int u=312;
         int i;
+
         Random ra=new Random();
         while(u!=624){
             i=0;
             while(i<n&&u!=624){
+            // Tant que l'on ne dépasse pas les 625 cases de la grille
                 u=u+((-1)*((int)Math.pow(r,n)));
                 if(u!=338){
                     ajouterItem(0,u,5);
@@ -81,15 +83,18 @@ public class Carte {
         
         
     }
-    
+    // Méthode qui permet d'ajouter aléatoirement  des items sur une case donnée
     public void ajouterItem(int i, int j, int k){
         Random ra=new Random();
+        //Si la quantité est différente de 
         if(tabItem[i].getQuantite()!=0){
             if(i==2){
+                //Si le chiffre généré est supérieur à 90
                 if(ra.nextInt(100)>90){
                     int u=ra.nextInt(k);
                     if(j>tabItem[i].getQuantite()){j=tabItem[i].getQuantite();}
-                        this.getTabCase().get(j).getItem().get(i).setQuantite(u);}
+                        this.getTabCase().get(j).getItem().get(i).setQuantite(u);
+                }
                         tabItem[i].setQuantite(tabItem[i].getQuantite()-this.getTabCase().get(j).getItem().get(i).getQuantite());
                     }else{
                         int u=ra.nextInt(k);

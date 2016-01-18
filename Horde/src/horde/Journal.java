@@ -59,6 +59,7 @@ public class Journal {
 // Permet de voir la liste et les détails des constructions
     public static String consulterConstruction(Journal journal) {
         String tabNom=Journal.consulterDescription(94);
+        //Pour chaque construction
         for(int i=0;i<journal.tabConstruction.size();i++){
             tabNom+=i+" :"+journal.tabConstruction.get(i).getNom()+" - "+journal.tabConstruction.get(i).getRessources(0)+";"+journal.tabConstruction.get(i).getRessources(1)+" - "+journal.tabConstruction.get(i).getConso_pa()+" - +"+journal.tabConstruction.get(i).getResistance()+"\n";
         }
@@ -81,11 +82,13 @@ public class Journal {
         Joueur joueur=partie.getJoueurActuel();
         Ville ville=partie.getMaVille();
         String string=""; 
+        //Si le joueur se trouve en ville
         if(joueur.getIndiceCase()!=338){
             if(choix=='C'||choix=='I'){
                 choix='E';
             }
         }
+        //Les choix du joueur possibles
         switch (choix){
             case 'J':   string = Journal.consulterDescription(112);
                         break;
@@ -111,19 +114,23 @@ public class Journal {
         }
         return string;
     }
-    
+    //Permet d'afficher la position du joueur
     public static String afficherPosition(Jeu partie,Joueur ceJoueur){
+        //Si le joueur se trouve dans la ville
         if(ceJoueur.getAbsysseActuelle()== partie.getGrille().getxVille() && ceJoueur.getOrdonneeActuelle()==partie.getGrille().getyVille()){
             return ""+ceJoueur.getNom()+Journal.consulterDescription(99);
         }else{
             return ""+ceJoueur.getNom()+Journal.consulterDescription(100)+ceJoueur.getAbsysseActuelle()+";"+ceJoueur.getOrdonneeActuelle()+Journal.consulterDescription(101);
         }
     }
+    // Permet d'afficher les informations d'un joueur
     public static String afficherDescriptionJoueur(Joueur ceJoueur){
         return ""+ceJoueur.getNom()+Journal.consulterDescription(102)+ceJoueur.getPa()+Journal.consulterDescription(103)+ ceJoueur.getPdv()+Journal.consulterDescription(104);
     }
+    // Permet à un joueur d'afficher le contenu de son sac
     public static String afficherContenuSac(Joueur ceJoueur){
         String str="\n";
+        //Si le sac d'un joueur n'est pas vide
         if(!ceJoueur.getSac().isEmpty()){
             for(int index=0;index<ceJoueur.getSac().size();index++){str+=index+" "+ceJoueur.getSac().get(index).getNom()+";\n";}
         }else{
@@ -132,17 +139,25 @@ public class Journal {
         
         return str;
     }
+    //Permet d'ajouter un mort à la liste des joueurs  morts
     public void ajouterListeDeMorts(String str){
         listeDeMorts.add(str);
     }
+    
+    //Permet d'afficher la liste des joueurs morts
     public String afficherListeDeMort(){
         String str="\n";
         for(int index=0;index<listeDeMorts.size();index++){str+=listeDeMorts.get(index)+";\n";}
         return str;
     }
+    
+    // Méthode appelée pour informer qu'un joueur vient de mourir
     public static String afficherMort(Jeu partie, boolean nuit,boolean pasDrogue){
+    
         String str="";
+        //Si ce n'est pas la nuit
         if(!nuit){
+            //Si le joueur n'est pas dépendant
             if(pasDrogue){
                 str= "\n"+partie.getJoueurActuel().getNom()+Journal.consulterDescription(105)+partie.getTempsPartie().getNumTour()+Journal.consulterDescription(106)+partie.getTempsPartie().getNbJour()+Journal.consulterDescription(107);
             }else{
@@ -154,9 +169,10 @@ public class Journal {
             return str;
         }
     }
+    //Méthode qui retourne une phrase à partir d'un numéro passé en paramètre
     public static String consulterDescription(int choix){
         String description="";
-        
+        // Phrase retournée en fonction du param choix
         switch (choix){
             case 0: description="\nLa gourde permet de récupérer 6 points d'action.\n Elle n'est pas réutilisable. Elle occupe une place de la sac.\n On ne peut boire qu'une fois par jour.";
                     break;
@@ -400,13 +416,15 @@ public class Journal {
         return description;
     }
     
+    // Méthode qui récupère les informations que le joueur a sur sa carte et qu'il n'a pas mis en commun avec les autres joueurs
     public static String miseAJourCarte(Joueur joueur, Journal journal){
+        // si le joueur ne possède plus de points d'actions
         if(joueur.getPa() ==0){
             return Journal.consulterDescription(5);
         }
         else{
             int index = 0;
-     
+            //S'il reste des informations non mises à jour que le joueur détient
             while(!joueur.getCarteJoueur().isEmpty()){
                 String indice[] = joueur.getCarteJoueur().get(0).split(":");
                 index = Integer.parseInt(indice[0]);
@@ -420,16 +438,17 @@ public class Journal {
         }
     }
     
+    // Permet au joueur d'afficher la carte
     public static String voirCarte(Journal journal){
         String str="";
         int k=0;
-         for(int i=0;i<25;i++){
+        for(int i=0;i<25;i++){
             for(int j=0;j<25;j++){
                 if(journal.carte.get(k).isEmpty()){
                     str+="|"+"        "+"|";
                 }
                 else{
-                     str+="|"+journal.carte.get(k)+"|";
+                    str+="|"+journal.carte.get(k)+"|";
                 }
                 k++;
             }

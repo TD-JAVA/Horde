@@ -202,6 +202,7 @@ public class Joueur {
         return dejaMange;
     }
     
+    // Méthode appelé quand le jeu passe au jour suivant
     public void setNouveauJour(Jeu partie,int k){
         dejaBu=false;
         dejaMange=false;
@@ -213,13 +214,17 @@ public class Joueur {
     /**
      * @return changement to know if a change was made
      */
+    
+    // Méthode qui permet à un joueur de boire dans sa gourde.
     public boolean boire() {
         int i=0;
         boolean changement=false;
+        //Si le sac n'est pas vide
         if(!sac.isEmpty()){
             while(!(this.sac.get(i).getNom().equals(Journal.consulterDescription(52))) && i < this.sac.size()){
                 i++;
             }
+            // Si le nom correspond à "gourde"
             if(this.sac.get(i).getNom().equals(Journal.consulterDescription(52))){
                 this.setPa(this.getPa() + 6);
                 this.sac.remove(i);
@@ -227,6 +232,7 @@ public class Joueur {
                 changement=true;
                 dejaBu=true;
             }else{
+                //Si le joueur n'a pas de gourde
                 if(i == this.sac.size()){
                     System.out.println(Journal.consulterDescription(63));
                 }
@@ -261,6 +267,7 @@ public class Joueur {
         return changement;
     }
 
+    //méthode qui permet à un joueur de boire une boisson énergissante
     public boolean boireBoisson(){
         boolean changement=false;
         int i=0;
@@ -292,21 +299,23 @@ public class Joueur {
 
     }
 
-    // Permet au joueur de vider son sac
+    // Méthode qui permet au joueur de retirer un objet de son sac
     public void viderSac(Jeu partieActuelle) {
+        // si le sac n'est pas vide
         if(!sac.isEmpty()){
+            //Si le joueur se trouve ne ville
             if(indiceCase!=338){
-            affichage(Journal.consulterDescription(28));
-            affichage(Journal.afficherContenuSac(partieActuelle.getJoueurActuel()));
-            int num=Outils.donnerReponseChiffre(sac.size()-1);
-            affichage(Journal.consulterDescription(29)+sac.get(num).getNom()+ Journal.consulterDescription(30) );
+                affichage(Journal.consulterDescription(28));
+                affichage(Journal.afficherContenuSac(partieActuelle.getJoueurActuel()));
+                int num=Outils.donnerReponseChiffre(sac.size()-1);
+                affichage(Journal.consulterDescription(29)+sac.get(num).getNom()+ Journal.consulterDescription(30) );
             if(conversionBoolean(sc.next())){
                 if(!sac.get(num).getNom().equals(Journal.consulterDescription(51))&&!sac.get(num).getNom().equals(Journal.consulterDescription(52))){
                     if(sac.get(num).getNom().equals(Journal.consulterDescription(54))){
                         partieActuelle.getGrille().getTabCase().get(indiceCase).getItem().get(0).setQuantite(partieActuelle.getGrille().getTabCase().get(indiceCase).getItem().get(0).getQuantite()+1);
                     }else{
                         if(sac.get(num).getNom().equals(Journal.consulterDescription(55))){
-                        partieActuelle.getGrille().getTabCase().get(indiceCase).getItem().get(1).setQuantite(partieActuelle.getGrille().getTabCase().get(indiceCase).getItem().get(1).getQuantite()+1);    
+                            partieActuelle.getGrille().getTabCase().get(indiceCase).getItem().get(1).setQuantite(partieActuelle.getGrille().getTabCase().get(indiceCase).getItem().get(1).getQuantite()+1);    
                         }else{  
                             partieActuelle.getGrille().getTabCase().get(indiceCase).getItem().get(2).setQuantite(partieActuelle.getGrille().getTabCase().get(indiceCase).getItem().get(2).getQuantite()+1);
                         }

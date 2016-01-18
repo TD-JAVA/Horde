@@ -56,15 +56,20 @@ public class Ville extends Case {
     public void setNouveauBatiment(Construction construction){this.batiment.add(construction);}
     public boolean getOuverturePorte(){return ouverturePorte;}
     
+    //Méthode appelé au moment de la confirmation de la construction du batiment
     public void construire(Jeu partie,int choix) {
         Outils.affichage(Journal.consulterDescription(71));
         boolean batimentDejaFait=false;
+        //Pour chaque batiment existant
         for(int i=0;i<batiment.size();i++){
+            // Si un batiment est déja construit
             if(partie.getMonJournal().getConstruction(choix).getNom().equals(batimentEnCours.get(i).getNom())||partie.getMonJournal().getConstruction(choix).getNom().equals(batiment.get(i).getNom())){
                 batimentDejaFait=true;
             }
         }
+        //Si le batiment n'est pas encore construit
         if(!batimentDejaFait){
+            // Si le joueur possède les ressources et les points d'action nécessaires
             if (this.entrepot[1].getQuantite() >=partie.getMonJournal().getConstruction(choix).getRessources_necessaire().get(0)  && this.entrepot[2].getQuantite() >= partie.getMonJournal().getConstruction(choix).getRessources_necessaire().get(1) && partie.getJoueurActuel().getPa() >= 1) {
                 partie.getJoueurActuel().setPa(partie.getJoueurActuel().getPa()-1);
                 batimentEnCours.add(partie.getMonJournal().getConstruction(choix));
@@ -76,26 +81,29 @@ public class Ville extends Case {
         }    
     }
     
+    //Méthode qui permet à un joueur de participer aux constructions en cours.
     public String[] participerAuChantier(Joueur ceJoueur){
         String[] fini={"",""};
         int num,choix,pointUse;
+        //S'il existe des batiments en cours de construction
         if(!this.getBatimentEnCours().isEmpty()){
-        Outils.affichage(afficherConstructionEnCours());
-        Outils.affichage(Journal.consulterDescription(36));
-        choix=Outils.donnerReponseChiffre(batimentEnCours.size()-1);
-        Outils.affichage(Journal.consulterDescription(74)+batimentEnCours.get(choix).getConso_pa()+Journal.consulterDescription(75));
-        Outils.affichage(Journal.consulterDescription(76));
-        if(Outils.conversionBoolean(sc.next())){
-            Outils.affichage(Journal.consulterDescription(77));
-            num=Outils.donnerReponseChiffre(ceJoueur.getPa());
-            pointUse=batimentEnCours.get(choix).getConso_pa();
-            if(batimentEnCours.get(choix).setConso_pa((batimentEnCours.get(choix).getConso_pa()-num))){
-                fini[0]="Y";
-                fini[1]=batimentEnCours.get(choix).getNom();
-                ceJoueur.setPa(ceJoueur.getPa()-pointUse);
-            }else{
-                ceJoueur.setPa(ceJoueur.getPa()-num);
-            }
+            Outils.affichage(afficherConstructionEnCours());
+            Outils.affichage(Journal.consulterDescription(36));
+            choix=Outils.donnerReponseChiffre(batimentEnCours.size()-1);
+            Outils.affichage(Journal.consulterDescription(74)+batimentEnCours.get(choix).getConso_pa()+Journal.consulterDescription(75));
+            Outils.affichage(Journal.consulterDescription(76));
+            //Si le joueur confirme vouloir participer aux constructions
+            if(Outils.conversionBoolean(sc.next())){
+                Outils.affichage(Journal.consulterDescription(77));
+                num=Outils.donnerReponseChiffre(ceJoueur.getPa());
+                pointUse=batimentEnCours.get(choix).getConso_pa();
+                if(batimentEnCours.get(choix).setConso_pa((batimentEnCours.get(choix).getConso_pa()-num))){
+                    fini[0]="Y";
+                    fini[1]=batimentEnCours.get(choix).getNom();
+                    ceJoueur.setPa(ceJoueur.getPa()-pointUse);
+                }else{
+                    ceJoueur.setPa(ceJoueur.getPa()-num);
+                }
         }
         }else{
             fini[0]="N";
@@ -105,22 +113,28 @@ public class Ville extends Case {
         return fini;
     }
     
-    
+    // Méthode permettant au joueur de consulter l'entrepot
     public String consulterEntrepot(){
          String tabEntrepot="\n";
+         // Pour chaque objet de l'entrepot
         for(int i=0;i<entrepot.length;i++){
+            // On affiche sa quantité et son nom
             tabEntrepot+=i+" | "+entrepot[i].getNom()+" | "+entrepot[i].getQuantite()+'\n';
         }
         return tabEntrepot;
     }
-
+    //Méthode qui retourne le taux de défense de la ville
     public int defenseVille() {
         this.tauxDefense = 0;
+        //Si la porte de la ville est fermée
         if (!ouverturePorte) {
             this.tauxDefense = 20;
+            //Si des batiments ont été construits
             if(!batiment.isEmpty())
             {
+                //Pour chaque batiment construit
                 for(int i=0;i<batiment.size();i++){
+                    //On récupère les points de défense et on les ajoute au taux de défense
                     this.tauxDefense+=batiment.get(i).getResistance();
                 }
             }
@@ -128,12 +142,15 @@ public class Ville extends Case {
         return this.tauxDefense;
     }
 
+    //Méthode qui indique si la porte est ouverte en renvoyant un booléen
     public boolean ouverturePorte() {
         //bool ouverte -> 1 sinon 0
         boolean changement=false;
+        //Si la porte est ouverte
         if (ouverturePorte == true) {
             System.out.print(Journal.consulterDescription(78));
             Outils.affichage(Journal.consulterDescription(79));
+            //Si on confirme vouiloir ouvrir la porte
             if(Outils.conversionBoolean(sc.next())){
                 ouverturePorte=false;
                 changement=true;
@@ -141,6 +158,7 @@ public class Ville extends Case {
         } else {
             System.out.print(Journal.consulterDescription(80));
             Outils.affichage(Journal.consulterDescription(81));
+            //Si on confirme vouloir fermer la porte
             if(Outils.conversionBoolean(sc.next())){
                 ouverturePorte=true;
                 changement=true;
@@ -149,6 +167,7 @@ public class Ville extends Case {
         return changement;
     }
 
+    //Méthode qui affiche tous les batiments construits
     public String afficherConstruction() {
         String tabNom=Journal.consulterDescription(82);
         for(int i=0;i<batiment.size();i++){
@@ -157,6 +176,7 @@ public class Ville extends Case {
         return tabNom;
     }
     
+    //Méthode qui affiche tous les batiments en cours de construction
     public String afficherConstructionEnCours() {
         String tabNom=Journal.consulterDescription(83);
         for(int i=0;i<batimentEnCours.size();i++){
@@ -165,15 +185,17 @@ public class Ville extends Case {
         return tabNom;
     }
     
+    //Méthode qui ajoute une gourde dans le sac du joueur
     public Item remplirGourde(){
         Item gourde = new Item(Journal.consulterDescription(52),Journal.consulterDescription(0));
         affichage(Journal.consulterDescription(31)+Journal.consulterDescription(52)+Journal.consulterDescription(110));
         return gourde;
     }
     
-
+    // Méthode qui ajoute une ration dans le sac du joueur
     public Item prendreRation() {
         Item ration;
+        //S'il reste des rations
         if (this.entrepot[0].getQuantite()>0) {
             this.entrepot[0].setQuantite(this.entrepot[0].getQuantite() - 1);
             ration = new Item(Journal.consulterDescription(51),Journal.consulterDescription(1));
@@ -181,9 +203,11 @@ public class Ville extends Case {
         }else{ration = null;Outils.affichage(Journal.consulterDescription(84));}
         return ration;
     }
-
+    
+    //Méthode qui rajoute une boisson énergisante dans le sac du joueur
     public Item prendreBoisson() {
         Item boisson;
+        //S'il reste des boissons énergisantes
         if (this.entrepot[3].getQuantite()>0) {
             this.entrepot[3].setQuantite(this.entrepot[3].getQuantite() - 1);
             boisson = new Item(Journal.consulterDescription(53),Journal.consulterDescription(4));

@@ -51,8 +51,11 @@ public class Jeu {
     public Jeu(){
     }
     
+    // Méthode qui lance le jeu
     public void lancerJeu(){
+   
         Outils.affichage(Journal.consulterDescription(56));
+        
         tempsPartie= new Temps();
         grille=new Carte(this);
         maVille=new Ville(this);
@@ -62,22 +65,28 @@ public class Jeu {
         Outils.affichage(Journal.consulterDescription(57));
         nombreJoueur=Outils.conversionInt(sc.next());   
         tabJoueur=new ArrayList<Joueur>(nombreJoueur);
+        // Pour chaque joueurs
         for(int i=0;i<nombreJoueur;i++){
+            //On demande au joueur d'entrer son nom
             Outils.affichage(Journal.consulterDescription(58)+i+" ?");
             String nomJoueur=sc.next();
             Joueur unJoueur= new Joueur(this,nomJoueur);
+            //Le joueur est ajouté au tableau de joueurs
             tabJoueur.add(unJoueur);
         }
         setJoueurActuel(0);
+        //On démarre la partie
         this.getMenuPartie().demarrer(this);   
     }
     
+    // Méthode qui permet d'initialiser la partie
     public void initialisation(){
         boolean finInitialisation = true;
         setPartie(finInitialisation);
         Outils.affichage(Journal.consulterDescription(59));    
     }
     
+    //Méthode qui indique par un booléen si il ne reste plus qu'un joueur en vie.
     public boolean dernierJoueur(){
         String str="";
         if(!tempsPartie.getNuit()){
@@ -86,36 +95,40 @@ public class Jeu {
         }else{
             Journal.afficherMort(this, tempsPartie.getNuit(), true);
         }
-            monJournal.ajouterListeDeMorts(str);
-            nombreJoueur-=1;
-            getTabJoueur().remove(getIndexJoueurActuel());
-            if(getNombreJoueur()<=1){return true;}else{return false;}
+        monJournal.ajouterListeDeMorts(str);
+        nombreJoueur-=1;
+        getTabJoueur().remove(getIndexJoueurActuel());
+        //S'il reste moins de 2 joueurs
+        if(getNombreJoueur()<=1){return true;}else{return false;}
     }
     
     public boolean dernierJoueur(Joueur joueur,int i,boolean k){
         String str="";
         if(!tempsPartie.getNuit()){
             if(k){
-            Outils.affichage(Journal.consulterDescription(60));
-            Journal.afficherMort(this, !tempsPartie.getNuit(), k);
+                Outils.affichage(Journal.consulterDescription(60));
+                Journal.afficherMort(this, !tempsPartie.getNuit(), k);
             }else{
-            Journal.afficherMort(this, !tempsPartie.getNuit(), !k);
+                Journal.afficherMort(this, !tempsPartie.getNuit(), !k);
             }
         }else{
             Journal.afficherMort(this, tempsPartie.getNuit(), false);
         }
-            monJournal.ajouterListeDeMorts(str);
-            nombreJoueur-=1;
-            getTabJoueur().remove(i);
-            if(getNombreJoueur()<=1){return true;}else{return false;}
+        
+        monJournal.ajouterListeDeMorts(str);
+        nombreJoueur-=1;
+        getTabJoueur().remove(i);
+        if(getNombreJoueur()<=1){return true;}else{return false;}
     }
-
+    
+    // Méthode qui met fin à la partie
     public void finDePartie(){
         boolean continuerPartie = false;
         Scanner sc=new Scanner(System.in);
         Outils.affichage("\n"+this.tabJoueur.get(0).getNom()+Journal.consulterDescription(61));
         sc.next();
         Outils.affichage(Journal.consulterDescription(62));
+        //Si le joueur souhaite rejouer
         if(Outils.conversionBoolean(sc.next())){
             setPartie(continuerPartie);
         }else{

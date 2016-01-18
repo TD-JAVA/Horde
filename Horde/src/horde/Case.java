@@ -42,15 +42,20 @@ public class Case {
         return zomb;
     }
     
+    //Méthode qui renvoie une phrase indiquant les items et leur quantité sur la case courante
     public String afficherItems(){
+    
         String tabItem="\n";
+        
+        // Pour chaque objets dans le tableau d'items
         for(int i=0;i<items.size();i++){
+            //On affiche leur nom et leur quantité
             tabItem+=i+" | "+items.get(i).getNom()+" | "+items.get(i).getQuantite()+'\n';
         }
-   
         return tabItem;
     }
     
+    // Méthode qui renvoie une chaine de caractères qui indiquera sur la carte les objets présents( seulement si la case est fouillée)
     public String itemCarte(){
         return "P"+this.items.get(0).getQuantite()+" M"+this.items.get(1).getQuantite()+" B"+this.items.get(2).getQuantite();
     }
@@ -65,10 +70,14 @@ public class Case {
     public ArrayList<Item> getItem(){
         return items;
     }    
+    
+    // Méthode appelé quand un joueur fouille la case courante
     public boolean fouiller(){ // On donne le choix au joueur de fouiller la case ou non
+    
         boolean changement=false;
         Outils.affichage(Journal.consulterDescription(70));
         
+        // Si on valide notre choix
         if(conversionBoolean(sc.next())){
             nbZombiesRestants=Zombies.nbZombiesCase();
             Outils.affichage(Journal.consulterDescription(22)+nbZombiesRestants+Journal.consulterDescription(23));
@@ -77,30 +86,30 @@ public class Case {
         }
         return changement;
   }
-
+    // Méthode appelée quand un joueur attaque les zombies sur la case courante
     public boolean attaquer(Joueur ceJoueur){
         int pourcentage;
         boolean changement=false;
+        //Pour chaque zombie restant
         if(ceJoueur.getPa()>=nbZombiesRestants){
             for(int i=0; i<nbZombiesRestants;i++){
                 ceJoueur.setPa(ceJoueur.getPa()-1);
                 pourcentage = ra.nextInt(100); // numéro aléatoire en 0 et 100
-                    if(pourcentage <=10){ // conditon pour les 10% de chances de perdre de la vie
-                        changement=ceJoueur.setPdv(ceJoueur.getPdv()-10);
-                    }
+                if(pourcentage <=10){ // conditon pour les 10% de chances de perdre de la vie
+                    changement=ceJoueur.setPdv(ceJoueur.getPdv()-10);
+                }
             }
             nbZombiesRestants=0;
         }else{
               for(int i=0; i<ceJoueur.getPa();i++){
                 nbZombiesRestants-=1;
                 pourcentage = ra.nextInt(100); // numéro aléatoire en 0 et 100
-                    if(pourcentage <=10){ // conditon pour les 10% de chances de perdre de la vie
-                        changement=ceJoueur.setPdv(ceJoueur.getPdv()-10);
-                    }
+                if(pourcentage <=10){ // conditon pour les 10% de chances de perdre de la vie
+                    changement=ceJoueur.setPdv(ceJoueur.getPdv()-10);
+                }
             }
             ceJoueur.setPa(0);
         }
         return changement;
     }
-    
   }

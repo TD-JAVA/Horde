@@ -23,10 +23,12 @@ public class Outils {
      * @param niveau est le menu à afficher. 
      */
       
+    //Méthode qui affiche la phrase passée en paramètre
     public static void affichage(String str){
         System.out.println(str);
     }
     
+    //Méthode qui affiche les différents menu et confirmations de choix.
     public static char afficher(int niveau, Jeu partieActuelle){
         Scanner sc=new Scanner(System.in);
         Outils.affichage(partieActuelle.getMonJournal().toString(partieActuelle, 'S'));
@@ -74,17 +76,19 @@ public class Outils {
     /*
      * @param lettre est le caractère à convertir en majuscule est le choix de menu donnée par l'utilisateur.
      */
-    public static char conversionCaractere(char lettre){
     
+    //Méthode qui trnasforme une minuscule ne majuscule
+    public static char conversionCaractere(char lettre){
         return Character.toUpperCase(lettre);
     }
     
+    // Méthode qui vérifie qu'une chaine entrée est valide
     public static char verification(String str, int choix){
         str = str.toUpperCase();
         Scanner sc=new Scanner(System.in);
         char[] lettres = str.toCharArray();
         if(choix==1) {
-           
+                    // tant que le joueur ne saisit pas une chaîne valide
                     while((str!="Y")||(str!="O")||(str!="YES")||(str!="OUI")||(str!="N")||(str!="NON")||(str!="NO")){
                         Outils.affichage(Journal.consulterDescription(46));
                         Outils.verification(sc.next(),1);
@@ -92,7 +96,7 @@ public class Outils {
                     return lettres[0];
                     
         }else{
-            
+                  //si les caractères entrés ne sont pas entre A et Z
                   while(lettres[0]<'A' && lettres[0]>'Z'){
                       Outils.affichage(Journal.consulterDescription(47));
                       Outils.verification(sc.next(),0);
@@ -102,6 +106,7 @@ public class Outils {
         }     
     }
     
+    //Méthode qui vérifie que la lettre rentrée correspond à un choix du menu
     public static char verifier(char choix,Jeu partieActuelle){
     if(partieActuelle.getJoueurActuel().getIndiceCase()!=338){
                     if(choix=='C'||choix=='E'||choix=='I'||choix=='B'||choix=='D'||choix=='P'){
@@ -116,6 +121,7 @@ public class Outils {
                 return choix;
     }
         
+    //Méthode qui transforme une chaine en entier
     public static int conversionInt(String str){
         Scanner sc=new Scanner(System.in);
         char[] lettres=str.toCharArray();
@@ -143,11 +149,15 @@ public class Outils {
         
         return num;
     }
+    
+    //Méthode qui convertit une chaine en booléen
     public static boolean conversionBoolean(String str){
         char[] lettres =  str.toCharArray();
+        //Si la première lettre est Y ou O
         if(conversionCaractere(lettres[0])=='Y'||conversionCaractere(lettres[0])=='O'){
             return true;
         }else{ 
+            // Si la première lettre est N
             if(conversionCaractere(lettres[0])=='N'){
                 return false;
             }else{
@@ -157,11 +167,13 @@ public class Outils {
         }
     }
     
+    // Méthode qui retourne la premier lettre d'une chaine de caractères
     public static char conversionChar(String str){
         char[] lettres =  str.toCharArray();
         return lettres[0];
     }
     
+    //Méthode qui attend que le joueur entre un chiffre et le confirme. Le paramètre max permet au joueur de connaître le nombre maximal valide qu'il peut rentrer
     public static int donnerReponseChiffre(int max){
         String str;
         int longueur,num;

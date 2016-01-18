@@ -15,9 +15,11 @@ public class Horde {
     /*
      * @param args the command line arguments
      */
+    //Méthode qui crée le jeu et appelle la méthode de lancement du jeu
     public static void main(String[] args) {
-        // TODO code application logic here
+        //Création de l'objet Jeu appelée partie
         Jeu partie = new Jeu();
+        //Appel de la méthode lancerjeu
         partie.lancerJeu();
     }
 }
