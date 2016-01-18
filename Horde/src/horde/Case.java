@@ -13,17 +13,22 @@ import java.util.Scanner;
 
 /**
  *
- * @author Gabriel
+  * @author Gabriel, Sébastien & Valère
  */
+
+/*
+    La classe Case permet de créer un tableau de Case qui sera la carte du jeu. Chaque case comporte un certain nombre d'objets et de zombies ( à part en ville)
+*/
+
 public class Case {
-    protected int longitude;
-    protected int latitude;
-    protected int nbZombiesRestants;
-    private ArrayList<Item> items= new ArrayList<Item>(); // valeur par défault//
-    private boolean fouillee;
-    private boolean caseTrouve;
-    protected boolean laVille = false;
-    private Zombies zomb=new Zombies();
+    protected int longitude; // Indique la longitude de la case
+    protected int latitude; // Indique la latitude de la case
+    protected int nbZombiesRestants; // Indique le nombre de zombies présents sur une case
+    private ArrayList<Item> items= new ArrayList<Item>(); // C'est la liste d'Items présents dans chaque case , sauf dans celle comportat la ville.
+    private boolean fouillee; // Cet attribut indique si la case a déja été fouillée. 
+    private boolean caseTrouve; // Cet attribut indique si la case a déja été trouvé par un joueur
+    protected boolean laVille = false; // Cet attribut indique si la case contient la ville 
+    private Zombies zomb=new Zombies(); // Création d'un objet Zombie( servira à éparpiller un nombre aléatoire de zombies sur les cases)
     Scanner sc= new Scanner(System.in);
     Random ra=new Random();
 

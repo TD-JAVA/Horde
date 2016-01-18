@@ -13,16 +13,23 @@ import java.util.Scanner;
 
 /**
  *
- * @author Gabriel
+ * @author Gabriel, Sébastien & Valère
  */
+
+
+/*
+    Nous nous sommes renseigné sur la notion d'héritage que nous avions pas vu en cours afin de l'utiliser dans la classe Ville.
+    Ici, la classe Ville hérite  donc de  la classe Case.
+*/
+
 public class Ville extends Case {
     
     Scanner sc=new Scanner(System.in);
-    private Item[] entrepot= new Item[4]; // valeur par défaut//
-    private int tauxDefense;
-    ArrayList<Construction> batiment = new ArrayList<Construction>(7); // valeur par défaut//
-    ArrayList<Construction> batimentEnCours = new ArrayList<Construction>(7); // valeur par défaut//
-    private boolean ouverturePorte = true;
+    private Item[] entrepot= new Item[4]; // L'entrepôt est un tableau de quatre Objets Items différents
+    private int tauxDefense; // Indique le taux de défense de la ville
+    ArrayList<Construction> batiment = new ArrayList<Construction>(7); // C'est le tableau regroupant tous les batiments construits dans la partie
+    ArrayList<Construction> batimentEnCours = new ArrayList<Construction>(7); // C'est le tableau regroupant les batiments en cours de construction
+    private boolean ouverturePorte = true; // L'attribut indique si la porte de la ville est ouverte ou fermée
     public int getTauxDefense() {return tauxDefense;}
     public void setTauxDefense(int tauxDefense) {this.tauxDefense = tauxDefense;}
 

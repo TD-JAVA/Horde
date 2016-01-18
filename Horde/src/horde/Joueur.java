@@ -12,34 +12,31 @@ import java.util.Scanner;
  */
 /**
  *
- * @author Seb
+  * @author Gabriel, Sébastien & Valère
  */
+
+/*
+
+    La classe Joueur contient toutes les informations utiles.
+    On peut connaître par éxemple, ses points de vie ou d'action, sa position sur la carte
+*/
+
+
 public class Joueur {
 
-    //Nom du joueur 
-    private String nom;
-
-    // Points de vie du joueur
-    private int pdv;
-
-    // Points d'action du joueur
-    private int pa;
-
-    //Affiche le tour courant
-    private int nbTours;
-
-    // Affiche le jour courant
-    private int nbJours;
-
-    // nb de gourdes par jour
-    //private int gourde;
-    private int ordonneeActuelle;
-    private int absysseActuelle;
-    private int indiceCase;
-    private boolean dejaBu;
-    private boolean dejaMange;
-    private boolean dependant=false;
-    private int nbJourDependant=0;
+    
+    private String nom; //Nom du joueur 
+    private int pdv; // Points de vie du joueur
+    private int pa; // Points d'action du joueur
+    private int nbTours; //Indique le tour courant
+    private int nbJours; // Affiche le jour courant
+    private int ordonneeActuelle; // Indique la position en ordonnée du joueur
+    private int absysseActuelle; // Indique la position en absysse du joueur
+    private int indiceCase; // Indique l'indice de la case sur laquelle se trouve le joueur
+    private boolean dejaBu; // Indique si le joueur a déja bu dans la journée
+    private boolean dejaMange; // Indique si le joueur a déja mangé dans la journée
+    private boolean dependant=false; // Indique si le joueur est dépendant aux boissons énergisantes
+    private int nbJourDependant=0; // Indique le nombre de jours pendant lesquels le joueur sera dépendant
     Scanner sc=new Scanner(System.in);
   
     //Tableau de 10 objets

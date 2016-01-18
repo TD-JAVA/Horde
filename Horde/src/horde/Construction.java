@@ -10,22 +10,21 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Seb
+ * @author Gabriel, Sébastien & Valère
  */
+
+/*
+La classe Construction permet de gérer les constructions de batiments en ville. Il est possible de construire les batiments, 
+    d'afficher les batiments construits, de participer à la construction
+*/
 
 public class Construction {
 
-    //Nom de la construction
-    private String nom;
-
-    // les ressources necessaires pour la construction
-    private ArrayList<Integer> ressources_necessaire= new ArrayList<Integer>();
-    //private int[] ressources_necessaire;
-    // nombre de points d'action utilisés pour cette construction
-    private int conso_pa;
-
-    // indique le nombre de zombies auquel la construction peut resister
-    private int resistance;
+    
+    private String nom; //Nom de la construction
+    private ArrayList<Integer> ressources_necessaire= new ArrayList<Integer>(); // les ressources necessaires pour la construction
+    private int conso_pa;     // nombre de points d'action utilisés pour cette construction
+    private int resistance; // indique le nombre de zombies auquel la construction peut resister
 
     // Constructeur
     public Construction(String nom, ArrayList<Integer> ressources_necessaire, int conso_pa, int resistance) {

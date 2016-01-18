@@ -10,8 +10,13 @@ import java.util.Scanner;
 
 /**
  *
- * @author oneiroi
+ * @author Gabriel, Sébastien & Valère
  */
+
+ /*
+    La classe Outil contient les méthodes n'appartenant à aucnne classe mais étant utiles au programme.
+ */
+
 public class Outils {
     
     /***************Outils d'Outils.affichage dans la console******************/
@@ -22,6 +27,7 @@ public class Outils {
      * @return  
      * @param niveau est le menu à afficher. 
      */
+    
       
     //Méthode qui affiche la phrase passée en paramètre
     public static void affichage(String str){

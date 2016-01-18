@@ -12,16 +12,20 @@ import java.util.Scanner;
 
 /**
  *
- * @author oneiroi
+ * @author Gabriel, Sébastien & Valère
  */
+
+/*
+    La classe Menu comprend les méthodes appelées en fonction des choix disponibles dans chaque menus.
+    La classe permet de savoir dans quel menu le joueur se trouve.
+*/
 public class Menu {
     
-    //Variable memoire pour conserver le menu et le jeu 
-    private Jeu partieActuelle;
-    private Menu menuActuel;
-    private ArrayList<Case> tabGrille;
+    private Jeu partieActuelle; //Variable memoire pour conserver   le jeu 
+    private Menu menuActuel; //Variable memoire pour conserver le menu  
+    private ArrayList<Case> tabGrille; // C'est une liste d'objets Case
     private Scanner sc = new Scanner(System.in);
-    private boolean consommationDePA;
+    private boolean consommationDePA; //Indique si l'action consomme des points d'action.
 
     //Constructor
     public Menu(){
@@ -228,7 +232,7 @@ public class Menu {
         
     }
     
-    //Enlève u point d'action à un joueur
+    //Enlève un point d'action à un joueur
     public void consommerPA(){
         if (consommationDePA){partieActuelle.getJoueurActuel().setPa(partieActuelle.getJoueurActuel().getPa()-1);}
     }

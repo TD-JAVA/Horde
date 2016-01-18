@@ -7,8 +7,13 @@ package horde;
 
 /**
  *
- * @author Seb
- */
+ * @author Gabriel, Sébastien & Valère */
+
+/*
+La classe Item permettre de créer tous les Items présents dans le jeu :  
+Les différents Items présents dans le jeu sont : les boissons énergisantes, les rations, les gourdes, ou encore les planches, les plaques de métal.
+*/
+
 public class Item {
 
     public String getNom() {
@@ -46,8 +51,8 @@ public class Item {
         this.nom = nom;
         this.description = description;
     }
-    private String nom;
-    private int quantite;
-    private String description;
+    private String nom; // Indique le nom de l'objet
+    private int quantite; // Indique la quantité disponible de l'objet
+    private String description; // Renseigne sur la description de l'objet
     
 }

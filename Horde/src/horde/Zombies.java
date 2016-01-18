@@ -9,8 +9,13 @@ import java.util.Random;
 
 /**
  *
- * @author Gabriel
+ * @author Gabriel, Sébastien & Valère
  */
+
+/*
+    La classe Zombie permet de créer des objets Zombie qui seront ajoutés aléatoirement dans les cases de la carte.
+*/
+
 public class Zombies {
    
     // Méthode qui calcule aléatoirement et en fonction du temps passé, le nombre de zombies qui vont attaquer la ville pendant la prochaine nuit

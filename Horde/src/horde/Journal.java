@@ -10,12 +10,19 @@ import java.util.Arrays;
 
 /**
  *
- * @author Seb
+ * @author Gabriel, Sébastien & Valère
  */
+
+/*
+    La classe Journal comprend les  méthodes renvoyant des informations à l'utilisateur( situation, liste des constructions , voir la carte, rêgles du jeu,...)
+    La seule ne remplissant pas un rôlr d'information est la méthode miseAJourCarte() qui met à jour la carte.
+    C'est ici que se trouvent toutes les phrases qui s'affichent dans la console ( méthode consulterDescription() )
+*/
+
 public class Journal {
-    private ArrayList<String> listeDeMorts=new ArrayList<String>(19);
-    private ArrayList<Construction> tabConstruction=new ArrayList<Construction>(7);
-    private ArrayList<String> carte = new ArrayList<String>(625);
+    private ArrayList<String> listeDeMorts=new ArrayList<String>(19); // C'est la liste qui comporte les joueurs morts pendant la partie
+    private ArrayList<Construction> tabConstruction=new ArrayList<Construction>(7); // Permet de créer la liste des constructions possibles que l'on peut  voir dans le journal
+    private ArrayList<String> carte = new ArrayList<String>(625); // C'est une carte que chaque joueur possède, quand un joueur fouille une case, c'est cet attribut qui est modifié. 
     
     
     public ArrayList<Construction> getTabConstruction(){

@@ -9,19 +9,24 @@ import java.util.Scanner;
 import java.util.ArrayList;
 /**
  *
- * @author oneiroi
+  * @author Gabriel, Sébastien & Valère
  */
+
+/*
+La classe jeu contient tous les objets et attributs necessaires au bon fonctionnement du jeu la carte, le menu, le journal, le temps.
+Il contient aussi la liste des joueurs( ainsi que son nombre)
+*/
 public class Jeu {
-    private ArrayList<Joueur> tabJoueur;
-    private int nombreJoueur;
-    private int indexJoueurActuel;
-    private Joueur joueurActuel;
-    private Temps tempsPartie;
-    private Menu menuPartie;   
-    private boolean partieDemarree=false;
-    private Carte grille;
-    private Ville maVille;
-    private Journal monJournal; 
+    private ArrayList<Joueur> tabJoueur; // C'est le tableau des joueurs dans la partie
+    private int nombreJoueur; // C'est le nombre de joueurs dans la partie
+    private int indexJoueurActuel; // Numéro qui identifie le joueur
+    private Joueur joueurActuel; // C'est un Objet Joueur qui prend les paramètres du joueur actuel
+    private Temps tempsPartie; // Indique le temps passé dans le jeu
+    private Menu menuPartie;   // Indique le menu courant
+    private boolean partieDemarree=false; // Indique si la partie est démarrée
+    private Carte grille; // C'est l'Objet Carte sur laquelle les joueurs peuvent se déplacer
+    private Ville maVille; // C'est l'objet Ville présent sur la case dans laquelle les joueurs commencent
+    private Journal monJournal;  // C'est le journal que les joueurs porront consilter pendant la partie
 
     public Journal getMonJournal() {return monJournal;}
     public void setMonJournal(Journal monJournal) {this.monJournal = monJournal;}

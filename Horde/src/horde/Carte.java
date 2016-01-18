@@ -10,14 +10,23 @@ import java.util.Random;
 
 /**
  *
- * @author oneiroi
+ * @author Gabriel, Sébastien & Valère
  */
+
+/*
+La classe Carte permet de créer l'environnement de jeu dans lequel les joueurs pourront se déplacer, cet environnement est composé d'objets Case, comprenant eux même des objets Zombies et Items.
+Seule une case comporte l'objet Ville
+*/
 public class Carte {
-    private ArrayList<Case> tabCase=new ArrayList<Case>();
-    private int xVille;
-    private int yVille;
-    private Ville maVille;
-    private Item[] tabItem= new Item[3];
+    
+   
+   
+ 
+    private ArrayList<Case> tabCase=new ArrayList<Case>(); //C'est un tableau de d'objet Case qui forment la carte
+    private int xVille; //C'est le point d'absysse de la ville
+    private int yVille; // C'est le point d'ordonnée de la ville
+    private Ville maVille; //C'est l'objet Ville qui est créé quand la carte est créé
+    private Item[] tabItem= new Item[3]; // C'est un tableau de 3 Items qui est présent dans toutes les cases de la carte, à part dans la case ou se trouve la  ville.
     
     public int getxVille() {return xVille;}
     
@@ -26,6 +35,14 @@ public class Carte {
     
     public ArrayList<Case> getTabCase() {return tabCase;}
     public void setTabCase(int i,Case cetteCase) {this.tabCase.add(cetteCase);}
+    
+    
+    /*
+    Description du contrôleur Carte :
+    
+    Le constructeur crée 3 objets Items différents : 
+    
+    */
     
     
     public Carte(Jeu partie){

@@ -9,12 +9,17 @@ import java.util.Random;
 
 /**
  *
- * @author oneiroi
+ * @author Gabriel, Sébastien & Valère
  */
+
+/*
+La classe Temps renseigne le joueur sur le temps passé dans le jeu, si on est le jour ou la nuit, et le numéro du tour courant
+*/
+
 public class Temps {
-    private int numTour;
-    private int nbJours;
-    private boolean nuit;
+    private int numTour; // Indique le nombre de tours passés dans le jeu
+    private int nbJours; // Indique le nombre de jours passés dans le jeu
+    private boolean nuit; // Indique si c'est la nuit
     // getters&setter
     public void setNumTour(int i){}
     public int getNumTour(){return numTour;}
